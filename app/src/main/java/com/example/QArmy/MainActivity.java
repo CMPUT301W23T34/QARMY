@@ -1,16 +1,12 @@
-package com.example.myapplication;
+package com.example.QArmy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<QRCode> qrCodeDataList;
@@ -56,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         // THIS IS A TEMPORARY LIST WE ARE MAKING FOR VERIFICATION
         // We won't actually want to create NEW qr codes here, since we should check if they already exist
         // (i.e. have been scanned by someone else) first
-        addQRCode(new QRCode("ThisIsWhereTheHashWouldGo", null, null, null));
-        addQRCode(new QRCode("ThisIsWhereTheHashWouldGo", null, null, null));
+        addQRCode(new QRCode("QRCode1", null, null, null));
+        addQRCode(new QRCode("QRCode2", null, null, null));
     }
 }

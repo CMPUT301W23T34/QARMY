@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.QArmy;
 
 import android.content.Context;
 import android.view.LayoutInflater;

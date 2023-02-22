@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.QArmy;
 
 import org.junit.Test;
 

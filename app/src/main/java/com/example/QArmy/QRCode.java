@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.QArmy;
 
 import android.media.Image;
 
@@ -30,7 +30,7 @@ public class QRCode {
     private String generateName(String qrHash) {
         // TODO: Implement this
         // The rank should be based on the score of the QR code
-        return "Testing Name";
+        return qrHash;
     }
     private QrVisual generateVisual(String qrHash) {
         // TODO: Implement this
