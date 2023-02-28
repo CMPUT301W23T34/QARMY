@@ -5,6 +5,8 @@ import android.media.Image;
 import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QRCode {
     private ArrayList<Float> geoLocations;
@@ -14,6 +16,7 @@ public class QRCode {
     private int qrScore;
     private ArrayList<Comment> qrComments;
     private ArrayList<PlayerProfile> qrScanners;
+    private String hash;
 
     public QRCode(String qrHash, ArrayList<Float> geoLocations, ArrayList<Image> images, PlayerProfile currentScanner) {
         this.geoLocations = geoLocations;
@@ -24,7 +27,13 @@ public class QRCode {
         this.qrComments = new ArrayList<Comment>();
         this.qrScanners = new ArrayList<PlayerProfile>();
         qrScanners.add(currentScanner);
+        this.hash = qrHash;
+    }
 
+    public QRCode(String qrHash, Map<String, Object> data) {
+        this.hash = hash;
+        this.qrName = (String) data.get("name");
+        this.qrScore = Math.toIntExact((Long) data.get("score"));
     }
 
     private String generateName(String qrHash) {
@@ -57,5 +66,16 @@ public class QRCode {
     }
     public int getScore() {
         return this.qrScore;
+    }
+
+    public HashMap getHashMap() {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("name", qrName);
+        data.put("score", qrScore);
+        return data;
+    }
+
+    public String getHash() {
+        return hash;
     }
 }
