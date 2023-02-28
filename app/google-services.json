@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "438820347238",
+    "project_id": "qarmy-7e3a0",
+    "storage_bucket": "qarmy-7e3a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438820347238:android:7b3c751afc9bf3c9b4fca7",
+        "android_client_info": {
+          "package_name": "com.example.QArmy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438820347238-rtlhuhq2593vs8e3one9qmg51rlo3ct4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1GHUZQgUDQk7eZxP1ObF1mNH0jgT4QP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438820347238-rtlhuhq2593vs8e3one9qmg51rlo3ct4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
