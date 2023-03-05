@@ -1,6 +1,6 @@
 package com.example.QArmy.db;
 
-import com.example.QArmy.Model;
+import com.example.QArmy.model.Model;
 
 import java.util.List;
 

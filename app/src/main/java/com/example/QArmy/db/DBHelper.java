@@ -2,7 +2,7 @@ package com.example.QArmy.db;
 
 import androidx.annotation.NonNull;
 
-import com.example.QArmy.Model;
+import com.example.QArmy.model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

@@ -1,9 +1,9 @@
 package com.example.QArmy.db;
 
 
-import com.example.QArmy.Comment;
-import com.example.QArmy.QRCode;
-import com.example.QArmy.User;
+import com.example.QArmy.model.Comment;
+import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

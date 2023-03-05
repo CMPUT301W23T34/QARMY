@@ -1,14 +1,16 @@
-package com.example.QArmy;
+package com.example.QArmy.model;
 
 import android.media.Image;
+import android.util.Log;
 
-import org.w3c.dom.Comment;
+import com.example.QArmy.PlayerProfile;
+import com.example.QArmy.QrVisual;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class QRCode {
+public class QRCode extends Model {
     private ArrayList<Float> geoLocations;
     private ArrayList<Image> images;
     private String qrName;
@@ -17,6 +19,9 @@ public class QRCode {
     private ArrayList<Comment> qrComments;
     private ArrayList<PlayerProfile> qrScanners;
     private String hash;
+    private String ID;
+
+    private String user;
 
     public QRCode(String qrHash, ArrayList<Float> geoLocations, ArrayList<Image> images, PlayerProfile currentScanner) {
         this.geoLocations = geoLocations;
@@ -31,22 +36,29 @@ public class QRCode {
     }
 
     public QRCode(String qrHash, Map<String, Object> data) {
-        this.hash = hash;
+        this.hash = qrHash;
         this.qrName = (String) data.get("name");
         this.qrScore = Math.toIntExact((Long) data.get("score"));
+    }
+
+    public QRCode() {
+
     }
 
     private String generateName(String qrHash) {
         // TODO: Implement this
         // The rank should be based on the score of the QR code
+        Log.d("QRCODE", "CALLED");
         return qrHash;
     }
     private QrVisual generateVisual(String qrHash) {
         // TODO: Implement this
+        Log.d("QRCODE", "CALLED");
         return null;
     }
     private int generateScore(String qrHash) {
         // TODO: Implement this
+        Log.d("QRCODE", "CALLED");
         return 100;
     }
 
@@ -78,4 +90,27 @@ public class QRCode {
     public String getHash() {
         return hash;
     }
+
+    public String getID() {
+        // TODO: CAN'T be hash if we switch model
+        return ID;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setName(String name) {
+        this.qrName = name;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setScore(int score) {
+        this.qrScore = score;
+    }
+
+
 }
