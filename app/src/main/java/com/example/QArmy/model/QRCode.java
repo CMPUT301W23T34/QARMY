@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QRCode extends Model {
+
+    public static final String CODE_FIELD = "code";
+    public static final String USER_FIELD = "user";
     private ArrayList<Float> geoLocations;
     private ArrayList<Image> images;
     private String qrName;
