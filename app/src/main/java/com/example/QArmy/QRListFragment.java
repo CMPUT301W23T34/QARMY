@@ -1,8 +1,6 @@
 package com.example.QArmy;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.QArmy.db.DBListener;
+import com.example.QArmy.db.Database;
+import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class QRListFragment extends Fragment {
 
     private ArrayList<QRCode> qrCodeDataList;
     private ListView qrCodeList;
@@ -31,6 +28,7 @@ public class HomeFragment extends Fragment {
     private TextView max;
 
     private Database db;
+    private DBListener<QRCode> listener;
 
     public void addQRCode(QRCode qrCode) {
         qrCodeAdapter.add(qrCode);
@@ -49,8 +47,9 @@ public class HomeFragment extends Fragment {
         // This is where we would update our total, count, min, and max
         // after deleting or adding a QR code
     }
-    public HomeFragment(){
+    public QRListFragment(){
         db = new Database();
+        listener = new QRListener();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,18 +66,6 @@ public class HomeFragment extends Fragment {
         qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrCodeDataList);
         qrCodeList.setAdapter(qrCodeAdapter);
 
-        db.registerQRCodes(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                qrCodeDataList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    String hash = doc.getId();
-                    qrCodeDataList.add(new QRCode(hash, doc.getData()));
-                }
-                qrCodeAdapter.notifyDataSetChanged();
-            }
-        });
-
         total = getView().findViewById(R.id.sum_of_scores);
         max = getView().findViewById(R.id.max_score);
     }
@@ -87,5 +74,40 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    class QRListener implements DBListener<QRCode> {
+        @Override
+        public void onListQuery(List<QRCode> data) {
+            qrCodeDataList.clear();
+            qrCodeDataList.addAll(data);
+            qrCodeAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onSuccess() {
+            // QR Code added/deleted successfully
+        }
+
+        @Override
+        public void onFailure(Exception e) {
+
+        }
+
+        @Override
+        public void onQuery(QRCode data) {
+
+        }
+
+        @Override
+        public void getCount(long data) {
+
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.getUserCodes(new User("kai"), listener);
     }
 }
