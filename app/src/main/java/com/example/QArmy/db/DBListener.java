@@ -9,4 +9,5 @@ public interface DBListener<T extends Model> {
     void onFailure(Exception e);
     void onListQuery(List<T> data);
     void onQuery(T data);
+    void getCount(long data);
 }

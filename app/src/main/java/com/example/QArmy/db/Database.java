@@ -1,7 +1,7 @@
 /*
  * Database
  *
- * Version: 1.0
+ * Version: 1.1
  *
  * Date: 2023-03-05
  *
@@ -10,6 +10,7 @@
  * Sources:
  *  - Google Developers, 2023-03-03, Get Data with Cloud Firestore,
  * https://firebase.google.com/docs/firestore/query-data/get-data
+ * - Jon Skeet, 2008-11-12, https://stackoverflow.com/a/285184, Stack Overflow
  */
 
 package com.example.QArmy.db;
@@ -17,6 +18,7 @@ package com.example.QArmy.db;
 import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 /**
  * This class provides access to the Firestore database and performs queries.
  * @author Kai Luedemann
- * @version 1.0
+ * @version 1.1
  * @see FirebaseFirestore
  */
 public class Database {
@@ -39,10 +41,24 @@ public class Database {
      * Initialize the database.
      */
     public Database() {
+        this(false);
+    }
+
+    /**
+     * Initialize the database in either test mode or production mode.
+     * @param isTest - True if the database should access test collections
+     */
+    public Database(boolean isTest) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        QR_CODES = db.collection("QRCodes");
-        PLAYERS = db.collection("Players");
-        COMMENTS = db.collection("Comments");
+        if (isTest) {
+            QR_CODES = db.collection("testQRCodes");
+            PLAYERS = db.collection("testPlayers");
+            COMMENTS = db.collection("testComments");
+        } else {
+            QR_CODES = db.collection("QRCodes");
+            PLAYERS = db.collection("Players");
+            COMMENTS = db.collection("Comments");
+        }
     }
 
     // ************************* QR Code Queries *******************************
@@ -160,5 +176,34 @@ public class Database {
         PLAYERS.document(user.getID())
                 .set(user)
                 .addOnSuccessListener(new DBHelper<>(listener, User.class));
+    }
+
+    /**
+     * Get the list of users ordered by rank.
+     * @param listener - provides a callback when the query is complete
+     */
+    public void getRankedUsers(DBListener<User> listener) {
+        PLAYERS.orderBy(User.SCORE_FIELD)
+                .get()
+                .addOnCompleteListener(new DBHelper<>(listener, User.class));
+    }
+
+    /**
+     * Return the rank of the user based on total score.
+     * @param user - the user to get the rank of
+     * @param listener - provides a callback when the query is complete
+     */
+    public void getRank(User user, DBListener<User> listener) {
+        // TODO: Change to max score
+        PLAYERS.whereGreaterThanOrEqualTo(User.SCORE_FIELD, user.getScore())
+                .count()
+                .get(AggregateSource.SERVER)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        listener.getCount(task.getResult().getCount());
+                    } else {
+                        listener.onFailure(task.getException());
+                    }
+                });
     }
 }
