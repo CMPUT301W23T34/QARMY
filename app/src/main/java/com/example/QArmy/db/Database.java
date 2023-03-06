@@ -3,7 +3,7 @@
  *
  * Version: 1.1
  *
- * Date: 2023-03-05
+ * Date: 2023-03-06
  *
  * Copyright 2023 CMPUT301W23T34
  *
@@ -18,6 +18,7 @@ package com.example.QArmy.db;
 import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 /**
  * This class provides access to the Firestore database and performs queries.
  * @author Kai Luedemann
- * @version 1.1
+ * @version 1.2
  * @see FirebaseFirestore
  */
 public class Database {
@@ -41,24 +42,10 @@ public class Database {
      * Initialize the database.
      */
     public Database() {
-        this(false);
-    }
-
-    /**
-     * Initialize the database in either test mode or production mode.
-     * @param isTest - True if the database should access test collections
-     */
-    public Database(boolean isTest) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        if (isTest) {
-            QR_CODES = db.collection("testQRCodes");
-            PLAYERS = db.collection("testPlayers");
-            COMMENTS = db.collection("testComments");
-        } else {
-            QR_CODES = db.collection("QRCodes");
-            PLAYERS = db.collection("Players");
-            COMMENTS = db.collection("Comments");
-        }
+        QR_CODES = db.collection("QRCodes");
+        PLAYERS = db.collection("Players");
+        COMMENTS = db.collection("Comments");
     }
 
     // ************************* QR Code Queries *******************************
@@ -68,10 +55,10 @@ public class Database {
      * @param user - the user to query QR codes for
      * @param listener - provides a callback when query is complete
      */
-    public void getUserCodes(User user, DBListener<QRCode> listener) {
+    public void getUserCodes(User user, QueryListener<QRCode> listener) {
         QR_CODES.whereEqualTo(QRCode.USER_FIELD, user.getName())
                 .get()
-                .addOnCompleteListener(new DBHelper<>(listener, QRCode.class));
+                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
 
     /**
@@ -81,7 +68,7 @@ public class Database {
      * @param lon
      * @param listener
      */
-    public void getNearbyCodes(double lat, double lon, DBListener<QRCode> listener) {
+    public void getNearbyCodes(double lat, double lon, QueryListener<QRCode> listener) {
         // TODO: Implement location queries
     }
 
@@ -90,10 +77,10 @@ public class Database {
      * @param qrCode - the QR code to add
      * @param listener - provides a callback when query is complete
      */
-    public void addQRCode(QRCode qrCode, DBListener<QRCode> listener) {
+    public void addQRCode(QRCode qrCode, OnCompleteListener<Void> listener) {
         QR_CODES.document(qrCode.getHash())
                 .set(qrCode)
-                .addOnSuccessListener(new DBHelper<>(listener, QRCode.class));
+                .addOnCompleteListener(listener);
     }
 
     /**
@@ -101,10 +88,10 @@ public class Database {
      * @param qrCode - the QR code to add
      * @param listener - provides a callback when query is complete
      */
-    public void deleteQRCode(QRCode qrCode, DBListener<QRCode> listener) {
+    public void deleteQRCode(QRCode qrCode, OnCompleteListener<Void> listener) {
         QR_CODES.document(qrCode.getID())
                 .delete()
-                .addOnSuccessListener(new DBHelper<>(listener, QRCode.class));
+                .addOnCompleteListener(listener);
     }
 
     // ************************* Comment Queries *******************************
@@ -114,10 +101,10 @@ public class Database {
      * @param comment - the comment to add
      * @param listener - provides a callback when query is complete
      */
-    public void addComment(Comment comment, DBListener<Comment> listener) {
+    public void addComment(Comment comment, OnCompleteListener<Void> listener) {
         COMMENTS.document(comment.getID())
                 .set(comment)
-                .addOnSuccessListener(new DBHelper<>(listener, Comment.class));
+                .addOnCompleteListener(listener);
     }
 
     /**
@@ -125,10 +112,10 @@ public class Database {
      * @param comment - the comment to delete
      * @param listener - provides a callback when query is complete
      */
-    public void deleteComment(Comment comment, DBListener<Comment> listener) {
+    public void deleteComment(Comment comment, OnCompleteListener<Void> listener) {
         COMMENTS.document(comment.getID())
                 .delete()
-                .addOnSuccessListener(new DBHelper<>(listener, Comment.class));
+                .addOnCompleteListener(listener);
     }
 
     /**
@@ -136,10 +123,10 @@ public class Database {
      * @param qrCode - the QR code to get comments for
      * @param listener - provides a callback when query is complete
      */
-    public void getQRComments(QRCode qrCode, DBListener<Comment> listener) {
+    public void getQRComments(QRCode qrCode, QueryListener<Comment> listener) {
         COMMENTS.whereEqualTo(Comment.CODE_FIELD, qrCode.getHash())
                 .get()
-                .addOnCompleteListener(new DBHelper<>(listener, Comment.class));
+                .addOnCompleteListener(new QueryHelper<>(listener, Comment.class));
     }
 
     // ************************* User Queries **********************************
@@ -149,7 +136,7 @@ public class Database {
      * @param qrCode - the QR code to get users from
      * @param listener - provides a callback when query is complete
      */
-    public void getQRUsers(QRCode qrCode, DBListener<User> listener) {
+    public void getQRUsers(QRCode qrCode, QueryListener<User> listener) {
         // Query QR codes that match hash
         QR_CODES.whereEqualTo(QRCode.CODE_FIELD, qrCode.getHash())
                 .get()
@@ -163,7 +150,7 @@ public class Database {
                     // Query users from DB
                     PLAYERS.whereIn(User.ID_FIELD, users)
                             .get()
-                            .addOnCompleteListener(new DBHelper<>(listener, User.class));
+                            .addOnCompleteListener(new QueryHelper<>(listener, User.class));
                 });
     }
 
@@ -172,20 +159,20 @@ public class Database {
      * @param user - the user to add
      * @param listener - provides a callback when query is complete
      */
-    public void addUser(User user, DBListener<User> listener) {
+    public void addUser(User user, OnCompleteListener<Void> listener) {
         PLAYERS.document(user.getID())
                 .set(user)
-                .addOnSuccessListener(new DBHelper<>(listener, User.class));
+                .addOnCompleteListener(listener);
     }
 
     /**
      * Get the list of users ordered by rank.
      * @param listener - provides a callback when the query is complete
      */
-    public void getRankedUsers(DBListener<User> listener) {
+    public void getRankedUsers(QueryListener<User> listener) {
         PLAYERS.orderBy(User.SCORE_FIELD)
                 .get()
-                .addOnCompleteListener(new DBHelper<>(listener, User.class));
+                .addOnCompleteListener(new QueryHelper<>(listener, User.class));
     }
 
     /**
@@ -193,14 +180,14 @@ public class Database {
      * @param user - the user to get the rank of
      * @param listener - provides a callback when the query is complete
      */
-    public void getRank(User user, DBListener<User> listener) {
+    public void getRank(User user, AggregateListener listener) {
         // TODO: Change to max score
         PLAYERS.whereGreaterThanOrEqualTo(User.SCORE_FIELD, user.getScore())
                 .count()
                 .get(AggregateSource.SERVER)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        listener.getCount(task.getResult().getCount());
+                        listener.onSuccess(task.getResult().getCount());
                     } else {
                         listener.onFailure(task.getException());
                     }

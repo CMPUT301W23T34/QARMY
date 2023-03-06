@@ -11,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.QArmy.db.DBListener;
 import com.example.QArmy.db.Database;
+import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class QRListFragment extends Fragment {
     private TextView max;
 
     private Database db;
-    private DBListener<QRCode> listener;
+    private QRListener listener;
 
     public void addQRCode(QRCode qrCode) {
         qrCodeAdapter.add(qrCode);
@@ -76,31 +78,21 @@ public class QRListFragment extends Fragment {
 
     }
 
-    class QRListener implements DBListener<QRCode> {
+    class QRListener implements OnCompleteListener<Void>, QueryListener<QRCode> {
         @Override
-        public void onListQuery(List<QRCode> data) {
+        public void onComplete(@NonNull Task<Void> task) {
+
+        }
+
+        @Override
+        public void onSuccess(List<QRCode> data) {
             qrCodeDataList.clear();
             qrCodeDataList.addAll(data);
             qrCodeAdapter.notifyDataSetChanged();
         }
 
         @Override
-        public void onSuccess() {
-            // QR Code added/deleted successfully
-        }
-
-        @Override
         public void onFailure(Exception e) {
-
-        }
-
-        @Override
-        public void onQuery(QRCode data) {
-
-        }
-
-        @Override
-        public void getCount(long data) {
 
         }
     }

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.example.QArmy.model.Model;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -12,12 +11,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBHelper<T extends Model> implements OnCompleteListener<QuerySnapshot>, OnSuccessListener<Void> {
+public class QueryHelper<T extends Model> implements OnCompleteListener<QuerySnapshot> {
 
-    private final DBListener<T> listener;
+    private final QueryListener<T> listener;
     private final Class<T> type;
 
-    public DBHelper(DBListener<T> listener, Class<T> type) {
+    public QueryHelper(QueryListener<T> listener, Class<T> type) {
         this.listener = listener;
         this.type = type;
     }
@@ -29,14 +28,9 @@ public class DBHelper<T extends Model> implements OnCompleteListener<QuerySnapsh
             for (DocumentSnapshot doc : docs) {
                 objs.add(doc.toObject(type));
             }
-            listener.onListQuery(objs);
+            listener.onSuccess(objs);
         } else {
             listener.onFailure(task.getException());
         }
-    }
-
-    @Override
-    public void onSuccess(Void unused) {
-        listener.onSuccess();
     }
 }
