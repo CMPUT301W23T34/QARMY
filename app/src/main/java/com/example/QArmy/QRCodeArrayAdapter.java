@@ -20,11 +20,13 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
-public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> {
+public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QRList>{
+    private QRList qrList;
     private Database db;
-    public QRCodeArrayAdapter(Context context, ArrayList<QRCode> visits, Database db) {
-        super(context, 0, visits);
+    public QRCodeArrayAdapter(Context context, QRList qrList, Database db) {
+        super(context, 0, qrList.getList());
         this.db = db;
+        this.qrList = qrList;
     }
 
     // Creates a view to display the list of QR Codes
@@ -48,7 +50,17 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> {
         qrCodeScore.setText("Score: "+Integer.toString(qrCode.getScore()));
 
         ImageButton button = view.findViewById(R.id.deleteButton);
-        button.setOnClickListener(view1 -> db.deleteQRCode(qrCode, task -> remove(qrCode)));
+        // TODO: Convert to controller class
+        button.setOnClickListener(view1 -> db.deleteQRCode(qrCode, task -> {
+            if (task.isSuccessful()) {
+                qrList.remove(qrCode);
+            }
+        }));
         return view;
+    }
+
+    @Override
+    public void update(QRList model) {
+        notifyDataSetChanged();
     }
 }

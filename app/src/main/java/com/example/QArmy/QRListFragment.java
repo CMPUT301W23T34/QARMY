@@ -23,27 +23,12 @@ import java.util.List;
 
 public class QRListFragment extends Fragment {
 
-    private ArrayList<QRCode> qrCodeDataList;
-    private ListView qrCodeList;
-    private QRCodeArrayAdapter qrCodeAdapter;
     private TextView total;
     private TextView max;
-
     private Database db;
     private QRListener listener;
     private User user;
-
-    public void addQRCode(QRCode qrCode) {
-        qrCodeAdapter.add(qrCode);
-        qrCodeAdapter.notifyDataSetChanged();
-        updateSummaries();
-    }
-
-    public void removeQRCode(QRCode qrCode) {
-        qrCodeAdapter.remove(qrCode);
-        qrCodeAdapter.notifyDataSetChanged();
-        updateSummaries();
-    }
+    private QRList qrList;
 
     private void updateSummaries() {
         //TODO: Implement this
@@ -53,6 +38,7 @@ public class QRListFragment extends Fragment {
     public QRListFragment(){
         db = new Database();
         listener = new QRListener();
+        user = new User("kai");
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,11 +49,14 @@ public class QRListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        qrCodeDataList = new ArrayList<QRCode>();
 
-        qrCodeList = getView().findViewById(R.id.qr_code_list);
-        qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrCodeDataList, db);
+        qrList = new QRList();
+
+        ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
+        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db);
         qrCodeList.setAdapter(qrCodeAdapter);
+        qrList.addView(qrCodeAdapter);
+
 
         total = getView().findViewById(R.id.sum_of_scores);
         max = getView().findViewById(R.id.max_score);
@@ -79,17 +68,11 @@ public class QRListFragment extends Fragment {
 
     }
 
-    class QRListener implements OnCompleteListener<Void>, QueryListener<QRCode> {
-        @Override
-        public void onComplete(@NonNull Task<Void> task) {
-
-        }
+    class QRListener implements QueryListener<QRCode> {
 
         @Override
         public void onSuccess(List<QRCode> data) {
-            qrCodeDataList.clear();
-            qrCodeDataList.addAll(data);
-            qrCodeAdapter.notifyDataSetChanged();
+            qrList.modify(data);
         }
 
         @Override
@@ -101,6 +84,6 @@ public class QRListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        db.getUserCodes(new User("kai"), listener);
+        db.getUserCodes(user, listener);
     }
 }
