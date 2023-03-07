@@ -1,6 +1,6 @@
 package com.example.QArmy.model;
 
-public class User extends Model {
+public class User extends Entity {
 
     public static final String SCORE_FIELD = "score";
     private String name;

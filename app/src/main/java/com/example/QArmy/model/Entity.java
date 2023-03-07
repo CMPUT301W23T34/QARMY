@@ -1,6 +1,6 @@
 package com.example.QArmy.model;
 
-public abstract class Model {
+public abstract class Entity {
 
     public static final String ID_FIELD = "__name__";
 

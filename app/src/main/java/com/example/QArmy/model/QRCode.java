@@ -13,7 +13,7 @@ import java.util.Map;
 
 import java.security.NoSuchAlgorithmException;
 
-public class QRCode extends Model {
+public class QRCode extends Entity {
 
     public static final String CODE_FIELD = "code";
     public static final String USER_FIELD = "user";
