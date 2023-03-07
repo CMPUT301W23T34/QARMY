@@ -248,6 +248,10 @@ public class QRCode extends Model {
         return this.qrName;
     }
 
+
+    public String getUser() {
+        return this.user;
+    }
     public void setUser(String user) {
         this.user = user;
     }
