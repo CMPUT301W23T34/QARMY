@@ -4,6 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+            <Button
+                android:id="@+id/btn_scan"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Scan">
+            </Button>
+        </androidx.appcompat.widget.Toolbar>
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/qr_code_list"
         android:layout_width="match_parent"
