@@ -1,22 +1,30 @@
 package com.example.QArmy;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
 public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> {
-    public QRCodeArrayAdapter(Context context, ArrayList<QRCode> visits) {
+    private Database db;
+    public QRCodeArrayAdapter(Context context, ArrayList<QRCode> visits, Database db) {
         super(context, 0, visits);
+        this.db = db;
     }
 
     // Creates a view to display the list of QR Codes
@@ -38,6 +46,9 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> {
 
         qrCodeName.setText(qrCode.getName());
         qrCodeScore.setText("Score: "+Integer.toString(qrCode.getScore()));
+
+        ImageButton button = view.findViewById(R.id.deleteButton);
+        button.setOnClickListener(view1 -> db.deleteQRCode(qrCode, task -> remove(qrCode)));
         return view;
     }
 }

@@ -96,7 +96,7 @@ public class QRCode extends Model {
 
     public String getID() {
         // TODO: CAN'T be hash if we switch model
-        return ID;
+        return qrName;
     }
 
     public String getUser() {

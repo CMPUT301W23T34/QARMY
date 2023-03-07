@@ -31,6 +31,7 @@ public class QRListFragment extends Fragment {
 
     private Database db;
     private QRListener listener;
+    private User user;
 
     public void addQRCode(QRCode qrCode) {
         qrCodeAdapter.add(qrCode);
@@ -65,7 +66,7 @@ public class QRListFragment extends Fragment {
         qrCodeDataList = new ArrayList<QRCode>();
 
         qrCodeList = getView().findViewById(R.id.qr_code_list);
-        qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrCodeDataList);
+        qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrCodeDataList, db);
         qrCodeList.setAdapter(qrCodeAdapter);
 
         total = getView().findViewById(R.id.sum_of_scores);
