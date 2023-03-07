@@ -1,2 +1,6 @@
-package com.example.QArmy;public class CaptureAct {
+package com.example.QArmy;
+
+import com.journeyapps.barcodescanner.CaptureActivity;
+
+public class CaptureAct extends CaptureActivity {
 }
