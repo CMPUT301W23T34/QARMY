@@ -11,6 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.activity.result.ActivityResultLauncher;
+import android.widget.Button;
+
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
@@ -20,6 +26,10 @@ public class HomeFragment extends Fragment {
     private QRCodeArrayAdapter qrCodeAdapter;
     private TextView total;
     private TextView max;
+
+    public String qrName;
+
+    Button btn_scan;
 
     public void addQRCode(QRCode qrCode) {
         qrCodeAdapter.add(qrCode);
@@ -44,6 +54,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -59,6 +70,11 @@ public class HomeFragment extends Fragment {
         total = getView().findViewById(R.id.sum_of_scores);
         max = getView().findViewById(R.id.max_score);
 
+        btn_scan = getView().findViewById(R.id.btn_scan);
+        btn_scan.setOnClickListener(v-> {
+            scanCode();
+        });
+
         // TODO: Get rid of this
         // THIS IS A TEMPORARY LIST WE ARE MAKING FOR VERIFICATION
         // We won't actually want to create NEW qr codes here, since we should check if they already exist
@@ -72,5 +88,21 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
+
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setOrientationLocked(false);
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
+        QRLauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result->{
+        if (result.getContents() !=null) {
+            qrName = result.getContents();
+        }
+    });
 }
