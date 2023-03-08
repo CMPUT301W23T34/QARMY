@@ -20,6 +20,12 @@ public class QRList extends TModel<TView> {
         return qrCodes;
     }
 
+
+    public void add(QRCode code) {
+        qrCodes.add(code);
+        update();
+        notifyViews();
+    }
     public void modify(List<QRCode> newCodes) {
         qrCodes.clear();
         qrCodes.addAll(newCodes);
