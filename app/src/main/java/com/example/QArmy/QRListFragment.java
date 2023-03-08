@@ -86,13 +86,10 @@ public class QRListFragment extends Fragment {
     ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result->{
         if (result.getContents() !=null) {
             newCode = result.getContents();
-            QRCode code = new QRCode(newCode, null, null, null);
-            db.addQRCode(code, new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        qrList.add(code);
-                    }
+            QRCode code = new QRCode(newCode, user);
+            db.addQRCode(code, task -> {
+                if (task.isSuccessful()) {
+                    //qrList.add(code);
                 }
             });
         }

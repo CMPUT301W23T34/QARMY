@@ -78,7 +78,7 @@ public class Database {
      * @param listener - provides a callback when query is complete
      */
     public void addQRCode(QRCode qrCode, OnCompleteListener<Void> listener) {
-        QR_CODES.document(qrCode.getHash())
+        QR_CODES.document(qrCode.getID())
                 .set(qrCode)
                 .addOnCompleteListener(listener);
     }
