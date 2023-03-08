@@ -1,5 +1,6 @@
 package com.example.QArmy.model;
 
+import android.location.Location;
 import android.media.Image;
 import android.util.Log;
 
@@ -18,8 +19,8 @@ public class QRCode extends Entity {
     public static final String CODE_FIELD = "code";
     public static final String USER_FIELD = "user";
     private String qrHashHex;
-    private float lat;
-    private float lon;
+    private double lat;
+    private double lon;
     private Image image;
     private int qrScore;
     private String qrName;
@@ -28,7 +29,7 @@ public class QRCode extends Entity {
     private String user;
 
 
-    public QRCode(String qrData, User user) {
+    public QRCode(String qrData, User user, Location location) {
         try {
             this.qrHashHex = convertByteArrayToHexString(hashStringToBytes(qrData));
         } catch (NoSuchAlgorithmException e) {
@@ -40,6 +41,8 @@ public class QRCode extends Entity {
         this.qrName = generateName(qrHashHex.toCharArray(), qrScore);
         this.qrMonster = generateVisual(qrHashHex);
         this.user = user.getName();
+        this.lat = location.getLatitude();
+        this.lon = location.getLongitude();
     }
 
     public QRCode(String qrHash, Map<String, Object> data) {
@@ -251,6 +254,21 @@ public class QRCode extends Entity {
     }
     public QrVisual getVisual() {
         return this.qrMonster;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLat() {
+        return this.lat;
+    }
+
+    public double getLon() {
+        return this.lon;
+    }
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 }
 

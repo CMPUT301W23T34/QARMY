@@ -3,8 +3,16 @@ package com.example.QArmy;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private User user;
     private Database db;
 
+    private LocationManager locationManager;
 
 
     @Override
@@ -51,9 +60,13 @@ public class MainActivity extends AppCompatActivity {
         prevMenuItem = bottomNavigationView.getMenu().getItem(1);
         viewPager.setCurrentItem(1);
 
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch(item.getItemId())
-            {
+            switch (item.getItemId()) {
                 case R.id.navigation_map:
                     viewPager.setCurrentItem(0);
                     return true;
@@ -72,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 if (prevMenuItem != null) {
@@ -82,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
                 prevMenuItem = bottomNavigationView.getMenu().getItem(position);
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -112,9 +127,13 @@ public class MainActivity extends AppCompatActivity {
         QRLauncher.launch(options);
     }
 
-    ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result->{
-        if (result.getContents() !=null) {
-            QRCode code = new QRCode(result.getContents(), user);
+    ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if (result.getContents() != null) {
+            Location location = null;
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+            QRCode code = new QRCode(result.getContents(), user, location);
             db.addQRCode(code, task -> {
                 if (!task.isSuccessful()) {
                     //Log.d("Main", "Error adding QR code");
