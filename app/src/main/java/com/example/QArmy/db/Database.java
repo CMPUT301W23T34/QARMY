@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class Database {
      */
     public void getUserCodes(User user, QueryListener<QRCode> listener) {
         QR_CODES.whereEqualTo(QRCode.USER_FIELD, user.getName())
+                .orderBy(QRCode.TIME_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
@@ -69,7 +71,8 @@ public class Database {
      * @param listener
      */
     public void getNearbyCodes(double lat, double lon, QueryListener<QRCode> listener) {
-        // TODO: Implement location queries
+        QR_CODES.get()
+                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
 
     /**

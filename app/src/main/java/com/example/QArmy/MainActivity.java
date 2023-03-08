@@ -27,6 +27,7 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
-            QRCode code = new QRCode(result.getContents(), user, location);
+            QRCode code = new QRCode(result.getContents(), user, location, new Date());
             db.addQRCode(code, task -> {
                 if (!task.isSuccessful()) {
                     //Log.d("Main", "Error adding QR code");

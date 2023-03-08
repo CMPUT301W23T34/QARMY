@@ -10,14 +10,17 @@ import com.example.QArmy.QrVisual;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import java.security.NoSuchAlgorithmException;
 
 public class QRCode extends Entity {
 
-    public static final String CODE_FIELD = "code";
+    public static final String CODE_FIELD = "hash";
     public static final String USER_FIELD = "user";
+
+    public static final String TIME_FIELD = "timestamp";
     private String qrHashHex;
     private double lat;
     private double lon;
@@ -26,10 +29,12 @@ public class QRCode extends Entity {
     private String qrName;
     private QrVisual qrMonster;
 
+    private long timestamp;
+
     private String user;
 
 
-    public QRCode(String qrData, User user, Location location) {
+    public QRCode(String qrData, User user, Location location, Date timestamp) {
         try {
             this.qrHashHex = convertByteArrayToHexString(hashStringToBytes(qrData));
         } catch (NoSuchAlgorithmException e) {
@@ -43,6 +48,7 @@ public class QRCode extends Entity {
         this.user = user.getName();
         this.lat = location.getLatitude();
         this.lon = location.getLongitude();
+        this.timestamp = timestamp.getTime();
     }
 
     public QRCode(String qrHash, Map<String, Object> data) {
@@ -269,6 +275,14 @@ public class QRCode extends Entity {
     }
     public void setLon(double lon) {
         this.lon = lon;
+    }
+
+    public long getTimestamp() {
+        return this.timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+
     }
 }
 
