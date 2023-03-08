@@ -1,5 +1,6 @@
 package com.example.QArmy;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -10,7 +11,12 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.QArmy.db.Database;
+import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 
@@ -22,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentPagerAdapter fragmentPagerAdapter;
     private MenuItem prevMenuItem;
 
+    private User user;
+    private Database db;
+
 
 
     @Override
@@ -29,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db = new Database();
+        user = new User("kai");
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -86,6 +97,29 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_add) {
+            scanCode();
+        }
         return super.onOptionsItemSelected(item);
     }
+
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setOrientationLocked(false);
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
+        QRLauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result->{
+        if (result.getContents() !=null) {
+            QRCode code = new QRCode(result.getContents(), user);
+            db.addQRCode(code, task -> {
+                if (!task.isSuccessful()) {
+                    //Log.d("Main", "Error adding QR code");
+                }
+            });
+        }
+    });
 }

@@ -67,33 +67,9 @@ public class QRListFragment extends Fragment {
                 .replace(R.id.fragmentContainerView, fragment)
                 .commit();
         qrList.addView(fragment);
-
-        Button btn_scan = getView().findViewById(R.id.btn_scan);
-        btn_scan.setOnClickListener(v-> {
-            scanCode();
-        });
     }
 
-    private void scanCode() {
-        ScanOptions options = new ScanOptions();
-        options.setOrientationLocked(false);
-        options.setPrompt("Volume up to flash on");
-        options.setBeepEnabled(true);
-        options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
-        QRLauncher.launch(options);
-    }
 
-    ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result->{
-        if (result.getContents() !=null) {
-            newCode = result.getContents();
-            QRCode code = new QRCode(newCode, user);
-            db.addQRCode(code, task -> {
-                if (task.isSuccessful()) {
-                    //qrList.add(code);
-                }
-            });
-        }
-    });
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
