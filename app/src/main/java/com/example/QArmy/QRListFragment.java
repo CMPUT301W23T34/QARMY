@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
@@ -22,9 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QRListFragment extends Fragment {
-
-    private TextView total;
-    private TextView max;
     private Database db;
     private QRListener listener;
     private User user;
@@ -57,9 +56,12 @@ public class QRListFragment extends Fragment {
         qrCodeList.setAdapter(qrCodeAdapter);
         qrList.addView(qrCodeAdapter);
 
-
-        total = getView().findViewById(R.id.sum_of_scores);
-        max = getView().findViewById(R.id.max_score);
+        SummaryFragment fragment = new SummaryFragment();
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, fragment)
+                .commit();
+        qrList.addView(fragment);
     }
 
     @Override
