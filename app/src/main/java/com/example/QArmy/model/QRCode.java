@@ -1,46 +1,57 @@
-package com.example.QArmy;
+package com.example.QArmy.model;
 
 import android.media.Image;
+import android.util.Log;
 
-import org.w3c.dom.Comment;
+import com.example.QArmy.PlayerProfile;
+import com.example.QArmy.QrVisual;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Map;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class QRCode {
+public class QRCode extends Entity {
+
+    public static final String CODE_FIELD = "code";
+    public static final String USER_FIELD = "user";
     private String qrHashHex;
-    private ArrayList<Float> geoLocations;
-    private ArrayList<Image> images;
+    private float lat;
+    private float lon;
+    private Image image;
     private int qrScore;
     private String qrName;
     private QrVisual qrMonster;
-    private ArrayList<Comment> qrComments;
-    private ArrayList<PlayerProfile> qrScanners;
+
+    private String user;
 
 
-    public QRCode(String qrData, ArrayList<Float> geoLocations, ArrayList<Image> images, PlayerProfile currentScanner) {
+    public QRCode(String qrData, User user) {
         try {
             this.qrHashHex = convertByteArrayToHexString(hashStringToBytes(qrData));
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
 
-        this.geoLocations = geoLocations;
-        this.images = images;
+        this.image = image;
         this.qrScore = generateScore(qrHashHex.toCharArray());
         this.qrName = generateName(qrHashHex.toCharArray(), qrScore);
         this.qrMonster = generateVisual(qrHashHex);
-        this.qrComments = new ArrayList<Comment>();
-        this.qrScanners = new ArrayList<PlayerProfile>();
-        qrScanners.add(currentScanner);
+        this.user = user.getName();
+    }
+
+    public QRCode(String qrHash, Map<String, Object> data) {
+        this.qrHashHex = qrHash;
+        this.qrName = (String) data.get("name");
+        this.qrScore = Math.toIntExact((Long) data.get("score"));
+    }
+
+    public QRCode() {
 
     }
+
 
     // THE FOLLOWING TWO FUNCTIONS COME FROM: https://www.geeksforgeeks.org/sha-256-hash-in-java/ and https://www.baeldung.com/sha-256-hashing-java
     // TODO: Deal with all the licensing stuff for these functions
@@ -163,11 +174,13 @@ public class QRCode {
 
     private QrVisual generateVisual(String qrHash) {
         // TODO: Implement this
+        Log.d("QRCODE", "CALLED");
         return null;
     }
 
     private int generateScore(char[] qrHashHex) {
         // TODO: Implement this
+
         int prevHex = -1;
         int newHex = -1;
         int score = 0;
@@ -200,64 +213,44 @@ public class QRCode {
     }
 
 
-    private void seeComments() {
-        // TODO: Implement this
-        return;
-    }
-
-    private void seeScanners() {
-        // TODO: Implement this
-        return;
-    }
-
     // Setters
-    // TODO: Decide whether we need to keep all of these getters (ex getQrHashHex())
-    public String getQrHashHex() {
+    // TODO: Decide whether we need to keep all of these getters (ex getHash())
+    public String getHash() {
         return this.qrHashHex;
-    }
-    public ArrayList<Float> getGeoLocations() {
-        return this.geoLocations;
     }
     public int getScore() {
         return this.qrScore;
     }
+
+    public String getID() {
+        return this.user+this.qrHashHex;
+    }
+
     public String getName() {
         return this.qrName;
     }
-    public QrVisual getVisual() {
-        return this.qrMonster;
+
+
+    public String getUser() {
+        return this.user;
     }
-    public ArrayList<Comment> getComments() {
-        return this.qrComments;
-    }
-    public ArrayList<PlayerProfile> getScanners() {
-        return this.qrScanners;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    // Setters
-    public void addGeoLocation(Float geolocation) {
-        this.geoLocations.add(geolocation);
+    public void setName(String name) {
+        this.qrName = name;
     }
-    public void removeGeoLocation(Float geolocation) {
-        this.geoLocations.remove(geolocation);
+
+    public void setScore(int score) {
+        this.qrScore = score;
     }
-    public void addImage(Image image) {
-        this.images.add(image);
+
+    public void setHash(String hash) {
+        this.qrHashHex = hash;
     }
-    public void removeImage(Image image) {
-        this.images.remove(image);
-    }
-    public void addComment(Comment comment) {
-        this.qrComments.add(comment);
-    }
-    public void removeComment(Comment comment) {
-        this.qrComments.remove(comment);
-    }
-    public void addScanner(PlayerProfile scanner) {
-        this.qrScanners.add(scanner);
-    }
-    public void removeScanner(PlayerProfile scanner) {
-        this.qrScanners.remove(scanner);
+    public QrVisual getVisual() {
+        return this.qrMonster;
     }
 }
 

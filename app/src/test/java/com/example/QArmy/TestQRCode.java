@@ -1,5 +1,7 @@
 package com.example.QArmy;
 
+import com.example.QArmy.model.QRCode;
+
 import org.junit.Test;
 
 /**
@@ -17,7 +19,7 @@ public class TestQRCode {
         for (int i = 0; i < 100; i++) {
             String s = String.valueOf(i);
             testQRCode = new QRCode(s, null, null, null);
-            System.out.println(s+": Hash: "+ testQRCode.getQrHashHex());
+            System.out.println(s+": Hash: "+ testQRCode.getHash());
             System.out.println("Name: "+testQRCode.getName());
             System.out.println("Score: "+testQRCode.getScore()+"\n");
 
