@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,8 @@ import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ public class QRListFragment extends Fragment {
     private QRListener listener;
     private User user;
     private QRList qrList;
+    private String newCode;
 
     private void updateSummaries() {
         //TODO: Implement this
@@ -62,7 +67,27 @@ public class QRListFragment extends Fragment {
                 .replace(R.id.fragmentContainerView, fragment)
                 .commit();
         qrList.addView(fragment);
+
+        Button btn_scan = getView().findViewById(R.id.btn_scan);
+        btn_scan.setOnClickListener(v-> {
+            scanCode();
+        });
     }
+
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setOrientationLocked(false);
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
+        QRLauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result->{
+        if (result.getContents() !=null) {
+            newCode = result.getContents();
+        }
+    });
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
