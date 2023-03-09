@@ -1,3 +1,15 @@
+/*
+ * TestQRList
+ *
+ * Version: 1.0
+ *
+ * Date: 2023-03-09
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ */
+
 package com.example.QArmy;
 
 import com.example.QArmy.model.QRCode;
@@ -9,16 +21,33 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Provide tests for the QRList class.
+ * @author Kai Luedemann
+ * @version 1.0
+ * @see QRList
+ */
 public class TestQRList {
 
+    /**
+     * Create a mock QR code
+     * @return Empty QR code
+     */
     public QRCode MockCode() {
         return new QRCode();
     }
 
+    /**
+     * Create a mock QR list
+     * @return Empty QR list
+     */
     public QRList MockQRList() {
         return new QRList();
     }
 
+    /**
+     * Test the add method
+     */
     @Test
     public void testAdd() {
         /*
@@ -37,6 +66,9 @@ public class TestQRList {
         assertEquals(size + 2, list.getCount());
     }
 
+    /**
+     * Test the remove method
+     */
     @Test
     public void testRemove() {
         /*
@@ -57,6 +89,9 @@ public class TestQRList {
         assertEquals(size - 1, list.getCount());
     }
 
+    /**
+     * Test the modify method
+     */
     @Test
     public void testModify() {
         /*
@@ -95,6 +130,9 @@ public class TestQRList {
         assertTrue(list.getList().contains(code3));
     }
 
+    /**
+     * Test that the summary statistics display correctly
+     */
     @Test
     public void testSummary() {
         /*
@@ -103,7 +141,7 @@ public class TestQRList {
          * 0 and nonzero
          * Only nonzero
          * Duplicate
-         * Max ints
+         * Integer overflow: Not tested as behaviour is not specified
          */
 
 
