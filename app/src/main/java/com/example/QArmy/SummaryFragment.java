@@ -3,7 +3,7 @@
  *
  * Version: 1.0
  *
- * Date: 2023-03-08
+ * Date: 2023-03-09
  *
  * Sources:
  */
@@ -111,7 +111,7 @@ public class SummaryFragment extends Fragment implements TView<QRList> {
      * @param min The minimum score in the list
      */
     private void updateMin(int min) {
-        if (min > 0) {
+        if (min >= 0) {
             minView.setText(String.format(Locale.CANADA, "Min: %d", min));
         } else {
             minView.setText(R.string.min_na_text);
@@ -123,7 +123,7 @@ public class SummaryFragment extends Fragment implements TView<QRList> {
      * @param max The maximum score in the list
      */
     private void updateMax(int max) {
-        if (max > 0) {
+        if (max >= 0) {
             maxView.setText(String.format(Locale.CANADA, "Max: %d", max));
         } else {
             maxView.setText(R.string.max_na_text);
