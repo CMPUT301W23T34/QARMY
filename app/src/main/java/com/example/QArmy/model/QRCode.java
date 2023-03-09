@@ -44,7 +44,7 @@ public class QRCode extends Entity {
         this.user = user.getName();
     }
 
-    public QRCode(String qrHash, @NonNull Map<String, Object> data) {
+    public QRCode(String qrHash, Map<String, Object> data) {
         this.qrHashHex = qrHash;
         this.qrName = (String) data.get("name");
         this.qrScore = Math.toIntExact((Long) data.get("score"));
