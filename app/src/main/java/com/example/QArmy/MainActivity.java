@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentPagerAdapter = new FragmentPagerAdapter(this);
         viewPager.setAdapter(fragmentPagerAdapter);
         prevMenuItem = bottomNavigationView.getMenu().getItem(1);
+        viewPager.setCurrentItem(1);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId())

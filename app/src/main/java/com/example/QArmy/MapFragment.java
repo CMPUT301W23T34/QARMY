@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -17,14 +16,13 @@ import androidx.fragment.app.Fragment;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 public class MapFragment extends Fragment {
 
-    private MapView mapView = null;
+    private MapView mapView;
     private IMapController mapController;
     private MyLocationNewOverlay locationOverlay;
 
@@ -36,59 +34,63 @@ public class MapFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        mapView = new MapView(inflater.getContext());
+        mapView.setDestroyMode(false);
+
         Context context = getActivity().getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
         requestPermissionsIfNecessary(context);
-
-        mapView = new MapView(getActivity());
-        ((LinearLayout) view.findViewById(R.id.map)).addView(mapView);
-
-        mapView.setTileSource(TileSourceFactory.MAPNIK);
-        mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
-        mapView.setMultiTouchControls(true);
-
         mapController = mapView.getController();
 
+        return mapView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Context context = getActivity();
+
+        mapView.setTileSource(TileSourceFactory.MAPNIK);
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context),mapView);
         locationOverlay.enableMyLocation();
         locationOverlay.enableFollowLocation();
         locationOverlay.setDrawAccuracyEnabled(true);
-        mapController.animateTo(locationOverlay.getMyLocation());
+        mapView.getOverlays().add(locationOverlay);
+
+        mapView.setMultiTouchControls(true);
+        mapView.setTilesScaledToDpi(true);
+
         mapController.setZoom(10.5);
-
-
-        mapView.getOverlays().add(this.locationOverlay);
-
+        mapController.animateTo(locationOverlay.getMyLocation());
 
         mapView.setOnTouchListener((v, event) -> {
-            if(100 * event.getX() > 10 * v.getWidth() && 100 * event.getX() < 90 * v.getWidth()) {
+            if( 100 * event.getX() < 85 * v.getWidth()) {
                 v.getParent().requestDisallowInterceptTouchEvent(true);
                 return false;
             }
             return true;
         });
-
-        return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mapView != null) {
-            mapView.onResume();
-        }
+        mapController.animateTo(locationOverlay.getMyLocation());
+        mapView.onResume();
     }
 
     @Override
     public void onPause() {
-        if (mapView != null) {
-            mapView.onPause();
-        }
+        mapView.onPause();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDetach();
     }
 
 
