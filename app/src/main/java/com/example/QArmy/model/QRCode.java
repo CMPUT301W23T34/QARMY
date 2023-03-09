@@ -3,6 +3,8 @@ package com.example.QArmy.model;
 import android.media.Image;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.QArmy.PlayerProfile;
 import com.example.QArmy.QrVisual;
 
@@ -42,7 +44,7 @@ public class QRCode extends Entity {
         this.user = user.getName();
     }
 
-    public QRCode(String qrHash, Map<String, Object> data) {
+    public QRCode(String qrHash, @NonNull Map<String, Object> data) {
         this.qrHashHex = qrHash;
         this.qrName = (String) data.get("name");
         this.qrScore = Math.toIntExact((Long) data.get("score"));
@@ -174,7 +176,7 @@ public class QRCode extends Entity {
 
     private QrVisual generateVisual(String qrHash) {
         // TODO: Implement this
-        Log.d("QRCODE", "CALLED");
+        //Log.d("QRCODE", "CALLED");
         return null;
     }
 

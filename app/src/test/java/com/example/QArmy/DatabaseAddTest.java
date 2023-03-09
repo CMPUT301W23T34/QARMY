@@ -9,7 +9,7 @@ public class DatabaseAddTest {
     @Before
 
     @Test
-    void testAddUser() {
-        wa
+    public void testAddUser() {
+
     }
 }
