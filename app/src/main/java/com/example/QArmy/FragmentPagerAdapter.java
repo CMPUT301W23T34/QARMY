@@ -17,7 +17,7 @@ public class FragmentPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new MapFragment();
             case 1:
-                return new HomeFragment();
+                return new QRListFragment();
             case 2:
                 return new RankFragment();
         }
