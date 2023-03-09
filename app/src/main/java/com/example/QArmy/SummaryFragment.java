@@ -5,6 +5,8 @@
  *
  * Date: 2023-03-09
  *
+ * Copyright 2023 CMPUT301W23T34
+ *
  * Sources:
  */
 

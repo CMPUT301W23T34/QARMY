@@ -2,7 +2,14 @@
  * MainActivity
  *
  * Version: 1.0
+ *
+ * Date: 2023-03-09
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
  */
+
 package com.example.QArmy;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -29,20 +36,29 @@ import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.Date;
 
+/**
+ * Activity created when the app is launched.
+ * Allows users to access the map, QR list, and rank fragment.
+ * Provides the toolbar to scan QR codes.
+ * @author Nicholas Mellon
+ * @author Kai Luedemann
+ * @author Brett Merkosky
+ * @author Japkirat Kaur
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity {
-
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager;
-    private FragmentPagerAdapter fragmentPagerAdapter;
     private MenuItem prevMenuItem;
-
     private User user;
     private Database db;
-
     private LocationManager locationManager;
 
-
+    /**
+     * Initialize the activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);
         viewPager = findViewById(R.id.viewPager2);
-        fragmentPagerAdapter = new FragmentPagerAdapter(this);
+        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(this);
         viewPager.setAdapter(fragmentPagerAdapter);
         prevMenuItem = bottomNavigationView.getMenu().getItem(1);
         viewPager.setCurrentItem(1);
@@ -105,12 +121,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Create toolbar menu
+     * @param menu The toolbar menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Perform action when toolbar button is pressed
+     * @param item The toolbar item selected
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_add) {
@@ -119,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Open the camera to scan the QR code.
+     */
     private void scanCode() {
         ScanOptions options = new ScanOptions();
         options.setOrientationLocked(false);
@@ -128,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
         QRLauncher.launch(options);
     }
 
+    /**
+     * This class is responsible for launching the camera activity and adding the QR code
+     * upon completion.
+     */
     ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
             Location location = null;

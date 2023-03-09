@@ -5,6 +5,8 @@
  *
  * Date: 2023-03-08
  *
+ * Copyright 2023 CMPUT301W23T34
+ *
  * Sources:
  * - Suragch, 2016-09-13, https://stackoverflow.com/a/39467807, Stack Overflow
  */
