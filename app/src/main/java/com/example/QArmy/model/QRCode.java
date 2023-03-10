@@ -23,7 +23,6 @@ import com.example.QArmy.QrVisual;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Date;
-import java.util.Map;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -40,12 +39,12 @@ public class QRCode extends Entity {
     public static final String USER_FIELD = "user";
 
     public static final String TIME_FIELD = "timestamp";
-    private String qrHashHex;
+    private String hash;
     private double lat;
     private double lon;
     private Image image;
-    private int qrScore;
-    private String qrName;
+    private int score;
+    private String name;
     private QrVisual qrMonster;
     private long timestamp;
     private String user;
@@ -59,14 +58,14 @@ public class QRCode extends Entity {
      */
     public QRCode(String qrData, User user, Location location, Date timestamp) {
         try {
-            this.qrHashHex = convertByteArrayToHexString(hashStringToBytes(qrData));
+            this.hash = convertByteArrayToHexString(hashStringToBytes(qrData));
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
 
-        this.qrScore = generateScore(qrHashHex.toCharArray());
-        this.qrName = generateName(qrHashHex.toCharArray(), qrScore);
-        this.qrMonster = generateVisual(qrHashHex);
+        this.score = generateScore(hash.toCharArray());
+        this.name = generateName(hash.toCharArray(), score);
+        this.qrMonster = generateVisual(hash);
         this.user = user.getName();
         this.lat = location.getLatitude();
         this.lon = location.getLongitude();
@@ -233,7 +232,7 @@ public class QRCode extends Entity {
      */
     private QrVisual generateVisual(String qrHash) {
         // TODO: Implement this
-        Log.d("QRCODE", "CALLED");
+        //Log.d("QRCODE", "CALLED");
         return null;
     }
 
@@ -280,19 +279,19 @@ public class QRCode extends Entity {
     // Anything stored in the database needs a getter and a setter
     // TODO: Decide whether we need to keep all of these getters (ex getHash())
     public String getHash() {
-        return this.qrHashHex;
+        return this.hash;
     }
     public int getScore() {
-        return this.qrScore;
+        return this.score;
     }
 
     @Override
     public String getID() {
-        return this.user+this.qrHashHex;
+        return this.user+this.hash;
     }
 
     public String getName() {
-        return this.qrName;
+        return this.name;
     }
 
     public long getTimestamp() {
@@ -315,42 +314,7 @@ public class QRCode extends Entity {
         return this.lon;
     }
 
-    /* ************************************* Setters **********************************************/
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public void setName(String name) {
-        this.qrName = name;
-    }
-
-    public void setScore(int score) {
-        this.qrScore = score;
-    }
-
-    public void setHash(String hash) {
-        this.qrHashHex = hash;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public void setID(String ID) {
-
-    }
-
-    public void setVisual(String visual) {
-
-    }
+    // TODO: Refactor tests to not require this. e.g. MockCode
+    public void setScore(int score) {this.score = score;}
 }
 
