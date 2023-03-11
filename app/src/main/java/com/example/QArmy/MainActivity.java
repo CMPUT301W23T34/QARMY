@@ -165,7 +165,11 @@ public class MainActivity extends AppCompatActivity {
         if (result.getContents() != null) {
             Location location = null;
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                try {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                } catch (SecurityException e) {
+
+                }
             }
             QRCode code = new QRCode(result.getContents(), user, location, new Date());
             db.addQRCode(code, task -> {
