@@ -42,7 +42,7 @@ public class QRListFragment extends Fragment {
     public QRListFragment(){
         db = new Database();
         listener = new QRListener();
-        user = new User("kai");
+        //user = new User("kai");
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
