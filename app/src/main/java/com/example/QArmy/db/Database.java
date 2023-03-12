@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -170,7 +171,7 @@ public class Database {
      * @param listener - provides a callback when the query is complete
      */
     public void getRankedUsers(QueryListener<User> listener) {
-        PLAYERS.orderBy(User.SCORE_FIELD)
+        PLAYERS.orderBy(User.SCORE_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new QueryHelper<>(listener, User.class));
     }
