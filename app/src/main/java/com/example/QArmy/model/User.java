@@ -23,11 +23,16 @@ import java.util.Map;
 public class User extends Entity {
 
     public static final String SCORE_FIELD = "score";
+
+    private int score;
     private String name;
     private String email;
     private String phone;
-    private String score;
     private String uniqueID;
+
+    public User() {
+
+    }
 
     /**
      * Initialize a user
@@ -50,7 +55,7 @@ public class User extends Entity {
 
         this.phone = phone;
 
-        this.score = score;
+       // this.score = Integer.parseInt(score);
 
         this.uniqueID = uniqueID;
 
@@ -68,7 +73,7 @@ public class User extends Entity {
     }
 
     public int getScore() {
-        return 100;
+        return score;
     }
     public String getEmail() {
         return email;
