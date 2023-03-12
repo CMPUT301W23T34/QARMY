@@ -152,8 +152,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_add) {
             scanCode();
+        } else if (item.getItemId() == R.id.action_profile) {
+            openProfile();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openProfile() {
+        Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+        startActivity(intent);
     }
 
     /**
