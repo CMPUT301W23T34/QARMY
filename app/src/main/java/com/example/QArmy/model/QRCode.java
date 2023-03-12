@@ -30,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Kai Luedemann
  * @version 1.0
  */
-public class QRCode extends Entity {
+public class QQRCode extends Entity {
     // TODO: Improve cohesion
     public static final String CODE_FIELD = "hash";
     public static final String USER_FIELD = "user";
