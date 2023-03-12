@@ -53,6 +53,7 @@ public class QRListFragment extends Fragment {
      *
      * @return The root view of the fragment
      */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -70,7 +71,7 @@ public class QRListFragment extends Fragment {
 
         db = new Database();
         listener = new QRListener();
-        user = new User("kai");
+        user = new User("kai", "", "");
         qrList = new QRList();
 
         ListView qrCodeList = view.findViewById(R.id.qr_code_list);

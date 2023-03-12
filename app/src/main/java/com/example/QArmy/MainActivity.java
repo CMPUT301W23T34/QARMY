@@ -25,10 +25,14 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
+
 import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -64,8 +68,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // Shared Preferences
+        User user = MySharedPreferences.loadUserProfile(this);
+        Log.d("Main", user.getName());
+        if (user.getName().equals("")) {
+            Intent intent = new Intent(this, RegistrationActivity.class);
+            startActivity(intent);
+        }
         db = new Database();
-        user = new User("kai");
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
