@@ -1,9 +1,12 @@
-package com.example.QArmy;
+package com.example.QArmy.UI;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.QArmy.UI.qrcodes.QRListFragment;
+import com.example.QArmy.UI.rank.RankFragment;
 
 public class FragmentPagerAdapter extends FragmentStateAdapter {
     public FragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

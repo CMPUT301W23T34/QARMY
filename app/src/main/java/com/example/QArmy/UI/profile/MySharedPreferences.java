@@ -1,4 +1,4 @@
-package com.example.QArmy;
+package com.example.QArmy.UI.profile;
 
 import android.content.Context;
 import android.content.SharedPreferences;

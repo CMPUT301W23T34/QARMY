@@ -16,12 +16,6 @@ package com.example.QArmy.model;
 
 import android.location.Location;
 import android.media.Image;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.example.QArmy.PlayerProfile;
-import com.example.QArmy.QrVisual;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

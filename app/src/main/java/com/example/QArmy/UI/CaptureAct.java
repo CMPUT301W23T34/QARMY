@@ -1,4 +1,4 @@
-package com.example.QArmy;
+package com.example.QArmy.UI;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 

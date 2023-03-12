@@ -10,7 +10,7 @@
  * Sources:
  * - Suragch, 2016-09-13, https://stackoverflow.com/a/39467807, Stack Overflow
  */
-package com.example.QArmy;
+package com.example.QArmy.UI.qrcodes;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.QArmy.model.QRList;
+import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;

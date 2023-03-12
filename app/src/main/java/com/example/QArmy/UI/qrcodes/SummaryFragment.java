@@ -10,7 +10,7 @@
  * Sources:
  */
 
-package com.example.QArmy;
+package com.example.QArmy.UI.qrcodes;
 
 import android.os.Bundle;
 
@@ -22,6 +22,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.QArmy.model.QRList;
+import com.example.QArmy.R;
+import com.example.QArmy.TView;
 
 import java.util.Locale;
 

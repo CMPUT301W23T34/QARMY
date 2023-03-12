@@ -13,13 +13,12 @@
 package com.example.QArmy;
 
 import com.example.QArmy.model.QRCode;
-import com.example.QArmy.model.User;
+import com.example.QArmy.model.QRList;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Provide tests for the QRList class.

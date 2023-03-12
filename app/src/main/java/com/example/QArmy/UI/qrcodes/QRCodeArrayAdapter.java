@@ -10,7 +10,7 @@
  * Sources:
  * - Brett Merkosky, MyCarFootprint
  */
-package com.example.QArmy;
+package com.example.QArmy.UI.qrcodes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,6 +23,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.QArmy.model.QRList;
+import com.example.QArmy.R;
+import com.example.QArmy.TView;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 
@@ -34,7 +37,7 @@ import java.util.Locale;
  * @author Kai Luedemann
  * @version 1.0
  */
-public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QRList>{
+public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QRList> {
     private final QRList qrList;
     private final Database db;
 

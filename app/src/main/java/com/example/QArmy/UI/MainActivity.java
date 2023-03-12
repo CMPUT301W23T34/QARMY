@@ -10,7 +10,7 @@
  * Sources:
  */
 
-package com.example.QArmy;
+package com.example.QArmy.UI;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -26,14 +26,17 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 
 import com.example.QArmy.model.User;
+import com.example.QArmy.UI.profile.MySharedPreferences;
+import com.example.QArmy.UI.profile.RegistrationActivity;
+import com.example.QArmy.UI.profile.UserProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
