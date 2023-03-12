@@ -7,4 +7,11 @@
         android:icon="@drawable/baseline_qr_code_24"
         android:title="Add QR Code"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="View Profile"
+        app:showAsAction="ifRoom"
+        />
 </menu>
