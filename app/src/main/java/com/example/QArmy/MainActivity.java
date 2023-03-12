@@ -3,11 +3,14 @@ package com.example.QArmy;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -27,8 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        // Shared Preferences
+        User user = MySharedPreferences.loadUserProfile(this);
+        Log.d("Main", user.getName());
+        if (user.getName().equals("")) {
+            Intent intent = new Intent(this, RegistrationActivity.class);
+            startActivity(intent);
+        }
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setSelectedItemId(R.id.navigation_home);

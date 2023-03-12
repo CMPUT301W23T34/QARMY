@@ -90,14 +90,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 
                 // Check if the device has already been registered
-                db.collection("Players")
-                        .whereEqualTo("deviceID", deviceID)
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> {
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                // Device already registered to another user
-                                Toast.makeText(getApplicationContext(), "This device is already registered to another account.", Toast.LENGTH_SHORT).show();
-                            } else {
+//                db.collection("Players")
+//                        .whereEqualTo("deviceID", deviceID)
+//                        .get()
+//                        .addOnSuccessListener(queryDocumentSnapshots -> {
+//                            if (!queryDocumentSnapshots.isEmpty()) {
+//                                // Device already registered to another user
+//                                Toast.makeText(getApplicationContext(), "This device is already registered to another account.", Toast.LENGTH_SHORT).show();
+//                            } else {
                                 //check if username is taken
                                 db.collection("Players").document(usernameInput)
                                         .get()
@@ -126,12 +126,12 @@ public class RegistrationActivity extends AppCompatActivity {
                                                                         deviceID
                                                                 ));
 
-                                                                Intent intent = new Intent(RegistrationActivity.this, UserProfileActivity.class);
-                                                                intent.putExtra("name", usernameInput);
-                                                                intent.putExtra("email", email_phoneInput);
-                                                                intent.putExtra("password", passwordInput);
-                                                                intent.putExtra("id", deviceID);
-                                                                startActivity(intent);
+//                                                                Intent intent = new Intent(RegistrationActivity.this, UserProfileActivity.class);
+//                                                                intent.putExtra("name", usernameInput);
+//                                                                intent.putExtra("email", email_phoneInput);
+//                                                                intent.putExtra("password", passwordInput);
+//                                                                intent.putExtra("id", deviceID);
+//                                                                startActivity(intent);
                                                                 finish();
 
                                                             }
@@ -144,8 +144,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                                         });
                                             }
                                         });
-                            }
-                        });
+//                            }
+//                        });
             }
             });
 
