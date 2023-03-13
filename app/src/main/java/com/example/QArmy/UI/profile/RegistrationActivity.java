@@ -47,10 +47,8 @@ public class RegistrationActivity extends AppCompatActivity {
         // Initialize Firebase Auth and Database references
         db = FirebaseFirestore.getInstance();
 
-
-        // TODO: get data from firebase for the Players
         // Get device id
-        @SuppressLint("HardwareIds") String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+       // @SuppressLint("HardwareIds") String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         // Initialize Views
         email_or_phone = findViewById(R.id.email_or_phone);
         username = findViewById(R.id.username);
