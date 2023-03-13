@@ -38,8 +38,6 @@ import com.example.QArmy.model.User;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -202,7 +200,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             QRCode code = new QRCode(result.getContents(), user, location, new Date());
-            user.updateScore(code.getScore());
+            if (code.getScore() > user.getScore()) {
+                user.setScore(code.getScore());
+            }
             db.addQRCode(code, task -> {
                 if (task.isSuccessful()) {
                     //Log.d("Main", "Error adding QR code");

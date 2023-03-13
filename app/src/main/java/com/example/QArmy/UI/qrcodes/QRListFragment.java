@@ -30,6 +30,8 @@ import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -149,5 +151,19 @@ public class QRListFragment extends Fragment {
             user = ((MainActivity) getActivity()).getUser();
         }
         db.getUserCodes(user, listener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (qrList.getMax() != user.getScore()) {
+            user.setScore(qrList.getMax());
+            db.addUser(user, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                }
+            });
+        }
     }
 }

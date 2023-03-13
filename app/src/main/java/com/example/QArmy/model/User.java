@@ -109,9 +109,7 @@ public class User extends Entity {
         return new User(name, email, phone);
     }
 
-    public void updateScore(int score) {
-        if (score > this.score) {
-            this.score = score;
-        }
+    public void setScore(int score) {
+        this.score = score;
     }
 }
