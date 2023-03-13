@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
-import com.example.QArmy.UI.CommentsActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 

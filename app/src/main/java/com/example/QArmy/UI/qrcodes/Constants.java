@@ -1,4 +1,4 @@
-package com.example.QArmy.UI;
+package com.example.QArmy.UI.qrcodes;
 
 import com.example.QArmy.model.QRCode;
 

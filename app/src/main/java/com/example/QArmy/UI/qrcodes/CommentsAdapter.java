@@ -1,4 +1,4 @@
-package com.example.QArmy.UI;
+package com.example.QArmy.UI.qrcodes;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 /**
  * The type Services recycler view adapter.
- * @author yasminghaznavian
  */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 

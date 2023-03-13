@@ -1,4 +1,4 @@
-package com.example.QArmy.UI;
+package com.example.QArmy.UI.qrcodes;
 
 import android.os.Bundle;
 
@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 /**
  * The type Comments activity.
- * @author yasminghaznavian
  */
-
 public class CommentsActivity extends AppCompatActivity {
 
     @Override
