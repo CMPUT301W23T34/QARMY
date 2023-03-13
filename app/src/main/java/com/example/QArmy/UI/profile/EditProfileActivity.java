@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
@@ -92,6 +93,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
+                                    ((QArmy) getApplication()).setUser(updatedUser);
+                                    MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
                                 } else {
                                     Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
                                 }
