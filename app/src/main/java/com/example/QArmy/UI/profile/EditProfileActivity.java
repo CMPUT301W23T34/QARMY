@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.Task;
 
 /**
  * The activity that allows a user to edit their profile settings
- * @author Jessica
+ * @author Jessica Emereonye
  */
 public class EditProfileActivity extends AppCompatActivity {
     private Database db;

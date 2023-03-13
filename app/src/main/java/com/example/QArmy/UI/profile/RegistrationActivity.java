@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Represents the registration page for new users
- * @author Jessica
+ * @author Jessica Emereonye
  */
 public class RegistrationActivity extends AppCompatActivity {
     private EditText email_or_phone;

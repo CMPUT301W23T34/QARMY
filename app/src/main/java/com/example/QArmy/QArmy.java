@@ -9,7 +9,7 @@ import com.example.QArmy.model.User;
  * Represents the entire app
  * @author Brett Merkosky
  * @author Kai Luedemann
- * @author Jessica
+ * @author Jessica Emereonye
  * @author Yasmin Ghaznavian
  * @author Japkirat Kaur
  * @author Nicholas Mellon

@@ -8,7 +8,7 @@ import com.example.QArmy.model.User;
 /**
  * Represents the user data that is stored in the phone.
  * This data allows the user to skip the registration page after they have already registered.
- * @author Jessica
+ * @author Jessica Emereonye
  * @author Kai Luedemann
  * @author Brett Merkosky
  */

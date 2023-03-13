@@ -39,7 +39,7 @@ import java.util.List;
  * Holds a list of QR codes and a summary of their scores.
  * @author Kai Luedemann
  * @author Japkirat Kaur
- * @author yasminghaznavian
+ * @author Yasmin Ghaznavian
  * @version 1.0
  */
 public class QRListFragment extends Fragment {

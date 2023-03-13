@@ -35,7 +35,7 @@ import java.util.Locale;
  * Provide views to represent QR codes in a ListView.
  * @author Brett Merkosky
  * @author Kai Luedemann
- * @author yasminghaznavian
+ * @author Yasmin Ghaznavian
  * @version 1.0
  */
 public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QRList> {

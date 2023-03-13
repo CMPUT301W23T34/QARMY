@@ -14,7 +14,7 @@ import com.example.QArmy.model.QRCode;
 
 /**
  * The type Qr code visual rep activity.
- * @author yasminghaznavian
+ * @author Yasmin Ghaznavian
  */
 public class QRCodeVisualRepActivity extends AppCompatActivity {
 
