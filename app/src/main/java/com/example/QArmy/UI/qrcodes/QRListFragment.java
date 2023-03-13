@@ -12,6 +12,7 @@
  */
 package com.example.QArmy.UI.qrcodes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import java.util.List;
  * Holds a list of QR codes and a summary of their scores.
  * @author Kai Luedemann
  * @author Japkirat Kaur
+ * @author yasminghaznavian
  * @version 1.0
  */
 public class QRListFragment extends Fragment {
@@ -43,6 +45,19 @@ public class QRListFragment extends Fragment {
     private QRListener listener;
     private User user;
     private QRList qrList;
+
+
+    public QRListFragment() {
+        db = new Database();
+        listener = new QRListener();
+        user = new User("kai");
+    }
+
+    private void updateSummaries() {
+        //TODO: Implement this
+        // This is where we would update our total, count, min, and max
+        // after deleting or adding a QR code
+    }
 
     /**
      * Create the root view for the fragment.
@@ -56,6 +71,7 @@ public class QRListFragment extends Fragment {
      *
      * @return The root view of the fragment
      */
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,8 +93,13 @@ public class QRListFragment extends Fragment {
         user = ((MainActivity) getActivity()).getUser();
         qrList = new QRList();
 
-        ListView qrCodeList = view.findViewById(R.id.qr_code_list);
-        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db);
+        ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
+        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db, view1 -> {
+            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            intent.putExtra("Object",(String) view1.getContentDescription());
+            startActivity(intent);
+        });
+
         qrCodeList.setAdapter(qrCodeAdapter);
         qrList.addView(qrCodeAdapter);
 
