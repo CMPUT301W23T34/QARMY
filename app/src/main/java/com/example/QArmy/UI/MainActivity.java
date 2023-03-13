@@ -168,6 +168,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openProfile() {
         Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+        intent.putExtra("name", user.getName());
+        intent.putExtra("email", user.getEmail());
+        intent.putExtra("phone", user.getPhone());
+        intent.putExtra("id", user.getUniqueID());
         startActivity(intent);
     }
 
