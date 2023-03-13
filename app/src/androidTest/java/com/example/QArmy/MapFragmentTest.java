@@ -9,6 +9,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,15 +26,13 @@ public class MapFragmentTest {
     }
 
     @Test
-    public void start() {
-        Activity activity = rule.getActivity();
+    public void checkMapView() {
+        solo.scrollToSide(solo.LEFT);
+        assertTrue(solo.waitForView(R.id.map));
     }
 
-    @Test
-    public void checkMapView() {
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-
-        solo.scrollToSide(solo.LEFT);
-        assertTrue("MapView is not shown",solo.getView("map").isShown()==true);
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
     }
 }
