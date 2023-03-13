@@ -94,18 +94,23 @@ public class RegistrationActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.e("RegistrationActivity", "DocumentSnapshot successfully written!");
-                                                // save created account to shared preferences
-                                                MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
-                                                        email_phoneInput,
-                                                        usernameInput,
-                                                        "100",
-                                                        deviceID
-                                                ));
+                                                                Log.e("RegistrationActivity", "Registration was successful.");
+                                                                // save created account to shared preferences
+                                                                MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
+                                                                        email_phoneInput,
+                                                                        usernameInput,
+                                                                        "100",
+                                                                        deviceID
+                                                                ));
 
-                                                finish();
+                                                                Intent intent = new Intent(RegistrationActivity.this, UserProfileActivity.class);
+                                                                intent.putExtra("name", usernameInput);
+                                                                intent.putExtra("email", email_phoneInput);
+                                                                startActivity(intent);
+                                                                finish();
 
-                                            }
+                                                            }
+                                            
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
