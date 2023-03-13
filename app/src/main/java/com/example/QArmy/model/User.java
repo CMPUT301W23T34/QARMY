@@ -30,6 +30,10 @@ public class User extends Entity {
     private String phone;
     private String uniqueID;
 
+    public User() {
+
+    }
+
     public User(String testUsername) {
 
     }
