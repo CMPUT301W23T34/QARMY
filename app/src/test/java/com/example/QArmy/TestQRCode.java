@@ -3,6 +3,7 @@ package com.example.QArmy;
 import static org.junit.Assert.assertEquals;
 
 import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.QRList;
 import com.example.QArmy.model.User;
 
 import org.junit.Test;
@@ -10,9 +11,10 @@ import org.junit.Test;
 import java.util.Date;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Provide tests for the QRList class.
+ * @author Brett Merkosky
+ * @version 1.0
+ * @see QRList
  */
 public class TestQRCode {
 
