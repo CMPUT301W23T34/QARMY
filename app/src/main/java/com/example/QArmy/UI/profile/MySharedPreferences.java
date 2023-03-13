@@ -7,7 +7,6 @@ import com.example.QArmy.model.User;
 
 public class MySharedPreferences {
     private static final String USER_PROFILE_PREFS = "user_profile_prefs";
-    private static final String QR_CODE_PREFS = "qr_code_prefs";
     private static final String DEVICE_ID_PREFERENCE = "device_id_prefs";
 
     public static void saveUserProfile(Context context, User user) {
