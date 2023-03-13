@@ -2,7 +2,6 @@ package com.example.QArmy;
 
 import static org.junit.Assert.assertTrue;
 
-import android.app.Activity;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
