@@ -1,67 +1,109 @@
+/*
+ * QRCode
+ *
+ * Version: 1.0
+ *
+ * Date: 2023-03-09
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ * - Bilal Hungund, 2022-04-29, https://www.geeksforgeeks.org/sha-256-hash-in-java/, Geeks for Geeks
+ * - baeldung, 2022-02-28, https://www.baeldung.com/sha-256-hashing-java, Baeldung
+ */
+
 package com.example.QArmy.model;
 
+import android.location.Location;
 import android.media.Image;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.example.QArmy.PlayerProfile;
-import com.example.QArmy.QrVisual;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.Date;
 
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Represent a QR Code instance.
+ * Contains user, scan info, and code info.
+ * @author Brett Merkosky
+ * @author Kai Luedemann
+ * @version 1.0
+ */
 public class QRCode extends Entity {
-
-    public static final String CODE_FIELD = "code";
+    // TODO: Improve cohesion
+    public static final String CODE_FIELD = "hash";
     public static final String USER_FIELD = "user";
-    private String qrHashHex;
-    private float lat;
-    private float lon;
-    private Image image;
-    private int qrScore;
-    private String qrName;
-    private QrVisual qrMonster;
 
+    public static final String TIME_FIELD = "timestamp";
+    private String hash;
+    private double lat;
+    private double lon;
+    private Image image;
+    private int score;
+    private String name;
+    private QrVisual qrMonster;
+    private long timestamp;
     private String user;
 
-
-    public QRCode(String qrData, User user) {
+    /**
+     * Construct a new QR Code upon scanning.
+     * @param qrData The hex string representing the code
+     * @param user The name of the user who scanned it
+     * @param location The location where it was scanned
+     * @param timestamp The timestamp when it was scanned
+     */
+    public QRCode(String qrData, User user, Location location, Date timestamp) {
         try {
-            this.qrHashHex = convertByteArrayToHexString(hashStringToBytes(qrData));
+            this.hash = convertByteArrayToHexString(hashStringToBytes(qrData));
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
 
-        this.image = image;
-        this.qrScore = generateScore(qrHashHex.toCharArray());
-        this.qrName = generateName(qrHashHex.toCharArray(), qrScore);
-        this.qrMonster = generateVisual(qrHashHex);
+        this.score = generateScore(hash.toCharArray());
+        this.name = generateName(hash.toCharArray(), score);
+        this.qrMonster = generateVisual(hash);
         this.user = user.getName();
+        if (location != null) {
+            this.lat = location.getLatitude();
+            this.lon = location.getLongitude();
+        }
+        this.timestamp = timestamp.getTime();
     }
 
-    public QRCode(String qrHash, Map<String, Object> data) {
-        this.qrHashHex = qrHash;
-        this.qrName = (String) data.get("name");
-        this.qrScore = Math.toIntExact((Long) data.get("score"));
-    }
-
+    /**
+     * Initialize an empty QR code.
+     * Called by Firestore toObject()
+     */
     public QRCode() {
 
     }
 
-
-    // THE FOLLOWING TWO FUNCTIONS COME FROM: https://www.geeksforgeeks.org/sha-256-hash-in-java/ and https://www.baeldung.com/sha-256-hashing-java
-    // TODO: Deal with all the licensing stuff for these functions
+    /**
+     * Hash a string to a byte array using SHA256
+     *
+     * From: <a href="https://www.geeksforgeeks.org/sha-256-hash-in-java/">...</a>
+     * and <a href="https://www.baeldung.com/sha-256-hashing-java">...</a>
+     *
+     * @param inputString The string to hash
+     * @return The hashed byte array
+     * @throws NoSuchAlgorithmException Invalid hash algorithm
+     */
     private byte[] hashStringToBytes(String inputString) throws NoSuchAlgorithmException {
+        // TODO: Deal with all the licensing stuff for these functions
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         return md.digest(inputString.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Convert byte array to hex string.
+     *
+     * From: <a href="https://www.geeksforgeeks.org/sha-256-hash-in-java/">...</a>
+     * and <a href="https://www.baeldung.com/sha-256-hashing-java">...</a>
+     *
+     * @param byteArray The byte array to convert
+     * @return The hex string
+     */
     private String convertByteArrayToHexString(byte[] byteArray) {
         StringBuilder hexString = new StringBuilder(2 * byteArray.length);
         for (int i = 0; i < byteArray.length; i++) {
@@ -74,6 +116,13 @@ public class QRCode extends Entity {
         return hexString.toString();
     }
 
+    /**
+     * Generate name from hash hex.
+     * Not guaranteed to be unique.
+     * @param qrHashHex The hash of the QR code
+     * @param qrScore The score of the QR code
+     * @return The name of the QR code
+     */
     private String generateName(char[] qrHashHex, int qrScore) {
         String newName = "";
         // The military rank is based on the score of the QR code
@@ -174,14 +223,25 @@ public class QRCode extends Entity {
         return newName;
     }
 
+    /**
+     * Create the visual representation of the QR code.
+     * Not yet implemented.
+     * @param qrHash The QR code hash string
+     * @return The visual representation of the QR code
+     */
     private QrVisual generateVisual(String qrHash) {
         // TODO: Implement this
         //Log.d("QRCODE", "CALLED");
         return null;
     }
 
+    /**
+     * Calculate the score for the QR code.
+     * Based on the algorithm presented in the project description.
+     * @param qrHashHex The QR code hash
+     * @return The score
+     */
     private int generateScore(char[] qrHashHex) {
-        // TODO: Implement this
 
         int prevHex = -1;
         int newHex = -1;
@@ -214,45 +274,46 @@ public class QRCode extends Entity {
         return score;
     }
 
-
-    // Setters
+    /* ************************************* Getters **********************************************/
+    // Anything stored in the database needs a getter and a setter
     // TODO: Decide whether we need to keep all of these getters (ex getHash())
     public String getHash() {
-        return this.qrHashHex;
+        return this.hash;
     }
     public int getScore() {
-        return this.qrScore;
+        return this.score;
     }
 
+    @Override
     public String getID() {
-        return this.user+this.qrHashHex;
+        return this.user+this.hash;
     }
 
     public String getName() {
-        return this.qrName;
+        return this.name;
     }
 
+    public long getTimestamp() {
+        return this.timestamp;
+    }
+
+    public double getLat() {
+        return this.lat;
+    }
+
+    public QrVisual getVisual() {
+        return this.qrMonster;
+    }
 
     public String getUser() {
         return this.user;
     }
-    public void setUser(String user) {
-        this.user = user;
+
+    public double getLon() {
+        return this.lon;
     }
 
-    public void setName(String name) {
-        this.qrName = name;
-    }
-
-    public void setScore(int score) {
-        this.qrScore = score;
-    }
-
-    public void setHash(String hash) {
-        this.qrHashHex = hash;
-    }
-    public QrVisual getVisual() {
-        return this.qrMonster;
-    }
+    // TODO: Refactor tests to not require this. e.g. MockCode
+    public void setScore(int score) {this.score = score;}
 }
 

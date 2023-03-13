@@ -58,6 +58,7 @@ public class Database {
      */
     public void getUserCodes(User user, QueryListener<QRCode> listener) {
         QR_CODES.whereEqualTo(QRCode.USER_FIELD, user.getName())
+                .orderBy(QRCode.TIME_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
@@ -70,7 +71,8 @@ public class Database {
      * @param listener
      */
     public void getNearbyCodes(double lat, double lon, QueryListener<QRCode> listener) {
-        // TODO: Implement location queries
+        QR_CODES.get()
+                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
 
     /**

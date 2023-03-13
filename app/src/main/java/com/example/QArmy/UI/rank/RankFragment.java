@@ -1,26 +1,23 @@
-package com.example.QArmy;
+package com.example.QArmy.UI.rank;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentTransaction;
 
 
+import com.example.QArmy.model.PlayerList;
+import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.User;
-import com.google.android.gms.tasks.Task;
 
 import java.util.List;
-import java.util.Locale;
 
 public class RankFragment extends Fragment{
 
@@ -34,7 +31,7 @@ public class RankFragment extends Fragment{
 
         db = new Database();
         listener = new RankListener();
-        user = new User("kai");
+        user = new User("kai", "", "");
 
 
     }

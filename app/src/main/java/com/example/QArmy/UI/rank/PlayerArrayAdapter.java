@@ -1,28 +1,23 @@
-package com.example.QArmy;
+package com.example.QArmy.UI.rank;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.QArmy.model.PlayerList;
+import com.example.QArmy.R;
+import com.example.QArmy.TView;
 import com.example.QArmy.db.Database;
-import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import java.util.ArrayList;
 
 
-public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<PlayerList>{
+public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<PlayerList> {
     private PlayerList playerList;
     private Database db;
     public PlayerArrayAdapter(Context context, PlayerList playerList, Database db) {
