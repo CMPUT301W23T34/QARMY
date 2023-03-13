@@ -12,10 +12,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * Provide tests for the QRList class.
+ * @author Jessica Emereonye
+ * @version 1.0
+ * @see EditProfileActivity
+ */
 public class TestEditProfile {
-    private DatabaseReference mockDBReference;
-    private FirebaseUser mockUser;
 
     private EditProfileActivity editProfileActivity;
 
@@ -26,8 +29,10 @@ public class TestEditProfile {
         intent.putExtra("email", "johndoe@example.com");
         intent.putExtra("phone", "1234567890");
     }
-
-
+    
+    /**
+     * Test that user is entering valid input
+     */
     @Test
     public void testValidInput() {
         // Find UI elements
@@ -36,39 +41,35 @@ public class TestEditProfile {
         EditText edit_phone = editProfileActivity.findViewById(R.id.edit_phone);
         Button save_button = editProfileActivity.findViewById(R.id.save_button);
 
-        // Update user information in UI elements
         edit_name.setText("Jane Doe");
         edit_email.setText("janedoe@example.com");
         edit_phone.setText("0987654321");
 
-        // Click Save button
         save_button.performClick();
     }
+    /**
+     * Test for no input by user
+     */
+    
     @Test
     public void testEmptyInput() {
-        // Find UI elements
         EditText edit_name = editProfileActivity.findViewById(R.id.edit_name);
         EditText edit_email = editProfileActivity.findViewById(R.id.edit_email);
         EditText edit_phone = editProfileActivity.findViewById(R.id.edit_phone);
         Button save_button = editProfileActivity.findViewById(R.id.save_button);
 
-        // Update user information in UI elements with empty name
         edit_name.setText("");
         edit_email.setText("janedoe@example.com");
         edit_phone.setText("0987654321");
 
-        // Click Save button
         save_button.performClick();
 
-        // Verify that the email field has an error message
         Assert.assertTrue(edit_email.getError() != null);
         Assert.assertEquals("Invalid email", edit_email.getError().toString());
 
-        // Verify that the name field has an error message
         Assert.assertTrue(edit_name.getError() != null);
         Assert.assertEquals("Name is required", edit_name.getError().toString());
 
-        // Verify that the phone field has an error message
         Assert.assertTrue(edit_phone.getError() != null);
         Assert.assertEquals("Invalid phone number", edit_phone.getError().toString());
     }
