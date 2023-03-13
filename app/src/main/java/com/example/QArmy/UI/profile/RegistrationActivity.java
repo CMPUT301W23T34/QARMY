@@ -121,6 +121,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                                             public void onSuccess(Void aVoid) {
                                                                 Log.e("RegistrationActivity", "DocumentSnapshot successfully written!");
                                                                 // save created account to shared preferences
+                                                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
                                                                 MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
                                                                         usernameInput,
                                                                         email_phoneInput,

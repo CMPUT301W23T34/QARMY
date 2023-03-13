@@ -147,7 +147,7 @@ public class QRListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (user == null) {
+        if (user == null || user.getName().length() == 0) {
             user = ((MainActivity) getActivity()).getUser();
         }
         db.getUserCodes(user, listener);

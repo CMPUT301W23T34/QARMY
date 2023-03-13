@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (user == null) {
+        if (user == null || user.getName().length() == 0) {
             user = ((QArmy) getApplication()).getUser();
         }
     }
