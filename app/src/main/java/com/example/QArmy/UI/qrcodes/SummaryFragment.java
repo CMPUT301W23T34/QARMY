@@ -31,6 +31,7 @@ import java.util.Locale;
 
 /**
  * Displays the total, min, max, and number of scores from a list of QR codes.
+ * A simple {@link Fragment} subclass.
  * @author Kai Luedemann
  * @version 1.0
  */
@@ -40,6 +41,10 @@ public class SummaryFragment extends Fragment implements TView<QRList> {
     private TextView minView;
     private TextView totalView;
     private TextView countView;
+
+    public SummaryFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Initialize the fragment.
@@ -66,6 +71,8 @@ public class SummaryFragment extends Fragment implements TView<QRList> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_summary, container, false);
     }
 

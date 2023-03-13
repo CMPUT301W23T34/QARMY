@@ -1,3 +1,4 @@
+package com.example.QArmy.UI;
 
 /*
  * Map Fragment
@@ -15,8 +16,6 @@
 
 
 
-package com.example.QArmy.UI;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -30,6 +29,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+
+import com.example.QArmy.R;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;

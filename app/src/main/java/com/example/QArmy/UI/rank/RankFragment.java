@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
@@ -29,9 +30,7 @@ public class RankFragment extends Fragment{
 
     public RankFragment(){
 
-        db = new Database();
-        listener = new RankListener();
-        user = new User("kai", "", "");
+
 
 
     }
@@ -46,6 +45,9 @@ public class RankFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         playerList = new PlayerList();
+        db = new Database();
+        listener = new RankListener();
+        user = ((MainActivity) getActivity()).getUser();
 
         ListView rankList = getView().findViewById(R.id.rank_list);
         PlayerArrayAdapter playerArrayAdapter = new PlayerArrayAdapter(getContext(), playerList, db);
