@@ -102,7 +102,7 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
 
         if (clickListener != null) {
             Constants.setQrCode(qrCode);
-            view.setContentDescription(qrCode.getName());
+            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
             view.setOnClickListener(clickListener);
         }
 
