@@ -2,11 +2,11 @@ package com.example.QArmy;
 
 import static org.junit.Assert.assertTrue;
 
-import android.app.Activity;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.QArmy.UI.MainActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;

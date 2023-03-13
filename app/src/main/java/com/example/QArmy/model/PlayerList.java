@@ -1,4 +1,4 @@
-package com.example.QArmy;
+package com.example.QArmy.model;
 
 import com.example.QArmy.TModel;
 import com.example.QArmy.TView;
