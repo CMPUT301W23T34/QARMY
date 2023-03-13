@@ -1,3 +1,5 @@
+package com.example.QArmy.UI;
+
 /*
  * Map Fragment
  *
@@ -12,7 +14,7 @@
  * -ycuicui, 2017-11-22, https://github.com/osmdroid/osmdroid/issues/771
  */
 
-package com.example.QArmy.UI;
+
 
 import android.content.Context;
 import android.content.pm.PackageManager;
