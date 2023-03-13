@@ -13,8 +13,6 @@ import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.User;
 
 public class UserProfileActivity extends AppCompatActivity {
-    
-    private User current_user;
 
     // UI elements
     private TextView text_name;
@@ -28,8 +26,6 @@ public class UserProfileActivity extends AppCompatActivity {
     private String email;
     private String phone;
     private String deviceId;
-
-    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +76,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            // Get the updated user information from EditProfileActivity
+            // Get the updated user information
             name = data.getStringExtra("name");
             email = data.getStringExtra("email");
             phone = data.getStringExtra("phone");
