@@ -33,23 +33,36 @@ public class QRCodeVisualRepActivity extends AppCompatActivity {
 
     private Database db = new Database();
 
+    /**
+     * Oncreate method is called when the activity is created so we can set
+     * the content view
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_visual_rep);
 
-        String qrCodeId = getIntent().getStringExtra("Object");
+        String temp = getIntent().getStringExtra("Object");
+
+        String[] array = temp.split(",");
+        String name = array[0];
+        String score = array[1];
 
         if (qrCode == null) {
             qrCode = new QRCode();
         }
 
         nameTextView = findViewById(R.id.name_textView);
+        nameTextView.setText(name);
 
         imageView = findViewById(R.id.imageView);
         geoLocationTextView = findViewById(R.id.textView);
         textualRepresentationTextView = findViewById(R.id.textView4);
         scoreButton = findViewById(R.id.button);
+
+        scoreButton.setText("Score: " + score);
 
         userImageView = findViewById(R.id.users_image_view);
         commentsImageView = findViewById(R.id.comments_image_view);
@@ -104,20 +117,21 @@ public class QRCodeVisualRepActivity extends AppCompatActivity {
 
         monsterTextView.setText(stringBuilder.toString());
 
-        populateData();
-
         commentsImageView.setOnClickListener(view -> {
             Intent intent = new Intent(QRCodeVisualRepActivity.this, CommentsActivity.class);
-            intent.putExtra("Object", qrCodeId);
+            intent.putExtra("Object", temp);
             startActivity(intent);
         });
     }
-
+    /**
+     * This method takes a character as an input and returns
+     * true or false if the character is 0 it means the bit is false
+     * if the character is 1 then it means its true.
+     * @param ch the character
+     * @return true or false
+     */
     private boolean charToBoolean(char ch) {
         return ch != '0';
     }
 
-    private void populateData() {
-        nameTextView.setText("Lieutenant Maroon Petite Cocky Dog");
-    }
 }

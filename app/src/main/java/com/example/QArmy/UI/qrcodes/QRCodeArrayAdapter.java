@@ -57,6 +57,13 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         this.clickListener = clickListener;
     }
 
+    public QRCodeArrayAdapter(Context context, QRList qrList, Database db, View.OnClickListener clickListener) {
+        super(context, 0, qrList.getList());
+        this.db = db;
+        this.qrList = qrList;
+        this.clickListener = clickListener;
+    }
+
     /** Creates a view to display the list of QR Codes
      *
      * Note: Code modified from CMPUT 301 Assignment 1 - MyCarFootprint
