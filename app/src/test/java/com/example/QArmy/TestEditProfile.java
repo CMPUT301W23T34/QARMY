@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Provide tests for the QRList class.
+ * Provide tests for the EditProfileActivity.
  * @author Jessica Emereonye
  * @version 1.0
  * @see EditProfileActivity
