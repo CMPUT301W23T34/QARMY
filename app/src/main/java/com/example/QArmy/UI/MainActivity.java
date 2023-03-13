@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Shared Preferences
-        User user = MySharedPreferences.loadUserProfile(this);
+        user = MySharedPreferences.loadUserProfile(this);
         Log.d("Main", user.getName());
         if (user.getName().equals("")) {
             Intent intent = new Intent(this, RegistrationActivity.class);
@@ -200,4 +200,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     });
+
+    public User getUser() {
+        return user;
+    }
 }

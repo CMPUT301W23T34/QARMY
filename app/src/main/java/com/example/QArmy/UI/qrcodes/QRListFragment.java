@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
@@ -73,7 +74,7 @@ public class QRListFragment extends Fragment {
 
         db = new Database();
         listener = new QRListener();
-        user = new User("kai", "", "");
+        user = ((MainActivity) getActivity()).getUser();
         qrList = new QRList();
 
         ListView qrCodeList = view.findViewById(R.id.qr_code_list);
