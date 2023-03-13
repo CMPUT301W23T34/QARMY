@@ -3,7 +3,7 @@ package com.example.QArmy.model;
 /**
  * Represent a comment
  * Contains username and message of the comment
- * @author Yasmin Ghaznav
+ * @author Yasmin Ghaznavian
  */
 public class UserComments {
 

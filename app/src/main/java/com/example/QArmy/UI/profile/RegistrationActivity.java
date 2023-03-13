@@ -24,6 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the registration page for new users
+ * @author Jessica
+ */
 public class RegistrationActivity extends AppCompatActivity {
     private EditText email_or_phone;
     private EditText username;
@@ -32,16 +36,28 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
-    // Email validation method
+    /**
+     * Checks whether a new email is valid
+     * @param target The new email the user is attempting to add
+     * @return Whether or not this email already exists in the database
+     */
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
-    // Phone number validation method
+    /**
+     * Checks whether a new phone number is valid
+     * @param target The new phone number the user is attempting to add
+     * @return Whether or not this phone number already exists in the database
+     */
     public static boolean isValidPhoneNumber(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.PHONE.matcher(target).matches());
     }
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

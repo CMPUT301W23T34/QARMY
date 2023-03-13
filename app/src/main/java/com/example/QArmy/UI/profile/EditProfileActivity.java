@@ -20,6 +20,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * The activity that allows a user to edit their profile settings
+ * @author Jessica
+ */
 public class EditProfileActivity extends AppCompatActivity {
     private Database db;
 
@@ -35,6 +39,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private String email;
     private String phone;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

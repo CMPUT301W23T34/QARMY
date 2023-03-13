@@ -13,7 +13,11 @@ import com.example.QArmy.R;
 import com.example.QArmy.model.User;
 
 
-// UserProfileActivity.java
+/**
+ * Activity representing the user profile screen
+ * @author Yasmin Ghaznavian
+ * @author Kai Luedemann
+ */
 public class UserProfileActivity extends AppCompatActivity {
     // Firebase
     private User current_user;
@@ -32,6 +36,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private User currentUser;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +87,9 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Update the user profile with new values
+     */
     public void updateValues() {
         User user = ((QArmy) getApplication()).getUser();
         name = user.getName();
@@ -90,6 +101,9 @@ public class UserProfileActivity extends AppCompatActivity {
         text_phone.setText(phone);
     }
 
+    /**
+     * Resumes the activity, updating the values (after the EditProfileActivity ends)
+     */
     @Override
     protected void onResume() {
         super.onResume();
