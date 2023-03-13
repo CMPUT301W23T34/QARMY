@@ -239,7 +239,7 @@ public class QRCode extends Entity {
      */
     private QRVisual generateVisual(String qrHash) {
         // TODO: Implement this
-        Log.d("QRCODE", "CALLED");
+        //Log.d("QRCODE", "CALLED");
         return null;
     }
 
