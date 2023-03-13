@@ -16,6 +16,9 @@ package com.example.QArmy.model;
 
 import android.location.Location;
 import android.media.Image;
+import android.util.Log;
+
+import com.example.QArmy.UI.qrcodes.QRVisual;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -42,7 +45,7 @@ public class QRCode extends Entity {
     private Image image;
     private int score;
     private String name;
-    private QrVisual qrMonster;
+    private QRVisual qrMonster;
     private long timestamp;
     private String user;
 
@@ -60,6 +63,7 @@ public class QRCode extends Entity {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
         }
 
+        this.image = image;
         this.score = generateScore(hash.toCharArray());
         this.name = generateName(hash.toCharArray(), score);
         this.qrMonster = generateVisual(hash);
@@ -77,6 +81,10 @@ public class QRCode extends Entity {
      */
     public QRCode() {
 
+    }
+
+    public QRCode(String s, Object o, Object o1, Object o2) {
+        super();
     }
 
     /**
@@ -229,7 +237,7 @@ public class QRCode extends Entity {
      * @param qrHash The QR code hash string
      * @return The visual representation of the QR code
      */
-    private QrVisual generateVisual(String qrHash) {
+    private QRVisual generateVisual(String qrHash) {
         // TODO: Implement this
         //Log.d("QRCODE", "CALLED");
         return null;
@@ -301,7 +309,7 @@ public class QRCode extends Entity {
         return this.lat;
     }
 
-    public QrVisual getVisual() {
+    public QRVisual getVisual() {
         return this.qrMonster;
     }
 

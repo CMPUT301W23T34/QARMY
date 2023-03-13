@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
@@ -73,12 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Shared Preferences
-        User user = MySharedPreferences.loadUserProfile(this);
+        user = MySharedPreferences.loadUserProfile(this);
         Log.d("Main", user.getName());
         if (user.getName().equals("")) {
             Intent intent = new Intent(this, RegistrationActivity.class);
             startActivity(intent);
+            user = null;
         }
+
         db = new Database();
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
@@ -163,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openProfile() {
         Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+        intent.putExtra("name", user.getName());
+        intent.putExtra("email", user.getEmail());
+        intent.putExtra("phone", user.getPhone());
+        intent.putExtra("id", user.getUniqueID());
         startActivity(intent);
     }
 
@@ -193,11 +200,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             QRCode code = new QRCode(result.getContents(), user, location, new Date());
+            if (code.getScore() > user.getScore()) {
+                user.setScore(code.getScore());
+            }
             db.addQRCode(code, task -> {
-                if (!task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     //Log.d("Main", "Error adding QR code");
                 }
             });
+            db.addUser(user, task -> {
+
+            });
         }
     });
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (user == null || user.getName().length() == 0) {
+            user = ((QArmy) getApplication()).getUser();
+        }
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

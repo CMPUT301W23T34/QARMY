@@ -8,11 +8,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.model.User;
 
 
-// UserProfileActivity.java
+/**
+ * Activity representing the user profile screen
+ * @author Yasmin Ghaznavian
+ * @author Kai Luedemann
+ */
 public class UserProfileActivity extends AppCompatActivity {
     // Firebase
     private User current_user;
@@ -31,6 +36,10 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private User currentUser;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +48,14 @@ public class UserProfileActivity extends AppCompatActivity {
         // Initialize Firebase
 //        db_reference = FirebaseDatabase.getInstance().getReference();
 //        current_user = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent = getIntent();
-        name = intent.getStringExtra("name");
-        email = intent.getStringExtra("email");
-        phone = intent.getStringExtra("phone");
-        deviceId = intent.getStringExtra("id");
-
-        String score = "";
-        User user = new User(name, email, phone, score, deviceId);
+//        Intent intent = getIntent();
+//        name = intent.getStringExtra("name");
+//        email = intent.getStringExtra("email");
+//        phone = intent.getStringExtra("phone");
+//        deviceId = intent.getStringExtra("id");
+//
+//        String score = "";
+//        User user = new User(name, email, phone, score, deviceId);
 
         //User user = MySharedPreferences.loadUserProfile(this);
 
@@ -56,11 +65,11 @@ public class UserProfileActivity extends AppCompatActivity {
         text_phone = findViewById(R.id.text_phone);
         edit_button = findViewById(R.id.edit_button);
 
+        updateValues();
+
         // Load user info from Firebase Realtime Database
 
-        text_name.setText(name);
-        text_email.setText(email);
-        text_phone.setText(phone);
+
         // Set click listener for Edit button
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +85,29 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * Update the user profile with new values
+     */
+    public void updateValues() {
+        User user = ((QArmy) getApplication()).getUser();
+        name = user.getName();
+        email = user.getEmail();
+        phone = user.getPhone();
+
+        text_name.setText(name);
+        text_email.setText(email);
+        text_phone.setText(phone);
+    }
+
+    /**
+     * Resumes the activity, updating the values (after the EditProfileActivity ends)
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateValues();
     }
 }
 

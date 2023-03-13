@@ -11,16 +11,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.gms.tasks.Task;
 
+/**
+ * The activity that allows a user to edit their profile settings
+ * @author Jessica Emereonye
+ */
 public class EditProfileActivity extends AppCompatActivity {
-    private DatabaseReference db_reference;
-    private FirebaseUser current_user;
+    private Database db;
 
 
     // UI Elements
@@ -34,10 +39,16 @@ public class EditProfileActivity extends AppCompatActivity {
     private String email;
     private String phone;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        db = new Database();
 
         // Retrieve user information from Intent extras
         Intent intent = getIntent();
@@ -55,6 +66,8 @@ public class EditProfileActivity extends AppCompatActivity {
         edit_name.setText(name);
         edit_email.setText(email);
         edit_phone.setText(phone);
+
+        edit_name.setEnabled(false);
 
         // Set click listener for Save button
         save_button.setOnClickListener(new View.OnClickListener() {
@@ -83,24 +96,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 // Update user info in Firebase Realtime Database
                 User updatedUser = new User(name, email, phone);
-                db_reference.child("users").child(current_user.getUid()).setValue(updatedUser)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.addUser(updatedUser, new OnCompleteListener<Void>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
-                                // go back to profile page
-                                Intent intent = new Intent(EditProfileActivity.this, UserProfileActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
-                                // go back to profile page
-                                Intent intent = new Intent(EditProfileActivity.this, UserProfileActivity.class);
-                                startActivity(intent);
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
+                                    ((QArmy) getApplication()).setUser(updatedUser);
+                                    MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
+                                } else {
+                                    Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
+                                }
                                 finish();
                             }
                         });

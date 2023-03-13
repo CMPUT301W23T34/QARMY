@@ -35,11 +35,14 @@ import java.util.Locale;
  * Provide views to represent QR codes in a ListView.
  * @author Brett Merkosky
  * @author Kai Luedemann
+ * @author Yasmin Ghaznavian
  * @version 1.0
  */
 public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QRList> {
     private final QRList qrList;
     private final Database db;
+
+    private View.OnClickListener clickListener;
 
     /**
      * Initialize the adapter.
@@ -51,6 +54,14 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         super(context, 0, qrList.getList());
         this.db = db;
         this.qrList = qrList;
+        this.clickListener = clickListener;
+    }
+
+    public QRCodeArrayAdapter(Context context, QRList qrList, Database db, View.OnClickListener clickListener) {
+        super(context, 0, qrList.getList());
+        this.db = db;
+        this.qrList = qrList;
+        this.clickListener = clickListener;
     }
 
     /** Creates a view to display the list of QR Codes
@@ -88,6 +99,13 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
                 qrList.remove(qrCode);
             }
         }));
+
+        if (clickListener != null) {
+            Constants.setQrCode(qrCode);
+            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
+            view.setOnClickListener(clickListener);
+        }
+
         return view;
     }
 
