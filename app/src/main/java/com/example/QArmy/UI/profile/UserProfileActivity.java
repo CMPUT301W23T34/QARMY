@@ -13,9 +13,8 @@ import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.User;
 
 
-// UserProfileActivity.java
 public class UserProfileActivity extends AppCompatActivity {
-    // Firebase
+   
     private User current_user;
 
     // UI Elements
@@ -51,7 +50,7 @@ public class UserProfileActivity extends AppCompatActivity {
         text_phone = findViewById(R.id.text_phone);
         edit_button = findViewById(R.id.edit_button);
 
-        // Load user info from Firebase Realtime Database
+        // Load user info from Database
         text_name.setText(name);
         text_email.setText(email);
         text_phone.setText(phone);
@@ -59,10 +58,10 @@ public class UserProfileActivity extends AppCompatActivity {
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to start EditProfileActivity
+                // start EditProfileActivity
                 Intent intent = new Intent(UserProfileActivity.this, EditProfileActivity.class);
 
-                // Pass the current user information to EditProfileActivity using Intent extras
+                // Pass the current user information to EditProfileActivity
                 intent.putExtra("name", name);
                 intent.putExtra("email", email);
                 intent.putExtra("phone", phone);
