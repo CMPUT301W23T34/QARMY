@@ -7,6 +7,7 @@ import com.example.QArmy.model.User;
 
 public class MySharedPreferences {
     private static final String USER_PROFILE_PREFS = "user_profile_prefs";
+    private static final String QR_CODE_PREFS = "qr_code_prefs";
     private static final String DEVICE_ID_PREFERENCE = "device_id_prefs";
 
     public static void saveUserProfile(Context context, User user) {
@@ -30,6 +31,18 @@ public class MySharedPreferences {
         String score = sharedPreferences.getString("score", "");
         String uniqueID = sharedPreferences.getString("uniqueID", "");
         return new User(name, email, phone, score, uniqueID);
+    }
+
+    public static void saveQRCode(Context context, String qrCode) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(QR_CODE_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("qrCode", qrCode);
+        editor.apply();
+    }
+
+    public static String loadQRCode(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(QR_CODE_PREFS, Context.MODE_PRIVATE);
+        return sharedPreferences.getString("qrCode", "");
     }
 
     public static Object getDeviceID(Context applicationContext) {
