@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.User;
 
 
@@ -22,6 +23,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView text_email;
     private TextView text_phone;
     private Button edit_button;
+    private Button home_button;
 
     // User Info
     private String name;
@@ -29,16 +31,11 @@ public class UserProfileActivity extends AppCompatActivity {
     private String phone;
     private String deviceId;
 
-    private User currentUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        // Initialize Firebase
-//        db_reference = FirebaseDatabase.getInstance().getReference();
-//        current_user = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         email = intent.getStringExtra("email");
@@ -48,8 +45,6 @@ public class UserProfileActivity extends AppCompatActivity {
         String score = "";
         User user = new User(name, email, phone, score, deviceId);
 
-        //User user = MySharedPreferences.loadUserProfile(this);
-
         // Initialize UI Elements
         text_name = findViewById(R.id.text_name);
         text_email = findViewById(R.id.text_email);
@@ -57,7 +52,6 @@ public class UserProfileActivity extends AppCompatActivity {
         edit_button = findViewById(R.id.edit_button);
 
         // Load user info from Firebase Realtime Database
-
         text_name.setText(name);
         text_email.setText(email);
         text_phone.setText(phone);
@@ -76,6 +70,21 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to start EditProfileActivity
+                Intent intent = new Intent(UserProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
+
+
+
+
+
+
 

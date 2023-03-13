@@ -1,8 +1,5 @@
 package com.example.QArmy.UI.profile;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
 import com.example.QArmy.model.User;
@@ -22,12 +22,12 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatabaseReference db_reference;
     private FirebaseUser current_user;
 
-
     // UI Elements
     private EditText edit_name;
     private EditText edit_email;
     private EditText edit_phone;
     private Button save_button;
+    private Button home_button1;
 
     // User Info
     private String name;
@@ -83,7 +83,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 // Update user info in Firebase Realtime Database
                 User updatedUser = new User(name, email, phone);
-                db_reference.child("users").child(current_user.getUid()).setValue(updatedUser)
+                db_reference.child("Players").child(current_user.getUid()).setValue(updatedUser)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -106,5 +106,16 @@ public class EditProfileActivity extends AppCompatActivity {
                         });
             }
         });
+        // Set click listener for Home button
+        home_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
+
+
+

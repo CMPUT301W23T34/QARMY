@@ -33,23 +33,7 @@ public class MySharedPreferences {
         return new User(name, email, phone, score, uniqueID);
     }
 
-    public static void saveQRCode(Context context, String qrCode) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(QR_CODE_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("qrCode", qrCode);
-        editor.apply();
-    }
-
-    public static String loadQRCode(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(QR_CODE_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("qrCode", "");
-    }
-
     public static Object getDeviceID(Context applicationContext) {
         return applicationContext.getSharedPreferences(DEVICE_ID_PREFERENCE, Context.MODE_PRIVATE).getString("deviceId", "");
     }
 }
-
-
-
-

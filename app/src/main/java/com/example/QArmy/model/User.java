@@ -48,7 +48,7 @@ public class User extends Entity {
 
     }
 
-    public User(String name, String email, String phone, String score, String uniqueID) {
+    public User(String name, String email, String phone, String uniqueID) {
         this.name = name;
 
         this.email = email;
@@ -59,6 +59,10 @@ public class User extends Entity {
 
         this.uniqueID = uniqueID;
 
+    }
+
+    public User(String name, String email, String phone, String score, String uniqueID) {
+        super();
     }
 
     /* *********************************** Getters ************************************************/
