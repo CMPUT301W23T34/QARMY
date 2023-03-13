@@ -39,7 +39,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        // Retrieve user information from Intent extras
+        //get user info
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         email = intent.getStringExtra("email");
@@ -81,7 +81,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Update user info in Firebase Realtime Database
+                // Update user info in Database
                 User updatedUser = new User(name, email, phone);
                 db_reference.child("Players").child(current_user.getUid()).setValue(updatedUser)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -110,7 +110,7 @@ public class EditProfileActivity extends AppCompatActivity {
         home_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this, UserProfileActivity.class);
+                Intent intent = new Intent(EditProfileActivity.this, RegistrationActivity.class);
                 startActivity(intent);
             }
         });
