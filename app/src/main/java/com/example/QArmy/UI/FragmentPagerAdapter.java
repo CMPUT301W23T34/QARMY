@@ -10,7 +10,7 @@ import com.example.QArmy.UI.rank.RankFragment;
 
 
 /**
- * Adapter to manage the three fragments on the main activity
+ * Controls the ViewPager's behaviour, allowing us to switch between fragments on the main activity
  * @author Japkirat Kaur
  */
 public class FragmentPagerAdapter extends FragmentStateAdapter {
@@ -39,8 +39,8 @@ public class FragmentPagerAdapter extends FragmentStateAdapter {
     }
 
     /**
-     * Get the number of fragments managed by this adapter
-     * @return The number of fragments managed by the adapter
+     * Get the number of fragments controlled by the ViewPager
+     * @return The number of fragments controlled by the ViewPager
      */
     @Override
     public int getItemCount() {
