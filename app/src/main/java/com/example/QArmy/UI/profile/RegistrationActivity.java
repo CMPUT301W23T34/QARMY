@@ -15,7 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,17 +29,16 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity {
     private EditText email_or_phone;
     private EditText username;
-
     private Button register_button;
 
     private FirebaseFirestore db;
 
-    // Email validation method
+    // Email validation
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
-    // Phone number validation method
+    // Phone number validation
     public static boolean isValidPhoneNumber(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.PHONE.matcher(target).matches());
     }
@@ -46,6 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        // Initialize Firebase Auth and Database references
 
         db = FirebaseFirestore.getInstance();
 
@@ -91,24 +93,23 @@ public class RegistrationActivity extends AppCompatActivity {
                                 userObject.put("email", email_phoneInput);
                                 userObject.put("userName", usernameInput);
                                 userObject.put("deviceID", deviceID);
+                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
 
                                 db.collection("Players").document(usernameInput)
                                         .set(userObject)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.e("RegistrationActivity", "Registration was successful.");
+                                                Log.e("RegistrationActivity", "Registration Complete.");
+                                                // save created account to shared preferences
                                                 MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
-                                                        email_phoneInput,
                                                         usernameInput,
+                                                        email_phoneInput,
+                                                        "",
                                                         "100",
                                                         deviceID
                                                 ));
 
-                                                Intent intent = new Intent(RegistrationActivity.this, UserProfileActivity.class);
-                                                intent.putExtra("name", usernameInput);
-                                                intent.putExtra("email", email_phoneInput);
-                                                startActivity(intent);
                                                 finish();
 
                                             }
@@ -116,12 +117,12 @@ public class RegistrationActivity extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.e("RegistrationActivity", "Could not process registration.", e);
+                                                Log.e("RegistrationActivity", "Registration failed.", e);
                                             }
                                         });
                             }
                         });
-//
+
             }
         });
 
