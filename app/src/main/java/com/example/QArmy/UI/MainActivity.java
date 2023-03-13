@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
@@ -37,6 +38,8 @@ import com.example.QArmy.model.User;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -78,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
         if (user.getName().equals("")) {
             Intent intent = new Intent(this, RegistrationActivity.class);
             startActivity(intent);
+            user = null;
         }
+
         db = new Database();
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
@@ -193,13 +198,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             QRCode code = new QRCode(result.getContents(), user, location, new Date());
+            user.updateScore(code.getScore());
             db.addQRCode(code, task -> {
-                if (!task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     //Log.d("Main", "Error adding QR code");
                 }
             });
+            db.addUser(user, task -> {
+
+            });
         }
     });
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (user == null) {
+            user = ((QArmy) getApplication()).getUser();
+        }
+    }
 
     public User getUser() {
         return user;

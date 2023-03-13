@@ -16,6 +16,8 @@ import com.example.QArmy.TView;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 
+import java.util.Locale;
+
 
 public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<PlayerList> {
     private PlayerList playerList;
@@ -43,7 +45,7 @@ public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<Play
         TextView playerName = view.findViewById(R.id.player_name);
         TextView playerScore = view.findViewById(R.id.player_score);
 
-        playerName.setText(player.getName());
+        playerName.setText(String.format(Locale.CANADA, "%d. %s", position+1, player.getName()));
         playerScore.setText("Score: "+Integer.toString(player.getScore()));
 
         return view;

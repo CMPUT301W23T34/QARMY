@@ -46,6 +46,8 @@ public class User extends Entity {
 
         this.phone = phone;
 
+        this.score = 0;
+
     }
 
     public User(String name, String email, String phone, String score, String uniqueID) {
@@ -55,6 +57,7 @@ public class User extends Entity {
 
         this.phone = phone;
 
+        this.score = 0;
        // this.score = Integer.parseInt(score);
 
         this.uniqueID = uniqueID;
@@ -100,5 +103,11 @@ public class User extends Entity {
         String email = (String) map.get("email");
         String phone = (String) map.get("phone");
         return new User(name, email, phone);
+    }
+
+    public void updateScore(int score) {
+        if (score > this.score) {
+            this.score = score;
+        }
     }
 }

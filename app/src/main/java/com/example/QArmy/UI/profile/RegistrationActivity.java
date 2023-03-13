@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -110,6 +111,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                                 userObject.put("userName", usernameInput);
                                                 userObject.put("password", passwordInput);
                                                 userObject.put("deviceID", deviceID);
+                                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
+
 
                                                 db.collection("Players").document(usernameInput)
                                                         .set(userObject)
@@ -119,9 +122,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                                                 Log.e("RegistrationActivity", "DocumentSnapshot successfully written!");
                                                                 // save created account to shared preferences
                                                                 MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
-                                                                        email_phoneInput,
                                                                         usernameInput,
-                                                                        passwordInput,
+                                                                        email_phoneInput,
+                                                                        "",
                                                                         "100",
                                                                         deviceID
                                                                 ));
