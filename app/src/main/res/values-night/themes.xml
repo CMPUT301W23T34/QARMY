@@ -2,15 +2,16 @@
     <!-- Base application theme. -->
     <style name="Theme.QArmy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#4B5320</item>
-        <item name="colorPrimaryVariant">#2D3213</item>
-        <item name="colorOnPrimary">#2B2A28</item>
+        <item name="colorPrimary">@color/QARMYGreen</item>
+        <item name="colorPrimaryVariant">@color/QARMYDarkGreen</item>
+        <item name="colorOnPrimary">@color/QARMYWhite</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#B4A681</item>
-        <item name="colorSecondaryVariant">#504239</item>
-        <item name="colorOnSecondary">#C9CBBC</item>
+        <item name="colorSecondary">@color/QARMYLightBrown</item>
+        <item name="colorSecondaryVariant">@color/QARMYDarkBrown</item>
+        <item name="colorOnSecondary">@color/QARMYBlack</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
