@@ -1,10 +1,13 @@
 package com.example.QArmy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
@@ -26,29 +29,23 @@ import static org.junit.Assert.*;
 
 public class RegistrationActivityTest {
     private Solo solo;
-    private Database database;
-    private String username;
+    private Database database = new Database();
+    private QArmy app;
     @Rule
-    public ActivityTestRule<RegistrationActivity> rule = new ActivityTestRule<>(RegistrationActivity.class, true, true);
+    public ActivityTestRule<RegistrationActivity> rule = new ActivityTestRule<>(RegistrationActivity.class, true, false);
 
     @Before
     public void setUp() {
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        database = new Database();
-    }
-
-    private void setSavedUser(String name) {
-        SharedPreferences sharedPrefs = rule.getActivity().getSharedPreferences("user_profile_prefs", Context.MODE_PRIVATE);
-        username = sharedPrefs.getString("name", "");
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putString("name", name);
-        editor.commit();
+        app = (QArmy) ApplicationProvider.getApplicationContext();
+        //rule.launchActivity(new Intent(Intent.ACTION_MAIN));
     }
 
     @Test
     public void testRegistrationActivity() {
-        setSavedUser("");
-        String testUsername = "test49023840328409328";
+        app.setUser(new User(""));
+        rule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
+        String testUsername = "test21";
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
         solo.enterText((EditText) solo.getView(R.id.username), testUsername);
@@ -56,20 +53,21 @@ public class RegistrationActivityTest {
 
         solo.clickOnButton("Register");
         assertTrue(solo.waitForActivity(MainActivity.class, 2000));
-        database.deleteUser(new User(testUsername), task -> {
-
-        });
     }
 
     @Test
     public void testRegistered() {
-        setSavedUser("test");
-        assertTrue(solo.waitForActivity(MainActivity.class));
+        app.setUser(new User("test"));
+        rule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
+        assertTrue(solo.waitForText("Total"));
     }
 
     @Test
     public void testExistingUser() {
-        setSavedUser("");
+        app.setUser(new User(""));
+        rule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
         solo.enterText((EditText) solo.getView(R.id.username), "kai");
@@ -82,7 +80,7 @@ public class RegistrationActivityTest {
     @After
     public void tearDown() {
         solo.finishOpenedActivities();
-        setSavedUser(username);
+        database.deleteUser(new User("test21"), task -> {});
     }
 
 }

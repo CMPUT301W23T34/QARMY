@@ -1,6 +1,7 @@
 package com.example.QArmy.UI.profile;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -63,6 +65,14 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         // Initialize Firebase Auth and Database references
+
+        User user = ((QArmy) getApplication()).getUser();
+        if (!user.getName().equals("")) {
+            Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 
         db = FirebaseFirestore.getInstance();
 
@@ -152,6 +162,8 @@ public class RegistrationActivity extends AppCompatActivity {
 //                                                                intent.putExtra("password", passwordInput);
 //                                                                intent.putExtra("id", deviceID);
 //                                                                startActivity(intent);
+                                                                Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                                                                startActivity(intent);
                                                                 finish();
 
                                                             }

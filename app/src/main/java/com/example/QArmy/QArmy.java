@@ -33,4 +33,8 @@ public class QArmy extends Application {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Database getDatabase() {
+        return database;
+    }
 }

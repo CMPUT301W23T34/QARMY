@@ -35,7 +35,7 @@ public class User extends Entity {
     }
 
     public User(String testUsername) {
-
+        this.name = testUsername;
     }
 
     /**
