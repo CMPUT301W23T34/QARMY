@@ -30,7 +30,7 @@ public class RegistrationActivityTest {
         solo.enterText((EditText) solo.getView(R.id.username), "test123");
         solo.enterText((EditText) solo.getView(R.id.password), "test");
 
-        solo.clickOnButton("Register");
+        solo.clickOnButton("Enlist");
     }
 
 }
