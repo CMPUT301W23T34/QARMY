@@ -38,6 +38,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Add a comment"
+            android:textColor="@color/QARMYBlack"
             android:padding="8dp" />
 
         <TextView
@@ -45,6 +46,6 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="SUBMIT"
-            android:textColor="@color/green" />
+            android:textColor="@color/QARMYDarkGreen" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
