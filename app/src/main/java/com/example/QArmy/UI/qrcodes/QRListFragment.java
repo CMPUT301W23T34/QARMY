@@ -23,7 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.UI.MainActivity;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
@@ -90,10 +92,16 @@ public class QRListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        db = new Database();
+        AppContainer appContainer = ((QArmy) getActivity().getApplication()).model;
+        db = appContainer.db;
+        user = appContainer.user;
+        qrList = appContainer.qrList;
         listener = new QRListener();
-        user = ((MainActivity) getActivity()).getUser();
-        qrList = new QRList();
+
+//        db = new Database();
+//        listener = new QRListener();
+//        user = ((MainActivity) getActivity()).getUser();
+//        qrList = new QRList();
 
         ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
         QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db, view1 -> {
@@ -147,9 +155,9 @@ public class QRListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (user == null || user.getName().length() == 0) {
-            user = ((MainActivity) getActivity()).getUser();
-        }
+//        if (user == null || user.getName().length() == 0) {
+//            user = ((MainActivity) getActivity()).getUser();
+//        }
         db.getUserCodes(user, listener);
     }
 

@@ -42,6 +42,7 @@ public class RegistrationActivityTest {
 
     @Test
     public void testRegistrationActivity() {
+        database.deleteUser(new User("test21"), task -> {});
         app.setUser(new User(""));
         rule.launchActivity(new Intent(Intent.ACTION_MAIN));
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
@@ -80,7 +81,6 @@ public class RegistrationActivityTest {
     @After
     public void tearDown() {
         solo.finishOpenedActivities();
-        database.deleteUser(new User("test21"), task -> {});
     }
 
 }

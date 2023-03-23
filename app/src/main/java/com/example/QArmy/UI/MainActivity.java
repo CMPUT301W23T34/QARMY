@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.QRCode;
 
 import com.example.QArmy.model.User;
@@ -74,15 +75,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Shared Preferences
-        user = MySharedPreferences.loadUserProfile(this);
-        Log.d("Main", user.getName());
+        //user = MySharedPreferences.loadUserProfile(this);
+        //Log.d("Main", user.getName());
 //        if (user.getName().equals("")) {
 //            Intent intent = new Intent(this, RegistrationActivity.class);
 //            startActivity(intent);
 //            user = null;
 //        }
 
-        db = new Database();
+        //db = new Database();
+
+        AppContainer appContainer = ((QArmy) getApplication()).model;
+        user = appContainer.user;
+        db = appContainer.db;
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -217,12 +222,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (user == null || user.getName().length() == 0) {
-            user = ((QArmy) getApplication()).getUser();
-        }
+//        if (user == null || user.getName().length() == 0) {
+//            user = ((QArmy) getApplication()).getUser();
+//        }
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 }

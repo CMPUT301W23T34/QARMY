@@ -24,7 +24,7 @@ public class QArmy extends Application {
     public void onCreate() {
         super.onCreate();
         model = createModel();
-        //user = MySharedPreferences.loadUserProfile(this);
+        model.user = MySharedPreferences.loadUserProfile(this);
     }
 
     public AppContainer createModel() {

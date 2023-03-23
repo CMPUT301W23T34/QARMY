@@ -67,6 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
         // Initialize Firebase Auth and Database references
 
         User user = ((QArmy) getApplication()).getUser();
+        Log.d("Registration", user.getName());
         if (!user.getName().equals("")) {
             Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
             startActivity(intent);

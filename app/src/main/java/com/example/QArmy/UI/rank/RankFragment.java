@@ -1,5 +1,6 @@
 package com.example.QArmy.UI.rank;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.UI.MainActivity;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
@@ -44,10 +47,16 @@ public class RankFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        playerList = new PlayerList();
-        db = new Database();
+        AppContainer appContainer = ((QArmy) getActivity().getApplication()).model;
+        playerList = appContainer.playerList;
+        db = appContainer.db;
         listener = new RankListener();
-        user = ((MainActivity) getActivity()).getUser();
+        user = appContainer.user;
+
+//        playerList = new PlayerList();
+//        db = new Database();
+//        listener = new RankListener();
+//        user = ((MainActivity) getActivity()).getUser();
 
         ListView rankList = getView().findViewById(R.id.rank_list);
         PlayerArrayAdapter playerArrayAdapter = new PlayerArrayAdapter(getContext(), playerList, db);
