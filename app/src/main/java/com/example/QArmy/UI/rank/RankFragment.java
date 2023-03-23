@@ -1,6 +1,5 @@
 package com.example.QArmy.UI.rank;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.QArmy.QArmy;
-import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
@@ -33,9 +31,6 @@ public class RankFragment extends Fragment{
 
     public RankFragment(){
 
-
-
-
     }
 
     @Override
@@ -53,18 +48,10 @@ public class RankFragment extends Fragment{
         listener = new RankListener();
         user = appContainer.user;
 
-//        playerList = new PlayerList();
-//        db = new Database();
-//        listener = new RankListener();
-//        user = ((MainActivity) getActivity()).getUser();
-
         ListView rankList = getView().findViewById(R.id.rank_list);
         PlayerArrayAdapter playerArrayAdapter = new PlayerArrayAdapter(getContext(), playerList, db);
         rankList.setAdapter(playerArrayAdapter);
         playerList.addView(playerArrayAdapter);
-
-
-
     }
 
     @Override

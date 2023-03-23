@@ -1,13 +1,15 @@
 /*
  * MainActivity
  *
- * Version: 1.0
+ * Version: 1.1
  *
- * Date: 2023-03-09
+ * Date: 2023-03-23
  *
  * Copyright 2023 CMPUT301W23T34
  *
  * Sources:
+ * - Chiu-Ki Chan, 2016-01-25, Daggerless DI Testing, https://github.com/chiuki/daggerless-di-testing
+ * - Google Developers, 2021-10-27, Manual Dependency Injection, https://developer.android.com/training/dependency-injection/manual
  */
 
 package com.example.QArmy.UI;
@@ -53,7 +55,7 @@ import java.util.Date;
  * @author Kai Luedemann
  * @author Brett Merkosky
  * @author Japkirat Kaur
- * @version 1.0
+ * @version 1.1
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -72,18 +74,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        // Shared Preferences
-        //user = MySharedPreferences.loadUserProfile(this);
-        //Log.d("Main", user.getName());
-//        if (user.getName().equals("")) {
-//            Intent intent = new Intent(this, RegistrationActivity.class);
-//            startActivity(intent);
-//            user = null;
-//        }
-
-        //db = new Database();
 
         AppContainer appContainer = ((QArmy) getApplication()).model;
         user = appContainer.user;
@@ -218,16 +208,4 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     });
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        if (user == null || user.getName().length() == 0) {
-//            user = ((QArmy) getApplication()).getUser();
-//        }
-    }
-
-//    public User getUser() {
-//        return user;
-//    }
 }

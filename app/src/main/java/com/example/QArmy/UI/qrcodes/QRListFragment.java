@@ -1,9 +1,9 @@
 /*
  * QRListFragment
  *
- * Version: 1.0
+ * Version: 1.1
  *
- * Date: 2023-03-08
+ * Date: 2023-03-23
  *
  * Copyright 2023 CMPUT301W23T34
  *
@@ -42,7 +42,7 @@ import java.util.List;
  * @author Kai Luedemann
  * @author Japkirat Kaur
  * @author Yasmin Ghaznavian
- * @version 1.0
+ * @version 1.1
  */
 public class QRListFragment extends Fragment {
     private Database db;
@@ -155,9 +155,6 @@ public class QRListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        if (user == null || user.getName().length() == 0) {
-//            user = ((MainActivity) getActivity()).getUser();
-//        }
         db.getUserCodes(user, listener);
     }
 
