@@ -3,6 +3,7 @@ package com.example.QArmy;
 import android.app.Application;
 
 import com.example.QArmy.UI.profile.MySharedPreferences;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.User;
 
 /**
@@ -15,19 +16,25 @@ import com.example.QArmy.model.User;
  * @author Nicholas Mellon
  */
 public class QArmy extends Application {
-    private User user;
+    //private User user;
+    public AppContainer model;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        user = MySharedPreferences.loadUserProfile(this);
+        model = createModel();
+        //user = MySharedPreferences.loadUserProfile(this);
+    }
+
+    public AppContainer createModel() {
+        return new AppContainer();
     }
 
     public User getUser() {
-        return user;
+        return model.user;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        model.user = user;
     }
 }
