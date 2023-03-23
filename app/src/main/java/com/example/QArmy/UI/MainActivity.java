@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
         // Shared Preferences
         user = MySharedPreferences.loadUserProfile(this);
         Log.d("Main", user.getName());
-        if (user.getName().equals("")) {
-            Intent intent = new Intent(this, RegistrationActivity.class);
-            startActivity(intent);
-            user = null;
-        }
+//        if (user.getName().equals("")) {
+//            Intent intent = new Intent(this, RegistrationActivity.class);
+//            startActivity(intent);
+//            user = null;
+//        }
 
         db = new Database();
 

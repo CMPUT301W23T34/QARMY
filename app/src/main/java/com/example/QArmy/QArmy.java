@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.model.AppContainer;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 
 /**
@@ -36,5 +37,9 @@ public class QArmy extends Application {
 
     public void setUser(User user) {
         model.user = user;
+    }
+
+    public Database getDatabase() {
+        return model.db;
     }
 }

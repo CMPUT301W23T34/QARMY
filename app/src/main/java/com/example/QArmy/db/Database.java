@@ -1,7 +1,7 @@
 /*
  * Database
  *
- * Version: 1.2
+ * Version: 1.3
  *
  * Date: 2023-03-06
  *
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 /**
  * This class provides access to the Firestore database and performs queries.
  * @author Kai Luedemann
- * @version 1.2
+ * @version 1.3
  * @see FirebaseFirestore
  */
 public class Database {
@@ -43,10 +43,20 @@ public class Database {
      * Initialize the database.
      */
     public Database() {
+        this(false);
+    }
+
+    public Database(boolean isTest) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        QR_CODES = db.collection("QRCodes");
-        PLAYERS = db.collection("Players");
-        COMMENTS = db.collection("Comments");
+        if (!isTest) {
+            QR_CODES = db.collection("QRCodes");
+            PLAYERS = db.collection("Players");
+            COMMENTS = db.collection("Comments");
+        } else {
+            QR_CODES = db.collection("TestQRCodes");
+            PLAYERS = db.collection("TestPlayers");
+            COMMENTS = db.collection("TestComments");
+        }
     }
 
     // ************************* QR Code Queries *******************************
@@ -165,6 +175,16 @@ public class Database {
     public void addUser(User user, OnCompleteListener<Void> listener) {
         PLAYERS.document(user.getID())
                 .set(user)
+                .addOnCompleteListener(listener);
+    }
+
+    /**
+     * Delete a user from the database
+     * @param listener - provides a callback when the query is complete
+     */
+    public void deleteUser(User user, OnCompleteListener<Void> listener) {
+        PLAYERS.document(user.getID())
+                .delete()
                 .addOnCompleteListener(listener);
     }
 
