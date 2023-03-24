@@ -29,7 +29,6 @@ public class MySharedPreferences {
         editor.putString("email", user.getEmail());
         editor.putString("phone", user.getPhone());
         editor.putString("score", String.valueOf(user.getScore()));
-        editor.putString("uniqueID", user.getUniqueID());
 
         editor.apply();
     }
@@ -45,9 +44,8 @@ public class MySharedPreferences {
         String name = sharedPreferences.getString("name", "");
         String email = sharedPreferences.getString("email", "");
         String phone = sharedPreferences.getString("phone", "");
-        String score = sharedPreferences.getString("score", "");
-        String uniqueID = sharedPreferences.getString("uniqueID", "");
-        return new User(name, email, phone, score, uniqueID);
+        int score = sharedPreferences.getInt("score", -1);
+        return new User(name, email, phone, score);
     }
 
     /**

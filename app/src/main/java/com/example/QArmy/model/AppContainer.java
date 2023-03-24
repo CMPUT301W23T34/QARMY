@@ -12,6 +12,7 @@
 package com.example.QArmy.model;
 
 
+import com.example.QArmy.UI.profile.SharedPrefsController;
 import com.example.QArmy.db.Database;
 
 /**
@@ -25,4 +26,5 @@ public class AppContainer {
     public Database db = new Database();
     public QRList qrList = new QRList();
     public PlayerList playerList = new PlayerList();
+    public SharedPrefsController prefsController;
 }

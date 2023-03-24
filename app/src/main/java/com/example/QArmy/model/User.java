@@ -28,7 +28,6 @@ public class User extends Entity {
     private String name;
     private String email;
     private String phone;
-    private String uniqueID;
 
     public User() {
 
@@ -54,17 +53,14 @@ public class User extends Entity {
 
     }
 
-    public User(String name, String email, String phone, String score, String uniqueID) {
+    public User(String name, String email, String phone, int score) {
         this.name = name;
 
         this.email = email;
 
         this.phone = phone;
 
-        this.score = 0;
-       // this.score = Integer.parseInt(score);
-
-        this.uniqueID = uniqueID;
+        this.score = score;
 
     }
 
@@ -89,8 +85,6 @@ public class User extends Entity {
     public String getPhone() {
         return phone;
     }
-
-    public String getUniqueID() {return uniqueID;}
 
     // Add this method to get the User object as a Map
     public Map<String, Object> toMap() {

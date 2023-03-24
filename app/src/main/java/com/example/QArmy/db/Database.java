@@ -15,12 +15,16 @@
 
 package com.example.QArmy.db;
 
+import androidx.annotation.NonNull;
+
 import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -186,6 +190,12 @@ public class Database {
         PLAYERS.document(user.getID())
                 .delete()
                 .addOnCompleteListener(listener);
+    }
+
+    public void getUser(User user, QueryListener<User> listener) {
+        PLAYERS.whereEqualTo(User.ID_FIELD, user.getID())
+                .get()
+                .addOnCompleteListener(new QueryHelper<>(listener, User.class));
     }
 
     /**

@@ -3,6 +3,8 @@ package com.example.QArmy;
 import android.app.Application;
 
 import com.example.QArmy.UI.profile.MySharedPreferences;
+import com.example.QArmy.UI.profile.SharedPrefsController;
+import com.example.QArmy.UI.profile.UserController;
 import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
@@ -24,7 +26,13 @@ public class QArmy extends Application {
     public void onCreate() {
         super.onCreate();
         model = createModel();
-        model.user = MySharedPreferences.loadUserProfile(this);
+        initModel();
+    }
+
+    public void initModel() {
+        model.prefsController = new SharedPrefsController(this);
+        model.user = new UserController(model.prefsController, model.db).load();
+
     }
 
     public AppContainer createModel() {

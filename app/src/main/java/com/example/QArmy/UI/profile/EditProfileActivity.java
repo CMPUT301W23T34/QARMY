@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,6 +40,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private String email;
     private String phone;
 
+    private UserController userController;
+
     /**
      * Initialize the activity
      * @param savedInstanceState
@@ -48,7 +51,9 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        db = new Database();
+        AppContainer model = ((QArmy) getApplication()).model;
+        db = model.db;
+        userController = new UserController(model.prefsController, model.db);
 
         // Retrieve user information from Intent extras
         Intent intent = getIntent();
@@ -96,19 +101,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 // Update user info in Firebase Realtime Database
                 User updatedUser = new User(name, email, phone);
-                db.addUser(updatedUser, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
-                                    ((QArmy) getApplication()).setUser(updatedUser);
-                                    MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
-                                } else {
-                                    Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
-                                }
-                                finish();
-                            }
-                        });
+                userController.update(updatedUser);
+                model.user = updatedUser;
+                finish();
             }
         });
     }

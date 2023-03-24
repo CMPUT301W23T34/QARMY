@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("name", user.getName());
         intent.putExtra("email", user.getEmail());
         intent.putExtra("phone", user.getPhone());
-        intent.putExtra("id", user.getUniqueID());
         startActivity(intent);
     }
 
