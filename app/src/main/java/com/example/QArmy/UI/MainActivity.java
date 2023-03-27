@@ -31,6 +31,7 @@ import android.view.MenuItem;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         options.setBeepEnabled(true);
         options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
         QRLauncher.launch(options);
+
     }
 
     /**
@@ -190,27 +192,13 @@ public class MainActivity extends AppCompatActivity {
      * upon completion.
      */
     ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result -> {
-        if (result.getContents() != null) {
-            Location location = null;
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                try {
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                } catch (SecurityException e) {
 
-                }
-            }
-            QRCode code = new QRCode(result.getContents(), user, location, new Date());
-            if (code.getScore() > user.getScore()) {
-                user.setScore(code.getScore());
-            }
-            db.addQRCode(code, task -> {
-                if (task.isSuccessful()) {
-                    //Log.d("Main", "Error adding QR code");
-                }
-            });
-            db.addUser(user, task -> {
-
-            });
+        String qrCodeText = result.getContents();
+        if (qrCodeText != null) {
+            Intent scanActivityIntent = new Intent(this, QRCodeScanActivity.class);
+            scanActivityIntent.putExtra("qrCodeText", result.getContents());
+            scanActivityIntent.putExtra("user", user);
+            startActivity(scanActivityIntent);
         }
     });
 
@@ -225,4 +213,5 @@ public class MainActivity extends AppCompatActivity {
     public User getUser() {
         return user;
     }
+    public LocationManager getLocationManager() {return locationManager;}
 }
