@@ -31,6 +31,11 @@ public class RankFragmentTest {
     @Test
     public void testRankFragment() {
         assertTrue(solo.waitForView(R.id.rank_list));
+        assertTrue(solo.waitForText("Search"));
+        // assert that when you click on search and type in letter, mock name comes up
+        // assert that when it comes up, mock name matches rank in database
+        // assert that pressing clear goes back to normal list (top score is back)
+        // assert that user currently using activity's rank is correct at bottom
     }
 
     @After
