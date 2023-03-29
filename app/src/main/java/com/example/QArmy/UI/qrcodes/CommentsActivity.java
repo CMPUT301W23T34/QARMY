@@ -45,7 +45,7 @@ public class CommentsActivity extends AppCompatActivity {
      * Oncreate method is called when the activity is created so we can set
      * the content view
      * @param savedInstanceState
-     */
+     */ 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
