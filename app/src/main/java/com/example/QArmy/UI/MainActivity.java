@@ -33,6 +33,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+import com.example.QArmy.QArmy;
+import com.example.QArmy.R;
+import com.example.QArmy.db.Database;
+import com.example.QArmy.model.QRCode;
 
 import com.example.QArmy.GPSLocation;
 import com.example.QArmy.QArmy;
@@ -65,13 +69,13 @@ import java.util.Locale;
  * @author Japkirat Kaur
  * @version 1.0
  */
-@RequiresApi(api = Build.VERSION_CODES.R)
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager;
     private MenuItem prevMenuItem;
     private User user;
+    private Database db;
     private LocationManager locationManager;
 
     /**
@@ -93,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             user = null;
         }
+
+        db = new Database();
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -209,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     });
+
 
 
     @Override

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
+import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 
@@ -21,7 +22,7 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
     private QRCode qrCode;
 
     private Database db = new Database();
-
+    
     /**
      * Called when the activity is first created. Initializes the activity UI and
      * populates the list view with scanned user data.

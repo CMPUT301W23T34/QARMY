@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,6 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the registration page for new users
+ * @author Jessica Emereonye
+ */
 public class RegistrationActivity extends AppCompatActivity {
     private EditText email_or_phone;
     private EditText username;
@@ -31,16 +36,28 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
-    // Email validation method
+    /**
+     * Checks whether a new email is valid
+     * @param target The new email the user is attempting to add
+     * @return Whether or not this email already exists in the database
+     */
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
-    // Phone number validation method
+    /**
+     * Checks whether a new phone number is valid
+     * @param target The new phone number the user is attempting to add
+     * @return Whether or not this phone number already exists in the database
+     */
     public static boolean isValidPhoneNumber(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.PHONE.matcher(target).matches());
     }
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +127,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                                 userObject.put("userName", usernameInput);
                                                 userObject.put("password", passwordInput);
                                                 userObject.put("deviceID", deviceID);
+                                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
+
 
                                                 db.collection("Players").document(usernameInput)
                                                         .set(userObject)
@@ -118,10 +137,11 @@ public class RegistrationActivity extends AppCompatActivity {
                                                             public void onSuccess(Void aVoid) {
                                                                 Log.e("RegistrationActivity", "DocumentSnapshot successfully written!");
                                                                 // save created account to shared preferences
+                                                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
                                                                 MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
-                                                                        email_phoneInput,
                                                                         usernameInput,
-                                                                        passwordInput,
+                                                                        email_phoneInput,
+                                                                        "",
                                                                         "100",
                                                                         deviceID
                                                                 ));

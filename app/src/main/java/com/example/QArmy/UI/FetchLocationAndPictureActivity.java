@@ -61,7 +61,8 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
 
     private ImageView currentImageView;
 
-    private QRCode qrCode;
+    //private QRCode qrCode;
+    private String qrCodeString;
 
     private Location location;
 
@@ -95,7 +96,7 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
 
         db = new Database();
 
-        qrCode = (QRCode) getIntent().getSerializableExtra("QR_CODE");
+        qrCodeString = getIntent().getStringExtra("QR_CODE");
     }
 
 
@@ -162,7 +163,7 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
         }
         if (v == finishTrainingButton) {
             if(location != null) {
-                QRCode code = new QRCode(qrCode.getName(), user, location, new Date());
+                QRCode code = new QRCode(qrCodeString, user, location, new Date());
                 if (code.getScore() > user.getScore()) {
                     user.setScore(code.getScore());
                 }

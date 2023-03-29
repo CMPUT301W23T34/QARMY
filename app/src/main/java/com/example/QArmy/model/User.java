@@ -30,6 +30,12 @@ public class User extends Entity {
     private String phone;
     private String uniqueID;
 
+    private int rank = 1;
+
+    public User() {
+
+    }
+
     public User(String testUsername) {
 
     }
@@ -46,6 +52,8 @@ public class User extends Entity {
 
         this.phone = phone;
 
+        this.score = 0;
+
     }
 
     public User(String name, String email, String phone, String score, String uniqueID) {
@@ -55,6 +63,7 @@ public class User extends Entity {
 
         this.phone = phone;
 
+        this.score = 0;
        // this.score = Integer.parseInt(score);
 
         this.uniqueID = uniqueID;
@@ -103,5 +112,10 @@ public class User extends Entity {
     }
 
     public void setScore(int score) {
+        this.score = score;
     }
+
+    public int getRank() {return this.rank;}
+
+    public void setRank(int rank) {this.rank = rank;}
 }

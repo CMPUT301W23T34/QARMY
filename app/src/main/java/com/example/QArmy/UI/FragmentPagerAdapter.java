@@ -39,11 +39,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
+/**
+ * Controls the ViewPager's behaviour, allowing us to switch between fragments on the main activity
+ * @author Japkirat Kaur
+ */
 public class FragmentPagerAdapter extends FragmentStateAdapter {
     public FragmentPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
+    /**
+     * Create the fragment which we will move to
+     * @param position The number of the fragment we will create
+     * @return The fragment which we have created
+     * @return Null if the position was invalid
+     */
     @NonNull
     @Override
     public Fragment createFragment(int position) {
@@ -58,6 +69,10 @@ public class FragmentPagerAdapter extends FragmentStateAdapter {
         return null;
     }
 
+    /**
+     * Get the number of fragments controlled by the ViewPager
+     * @return The number of fragments controlled by the ViewPager
+     */
     @Override
     public int getItemCount() {
         return 3;
