@@ -72,10 +72,10 @@ public class OtherUserProfile extends Fragment {
     private QRList qrList;
 
 
-    public OtherUserProfile() {
+    public OtherUserProfile(User otherUser) {
         db = new Database();
         listener = new QRListener();
-        user = new User("kai");
+        user = otherUser;
     }
 
     private void updateSummaries() {
