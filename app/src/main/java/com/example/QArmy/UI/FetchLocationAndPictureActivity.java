@@ -182,6 +182,7 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
         if (resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             currentImageView.setImageURI(uri);
+
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
         } else {

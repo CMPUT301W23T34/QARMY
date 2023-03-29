@@ -22,7 +22,7 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
     private QRCode qrCode;
 
     private Database db = new Database();
-    
+
     /**
      * Called when the activity is first created. Initializes the activity UI and
      * populates the list view with scanned user data.
