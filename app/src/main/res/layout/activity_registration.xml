@@ -24,7 +24,8 @@
         android:hint="Email or Phone Number"
         android:inputType="text"
         android:background="@color/QARMYGrey"
-        android:textColor="@color/QARMYBlack"/>
+        android:textColor="@color/QARMYBlack"
+        android:minHeight="48dp"/>
 
     <EditText
         android:id="@+id/username"
@@ -33,17 +34,8 @@
         android:layout_marginTop="16dp"
         android:hint="Username"
         android:background="@color/QARMYGrey"
-        android:textColor="@color/QARMYBlack"/>
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:background="@color/QARMYGrey"
-        android:textColor="@color/QARMYBlack"/>
+        android:textColor="@color/QARMYBlack"
+        android:minHeight="48dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/register_button"
@@ -53,5 +45,6 @@
         android:text="Enlist"
         android:background="@color/QARMYGrey"
         android:textColor="@color/QARMYBlack"/>
+
 
 </LinearLayout>

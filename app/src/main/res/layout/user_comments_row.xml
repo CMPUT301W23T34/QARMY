@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp"
+
+    android:padding="5dp"
     android:paddingBottom="50dp">
 
 
@@ -15,7 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:textColor="@color/QARMYBlack"
+
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iconImageView"
@@ -32,5 +34,22 @@
         app:layout_constraintEnd_toEndOf="@+id/titleTextView"
         app:layout_constraintStart_toStartOf="@+id/titleTextView"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="Delete" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:textSize="1sp"
+        android:gravity="center_horizontal"/>
+
 
 </LinearLayout>

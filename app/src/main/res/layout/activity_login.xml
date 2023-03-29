@@ -62,7 +62,7 @@ play around with the spacing of things though.
         android:layout_marginTop="16dp"
         android:layout_below="@+id/password"
         android:text="Log In"
-        android:textColor="#FFFFFF"
+        android:textColor="#050505"
         />
 
 

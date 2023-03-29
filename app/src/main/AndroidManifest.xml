@@ -33,7 +33,7 @@
             android:exported="true" />
         <activity
             android:name=".UI.profile.UserProfileActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".UI.profile.RegistrationActivity"
             android:exported="true" />
