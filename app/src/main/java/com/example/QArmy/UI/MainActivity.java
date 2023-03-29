@@ -12,58 +12,71 @@
 
 package com.example.QArmy.UI;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.QArmy.GPSLocation;
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
-import com.example.QArmy.db.Database;
-import com.example.QArmy.model.QRCode;
-
-import com.example.QArmy.model.User;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
+import com.example.QArmy.db.Database;
+import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanIntentResult;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Activity created when the app is launched.
  * Allows users to access the map, QR list, and rank fragment.
  * Provides the toolbar to scan QR codes.
+ *
  * @author Nicholas Mellon
  * @author Kai Luedemann
+ * @author yasminghaznavian
  * @author Brett Merkosky
  * @author Japkirat Kaur
  * @version 1.0
  */
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager;
     private MenuItem prevMenuItem;
     private User user;
-    private Database db;
     private LocationManager locationManager;
 
     /**
      * Initialize the activity.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -73,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Shared Preferences
-        User user = MySharedPreferences.loadUserProfile(this);
+        user = MySharedPreferences.loadUserProfile(this);
         Log.d("Main", user.getName());
         if (user.getName().equals("")) {
             Intent intent = new Intent(this, RegistrationActivity.class);
             startActivity(intent);
+            user = null;
         }
-        db = new Database();
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -137,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Create toolbar menu
+     *
      * @param menu The toolbar menu
      * @return
      */
@@ -148,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Perform action when toolbar button is pressed
+     *
      * @param item The toolbar item selected
      * @return
      */
@@ -163,6 +178,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openProfile() {
         Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+        intent.putExtra("name", user.getName());
+        intent.putExtra("email", user.getEmail());
+        intent.putExtra("phone", user.getPhone());
+        intent.putExtra("id", user.getUniqueID());
         startActivity(intent);
     }
 
@@ -184,20 +203,23 @@ public class MainActivity extends AppCompatActivity {
      */
     ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
-            Location location = null;
-            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                try {
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                } catch (SecurityException e) {
+            Intent intent = new Intent(this, FetchLocationAndPictureActivity.class);
+            intent.putExtra("QR_CODE", result.getContents());
+            startActivity(intent);
 
-                }
-            }
-            QRCode code = new QRCode(result.getContents(), user, location, new Date());
-            db.addQRCode(code, task -> {
-                if (!task.isSuccessful()) {
-                    //Log.d("Main", "Error adding QR code");
-                }
-            });
         }
     });
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (user == null || user.getName().length() == 0) {
+            user = ((QArmy) getApplication()).getUser();
+        }
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

@@ -101,4 +101,7 @@ public class User extends Entity {
         String phone = (String) map.get("phone");
         return new User(name, email, phone);
     }
+
+    public void setScore(int score) {
+    }
 }

@@ -34,6 +34,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private String email;
     private String phone;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

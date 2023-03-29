@@ -13,22 +13,28 @@
 package com.example.QArmy.UI.qrcodes;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -36,7 +42,7 @@ import java.util.List;
  * Holds a list of QR codes and a summary of their scores.
  * @author Kai Luedemann
  * @author Japkirat Kaur
- * @author yasminghaznavian
+ * @author Yasmin Ghaznavian
  * @version 1.0
  */
 public class QRListFragment extends Fragment {
@@ -89,16 +95,13 @@ public class QRListFragment extends Fragment {
 
         db = new Database();
         listener = new QRListener();
-        user = new User("kai", "", "");
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            user = ((MainActivity) getActivity()).getUser();
+        }
         qrList = new QRList();
 
         ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
-        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db, view1 -> {
-            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-            intent.putExtra("Object",(String) view1.getContentDescription());
-            startActivity(intent);
-        });
+        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db);
 
         qrCodeList.setAdapter(qrCodeAdapter);
         qrList.addView(qrCodeAdapter);
@@ -145,6 +148,23 @@ public class QRListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (user == null || user.getName().length() == 0) {
+            user = ((MainActivity) getActivity()).getUser();
+        }
         db.getUserCodes(user, listener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (qrList.getMax() != user.getScore()) {
+            user.setScore(qrList.getMax());
+            db.addUser(user, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                }
+            });
+        }
     }
 }

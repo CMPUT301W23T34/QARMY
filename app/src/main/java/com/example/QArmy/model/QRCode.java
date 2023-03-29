@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.example.QArmy.UI.qrcodes.QRVisual;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Date;
@@ -31,9 +32,10 @@ import java.security.NoSuchAlgorithmException;
  * Contains user, scan info, and code info.
  * @author Brett Merkosky
  * @author Kai Luedemann
+ * @author yasminghaznavian
  * @version 1.0
  */
-public class QRCode extends Entity {
+public class QRCode extends Entity implements Serializable {
     // TODO: Improve cohesion
     public static final String CODE_FIELD = "hash";
     public static final String USER_FIELD = "user";
@@ -239,7 +241,7 @@ public class QRCode extends Entity {
      */
     private QRVisual generateVisual(String qrHash) {
         // TODO: Implement this
-        Log.d("QRCODE", "CALLED");
+        //Log.d("QRCODE", "CALLED");
         return null;
     }
 

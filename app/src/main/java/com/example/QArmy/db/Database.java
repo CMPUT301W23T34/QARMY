@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 /**
  * This class provides access to the Firestore database and performs queries.
+ *
  * @author Kai Luedemann
  * @version 1.2
  * @see FirebaseFirestore
@@ -53,7 +54,8 @@ public class Database {
 
     /**
      * Get the QR codes scanned by a given user.
-     * @param user - the user to query QR codes for
+     *
+     * @param user     - the user to query QR codes for
      * @param listener - provides a callback when query is complete
      */
     public void getUserCodes(User user, QueryListener<QRCode> listener) {
@@ -64,8 +66,23 @@ public class Database {
     }
 
     /**
+     This method takes a QR code hash and returns a list of QR codes that match the hash.
+     @param qrCode a string representing the QR code hash to search for.
+     @return a list of QR codes that match the provided hash.
+     @throws IllegalArgumentException if the provided hash is null or empty.
+     @throws QRCodeNotFoundException if no QR codes matching the provided hash are found.
+     @throws QRCodeDatabaseException if there is an error accessing the database.
+     */
+    public void getCodesByName(QRCode qrCode, QueryListener<QRCode> listener) {
+        QR_CODES.whereEqualTo(QRCode.CODE_FIELD, qrCode.getHash())
+                .orderBy(QRCode.TIME_FIELD, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
+    }
+
+    /**
      * Get QR codes around a given location
-     * NOT YET IMPLEMENTED!
+     *
      * @param lat
      * @param lon
      * @param listener
@@ -77,7 +94,8 @@ public class Database {
 
     /**
      * Add a QR code to the database
-     * @param qrCode - the QR code to add
+     *
+     * @param qrCode   - the QR code to add
      * @param listener - provides a callback when query is complete
      */
     public void addQRCode(QRCode qrCode, OnCompleteListener<Void> listener) {
@@ -88,7 +106,8 @@ public class Database {
 
     /**
      * Delete a QR code from the database
-     * @param qrCode - the QR code to add
+     *
+     * @param qrCode   - the QR code to add
      * @param listener - provides a callback when query is complete
      */
     public void deleteQRCode(QRCode qrCode, OnCompleteListener<Void> listener) {
@@ -101,7 +120,8 @@ public class Database {
 
     /**
      * Add a comment to the database.
-     * @param comment - the comment to add
+     *
+     * @param comment  - the comment to add
      * @param listener - provides a callback when query is complete
      */
     public void addComment(Comment comment, OnCompleteListener<Void> listener) {
@@ -112,7 +132,8 @@ public class Database {
 
     /**
      * Delete a comment to the database.
-     * @param comment - the comment to delete
+     *
+     * @param comment  - the comment to delete
      * @param listener - provides a callback when query is complete
      */
     public void deleteComment(Comment comment, OnCompleteListener<Void> listener) {
@@ -123,7 +144,8 @@ public class Database {
 
     /**
      * Get the comments posted to a given QR code.
-     * @param qrCode - the QR code to get comments for
+     *
+     * @param qrCode   - the QR code to get comments for
      * @param listener - provides a callback when query is complete
      */
     public void getQRComments(QRCode qrCode, QueryListener<Comment> listener) {
@@ -136,7 +158,8 @@ public class Database {
 
     /**
      * Get users who have scanned a given QR code.
-     * @param qrCode - the QR code to get users from
+     *
+     * @param qrCode   - the QR code to get users from
      * @param listener - provides a callback when query is complete
      */
     public void getQRUsers(QRCode qrCode, QueryListener<User> listener) {
@@ -159,7 +182,8 @@ public class Database {
 
     /**
      * Add a user to the database.
-     * @param user - the user to add
+     *
+     * @param user     - the user to add
      * @param listener - provides a callback when query is complete
      */
     public void addUser(User user, OnCompleteListener<Void> listener) {
@@ -170,6 +194,7 @@ public class Database {
 
     /**
      * Get the list of users ordered by rank.
+     *
      * @param listener - provides a callback when the query is complete
      */
     public void getRankedUsers(QueryListener<User> listener) {
@@ -180,7 +205,8 @@ public class Database {
 
     /**
      * Return the rank of the user based on total score.
-     * @param user - the user to get the rank of
+     *
+     * @param user     - the user to get the rank of
      * @param listener - provides a callback when the query is complete
      */
     public void getRank(User user, AggregateListener listener) {
