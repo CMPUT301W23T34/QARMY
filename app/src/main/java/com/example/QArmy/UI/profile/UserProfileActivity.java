@@ -12,26 +12,28 @@ import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.model.User;
 
-
-// UserProfileActivity.java
+/**
+ * Activity representing the user profile screen
+ * @author Yasmin Ghaznavian
+ * @author Kai Luedemann
+ */
 public class UserProfileActivity extends AppCompatActivity {
-    // UI Elements
     private TextView text_name;
     private TextView text_email;
     private TextView text_phone;
     private Button edit_button;
-
-    // User Info
     private String name;
     private String email;
     private String phone;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
-        // Initialize UI Elements
         text_name = findViewById(R.id.text_name);
         text_email = findViewById(R.id.text_email);
         text_phone = findViewById(R.id.text_phone);
@@ -46,16 +48,18 @@ public class UserProfileActivity extends AppCompatActivity {
                 // Create an Intent to start EditProfileActivity
                 Intent intent = new Intent(UserProfileActivity.this, EditProfileActivity.class);
 
-                // Pass the current user information to EditProfileActivity
+                // Pass the current user information to EditProfileActivity using Intent
                 intent.putExtra("name", name);
                 intent.putExtra("email", email);
                 intent.putExtra("phone", phone);
-
                 startActivity(intent);
             }
         });
     }
 
+    /**
+     * Update the user profile with new values
+     */
     public void updateValues() {
         User user = ((QArmy) getApplication()).getUser();
         name = user.getName();
@@ -67,6 +71,9 @@ public class UserProfileActivity extends AppCompatActivity {
         text_phone.setText(phone);
     }
 
+    /**
+     * Resumes the activity, updating the values (after the EditProfileActivity ends)
+     */
     @Override
     protected void onResume() {
         super.onResume();
