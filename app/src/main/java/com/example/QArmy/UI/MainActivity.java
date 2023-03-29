@@ -35,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 
@@ -201,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         options.setBeepEnabled(true);
         options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
         QRLauncher.launch(options);
+
     }
 
     /**
@@ -212,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, FetchLocationAndPictureActivity.class);
             intent.putExtra("QR_CODE", result.getContents());
             startActivity(intent);
-
         }
     });
 
@@ -229,4 +230,5 @@ public class MainActivity extends AppCompatActivity {
     public User getUser() {
         return user;
     }
+    public LocationManager getLocationManager() {return locationManager;}
 }

@@ -41,6 +41,10 @@
             android:name=".UI.profile.EditProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".UI.qrcodes.QRCodeScanActivity"
+            android:exported="false"
+            android:label="Train Recruit"/>
+        <activity
             android:name=".UI.MainActivity"
             android:exported="true">
             <intent-filter>
