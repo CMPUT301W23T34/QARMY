@@ -27,13 +27,15 @@
             android:exported="true" />
         <activity
             android:name=".UI.profile.UserProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="User Profile"/>
         <activity
             android:name=".UI.profile.RegistrationActivity"
             android:exported="true" />
         <activity
             android:name=".UI.profile.EditProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Edit Profile"/>
         <activity
             android:name=".UI.qrcodes.QRCodeScanActivity"
             android:exported="false"
