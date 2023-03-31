@@ -118,7 +118,6 @@ public class QRCodeScanActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp(){
         finish();
-        // or call onBackPressed()
         return true;
     }
 
