@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:context=".UI.qrcodes.SummaryFragment">
+    tools:context=".UI.qrcodes.SummaryFragment"
+    android:background="@color/QARMYGrey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -20,6 +21,7 @@
             android:layout_margin="10dp"
             android:text="TextView"
             android:textSize="20sp"
+            android:textColor="@color/QARMYBlack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,6 +32,7 @@
             android:layout_margin="10dp"
             android:text="TextView"
             android:textSize="20sp"
+            android:textColor="@color/QARMYBlack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/total_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -47,6 +50,7 @@
             android:layout_margin="10dp"
             android:text="TextView"
             android:textSize="20sp"
+            android:textColor="@color/QARMYBlack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,6 +61,7 @@
             android:layout_margin="10dp"
             android:text="TextView"
             android:textSize="20sp"
+            android:textColor="@color/QARMYBlack"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/min_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>

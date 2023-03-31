@@ -14,6 +14,7 @@
 
 package com.example.QArmy.model;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.media.Image;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class QRCode extends Entity {
     private String hash;
     private double lat;
     private double lon;
-    private Image image;
+    private String image;
     private int score;
     private String name;
     private QRVisual qrMonster;
@@ -319,6 +320,14 @@ public class QRCode extends Entity {
 
     public double getLon() {
         return this.lon;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     // TODO: Refactor tests to not require this. e.g. MockCode
