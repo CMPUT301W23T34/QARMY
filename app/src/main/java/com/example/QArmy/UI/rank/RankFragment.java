@@ -1,9 +1,12 @@
 package com.example.QArmy.UI.rank;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -12,9 +15,12 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.QArmy.UI.MainActivity;
+import com.example.QArmy.UI.OtherUserProfile;
 import com.example.QArmy.db.AggregateListener;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
@@ -64,20 +70,33 @@ public class RankFragment extends Fragment{
         listener = new RankListener();
         user = ((MainActivity) getActivity()).getUser();
 
+        // list when search is being made
         searchedList = new PlayerList();
         searchView = getView().findViewById(R.id.search_text);
 
-
+        // player list from database
         ListView rankList = getView().findViewById(R.id.rank_list);
         PlayerArrayAdapter playerArrayAdapter = new PlayerArrayAdapter(getContext(), playerList, db);
         rankList.setAdapter(playerArrayAdapter);
         playerList.addView(playerArrayAdapter);
 
+        // for user at bottom
         ListView userRank = getView().findViewById(R.id.user_rank);
         PlayerArrayAdapter userArrayAdapter = new PlayerArrayAdapter(getContext(), userList, db);
         userRank.setAdapter(userArrayAdapter);
         userList.addView(userArrayAdapter);
         userList.addPlayer(user);
+
+        rankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                User userClicked = (User)adapterView.getItemAtPosition(position);
+                new OtherUserProfile(userClicked).show(getActivity().getSupportFragmentManager(), "Show user Profile");
+
+            }
+        });
+
 
 
 

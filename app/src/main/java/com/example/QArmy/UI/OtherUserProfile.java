@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -34,10 +35,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
-import com.example.QArmy.UI.qrcodes.QRCodeArrayAdapter;
+import com.example.QArmy.UI.qrcodes.QRCodeArrayAdapterOthers;
 import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
 import com.example.QArmy.UI.qrcodes.QRListFragment;
 import com.example.QArmy.UI.qrcodes.SummaryFragment;
@@ -65,7 +67,7 @@ import java.util.List;
  * @author Nicholas Mellon
  * @version 1.0
  */
-public class OtherUserProfile extends Fragment {
+public class OtherUserProfile extends DialogFragment {
     private Database db;
     private QRListener listener;
     private User user;
@@ -100,7 +102,8 @@ public class OtherUserProfile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home_others, container, false);
+
     }
 
     /**
@@ -115,11 +118,11 @@ public class OtherUserProfile extends Fragment {
 
         db = new Database();
         listener = new QRListener();
-        user = ((MainActivity) getActivity()).getUser();
+        //user = ((MainActivity) getActivity()).getUser();
         qrList = new QRList();
 
         ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
-        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db, view1 -> {
+        QRCodeArrayAdapterOthers qrCodeAdapter = new QRCodeArrayAdapterOthers(getContext(), qrList, db, view1 -> {
             Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
             intent.putExtra("Object",(String) view1.getContentDescription());
             startActivity(intent);
@@ -134,6 +137,9 @@ public class OtherUserProfile extends Fragment {
                 .replace(R.id.fragmentContainerView, fragment)
                 .commit();
         qrList.addView(fragment);
+
+        TextView userName = getView().findViewById(R.id.user_name);
+        userName.setText(user.getName());
     }
 
     /**
@@ -170,9 +176,11 @@ public class OtherUserProfile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        /*
         if (user == null || user.getName().length() == 0) {
             user = ((MainActivity) getActivity()).getUser();
         }
+        */
         db.getUserCodes(user, listener);
     }
 
