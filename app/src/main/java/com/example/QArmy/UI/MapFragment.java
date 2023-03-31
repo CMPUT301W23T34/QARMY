@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.QArmy.R;
@@ -143,7 +144,7 @@ public class MapFragment extends Fragment {
         locationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(locationOverlay);
 
-        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<OverlayItem>(),
+        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<OverlayItem>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index,
