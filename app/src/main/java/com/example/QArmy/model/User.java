@@ -12,6 +12,7 @@
 
 package com.example.QArmy.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import java.util.Map;
  * @author Kai Luedemann
  * @version 1.0
  */
-public class User extends Entity {
+public class User extends Entity implements Serializable {
 
     public static final String SCORE_FIELD = "score";
 
@@ -29,6 +30,8 @@ public class User extends Entity {
     private String email;
     private String phone;
     private String uniqueID;
+
+    private int rank = 1;
 
     public User() {
 
@@ -54,7 +57,7 @@ public class User extends Entity {
 
     }
 
-    public User(String name, String email, String phone, String score, String uniqueID) {
+    public User(String name, String email, String phone, String uniqueID) {
         this.name = name;
 
         this.email = email;
@@ -66,6 +69,14 @@ public class User extends Entity {
 
         this.uniqueID = uniqueID;
 
+    }
+
+    public User(String name, String email, String phone, String score, String uniqueID) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.score = 0;
+        this.uniqueID = uniqueID;
     }
 
     /* *********************************** Getters ************************************************/
@@ -112,4 +123,8 @@ public class User extends Entity {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public int getRank() {return this.rank;}
+
+    public void setRank(int rank) {this.rank = rank;}
 }

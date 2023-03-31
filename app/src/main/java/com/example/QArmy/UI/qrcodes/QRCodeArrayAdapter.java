@@ -13,6 +13,7 @@
 package com.example.QArmy.UI.qrcodes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
     private final QRList qrList;
     private final Database db;
 
-    private View.OnClickListener clickListener;
 
     /**
      * Initialize the adapter.
@@ -54,14 +54,6 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         super(context, 0, qrList.getList());
         this.db = db;
         this.qrList = qrList;
-        this.clickListener = clickListener;
-    }
-
-    public QRCodeArrayAdapter(Context context, QRList qrList, Database db, View.OnClickListener clickListener) {
-        super(context, 0, qrList.getList());
-        this.db = db;
-        this.qrList = qrList;
-        this.clickListener = clickListener;
     }
 
     /** Creates a view to display the list of QR Codes
@@ -100,11 +92,11 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
             }
         }));
 
-        if (clickListener != null) {
-            Constants.setQrCode(qrCode);
-            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
-            view.setOnClickListener(clickListener);
-        }
+        view.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            intent.putExtra("Object", qrCode);
+            getContext().startActivity(intent);
+        });
 
         return view;
     }

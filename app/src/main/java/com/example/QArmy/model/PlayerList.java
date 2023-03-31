@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Model class storing the list of users.
  * @author Nicholas Mellon
+ * @author yasminghaznavian
  */
 public class PlayerList extends TModel<TView> {
     private ArrayList<User> players;

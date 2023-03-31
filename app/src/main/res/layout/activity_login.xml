@@ -6,6 +6,7 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
+    android:background="@drawable/pixel_camo_background"
     >
 
     <TextView
@@ -13,9 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Welcome back!"
-        android:textSize="24sp"
-        android:textColor="#000000"
+        android:text="QARMY"
+        android:textSize="80sp"
+        android:textColor="@color/QARMYWhite"
         />
 
     <EditText
@@ -30,6 +31,8 @@
         android:singleLine="true"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
+        android:background="@color/QARMYGrey"
+        android:textColor="@color/QARMYBlack"
         />
 
     <EditText
@@ -43,7 +46,14 @@
         android:maxLines="1"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@color/QARMYGrey"
+        android:textColor="@color/QARMYBlack"
+        />
+<!--
+Do we really need the login button? I've gotten rid of it
+and changed the "register" button to work with the change. We can still
+play around with the spacing of things though.
 
     <Button
         android:id="@+id/login_button"
@@ -52,8 +62,9 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/password"
         android:text="Log In"
-        android:textColor="#FFFFFF"
+        android:textColor="#050505"
         />
+
 
     <Button
         android:id="@+id/register"
@@ -63,6 +74,18 @@
         android:layout_below="@+id/login_button"
         android:text="Don't have an account? Register Here"
         android:textColor="#FFFFFF"
+        />
+        -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerVertical="true"
+        android:text="ENLIST"
+        android:background="@color/QARMYGrey"
+        android:textColor="@color/QARMYBlack"
+        android:backgroundTint="@null"
         />
 
 

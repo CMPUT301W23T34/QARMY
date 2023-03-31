@@ -8,4 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4B531D</color>
+
+    -- The default colours we will use for our app --
+    <color name="QARMYGreen">#4B5320</color>
+    <color name="QARMYLightGreen">#8B8C67</color>
+    <color name="QARMYDarkGreen">#2D3213</color>
+    <color name="QARMYBlack">#2B2A28</color>
+    <color name="QARMYLightBrown">#B4A681</color>
+    <color name="QARMYDarkBrown">#504239</color>
+    <color name="QARMYGrey">#C9CBBC</color>
+    <color name="QARMYRed">#B00020</color>
+    <color name="QARMYWhite">#FFFFFFFF</color>
 </resources>

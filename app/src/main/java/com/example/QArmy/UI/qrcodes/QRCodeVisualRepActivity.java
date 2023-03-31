@@ -2,6 +2,7 @@ package com.example.QArmy.UI.qrcodes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
+import com.example.QArmy.UI.UsersSameQrScanActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 
@@ -16,7 +18,7 @@ import com.example.QArmy.model.QRCode;
  * The type Qr code visual rep activity.
  * @author Yasmin Ghaznavian
  */
-public class QRCodeVisualRepActivity extends AppCompatActivity {
+public class QRCodeVisualRepActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView imageView;
     private TextView geoLocationTextView;
@@ -44,33 +46,29 @@ public class QRCodeVisualRepActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_visual_rep);
 
-        String temp = getIntent().getStringExtra("Object");
+        qrCode = (QRCode) getIntent().getSerializableExtra("Object");
 
-        String[] array = temp.split(",");
-        String name = array[0];
-        String score = array[1];
-
-        if (qrCode == null) {
-            qrCode = new QRCode();
-        }
 
         nameTextView = findViewById(R.id.name_textView);
-        nameTextView.setText(name);
+        nameTextView.setText(qrCode.getName());
 
-        imageView = findViewById(R.id.imageView);
-        geoLocationTextView = findViewById(R.id.textView);
+        imageView = findViewById(R.id.currentImageView);
+        geoLocationTextView = findViewById(R.id.locationTextView);
         textualRepresentationTextView = findViewById(R.id.textView4);
         scoreButton = findViewById(R.id.button);
 
-        scoreButton.setText("Score: " + score);
+        scoreButton.setText("Score: " + qrCode.getScore());
 
         userImageView = findViewById(R.id.users_image_view);
+        userImageView.setOnClickListener(this);
         commentsImageView = findViewById(R.id.comments_image_view);
+
+        geoLocationTextView.setText("Geolocation:\nLatitude: " + qrCode.getLat() + "\nLongitude: " + qrCode.getLon());
 
         monsterTextView = findViewById(R.id.textView4);
 
         StringBuilder stringBuilder = new StringBuilder();
-        String hashOfData = "0bfdbc53911679122cfa3aa87725668f689ed8945421bfd9bc0dede715deef9a";
+        String hashOfData = qrCode.getHash();
 
         boolean bit0 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(0)).charAt(0));
         boolean bit1 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(1)).charAt(0));
@@ -119,7 +117,7 @@ public class QRCodeVisualRepActivity extends AppCompatActivity {
 
         commentsImageView.setOnClickListener(view -> {
             Intent intent = new Intent(QRCodeVisualRepActivity.this, CommentsActivity.class);
-            intent.putExtra("Object", temp);
+            intent.putExtra("Object", qrCode);
             startActivity(intent);
         });
     }
@@ -134,4 +132,12 @@ public class QRCodeVisualRepActivity extends AppCompatActivity {
         return ch != '0';
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == userImageView) {
+            Intent intent = new Intent(this, UsersSameQrScanActivity.class);
+            intent.putExtra("Object", qrCode);
+            startActivity(intent);
+        }
+    }
 }
