@@ -135,8 +135,6 @@ public class MapFragment extends Fragment {
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
         });
 
-        db.getNearbyCodes(listener);
-
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context),mapView);
         locationOverlay.enableMyLocation();
@@ -144,7 +142,7 @@ public class MapFragment extends Fragment {
         locationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(locationOverlay);
 
-        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<OverlayItem>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
+        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index,
@@ -162,6 +160,8 @@ public class MapFragment extends Fragment {
                         return false;
                     }
                 }, context);
+
+        db.getNearbyCodes(listener);
 
         mapView.getOverlays().add(itemizedOverlay);
 

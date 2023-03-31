@@ -8,11 +8,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -135,9 +133,19 @@ public class QRCodeScanActivity extends AppCompatActivity {
             });
 
     private Bitmap resizeImage(Bitmap image){
-        int width = 480;
-        float ratio = width/image.getWidth();
-        int height = (int) (image.getHeight()*ratio);
+        int width;
+        int height;
+        float ratio;
+        if(image.getWidth()<image.getHeight()) {
+            width = 480;
+            ratio = width / image.getWidth();
+            height = (int) (image.getHeight() * ratio);
+        } else {
+            height = 480;
+            ratio = height / image.getHeight();
+            width = (int) (image.getWidth() * ratio);
+
+        }
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 

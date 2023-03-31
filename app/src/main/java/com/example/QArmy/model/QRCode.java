@@ -14,18 +14,14 @@
 
 package com.example.QArmy.model;
 
-import android.graphics.Bitmap;
 import android.location.Location;
-import android.media.Image;
-import android.util.Log;
 
 import com.example.QArmy.UI.qrcodes.QRVisual;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Date;
-
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * Represent a QR Code instance.
