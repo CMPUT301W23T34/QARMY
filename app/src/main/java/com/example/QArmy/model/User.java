@@ -31,6 +31,8 @@ public class User extends Entity implements Serializable {
     private String phone;
     private String uniqueID;
 
+    private int rank = 1;
+
     public User() {
 
     }
@@ -113,4 +115,8 @@ public class User extends Entity implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public int getRank() {return this.rank;}
+
+    public void setRank(int rank) {this.rank = rank;}
 }
