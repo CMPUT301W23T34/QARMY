@@ -1,28 +1,37 @@
 package com.example.QArmy.UI.qrcodes;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.QArmy.R;
-import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 public class QRCodeScanActivity extends AppCompatActivity {
@@ -32,9 +41,13 @@ public class QRCodeScanActivity extends AppCompatActivity {
     private Database db;
     private User user;
     private Button finishTrainingButton;
+
+    private Button takePictureButton;
+    private ImageView scanView;
     private LocationManager locationManager;
     private String qrCodeText;
     private ToggleButton geolocationToggle;
+    private Bitmap image;
 
 
     @Override
@@ -53,6 +66,19 @@ public class QRCodeScanActivity extends AppCompatActivity {
         geolocationToggle = findViewById(R.id.geolocation_toggle);
 
         finishTrainingButton = findViewById(R.id.finish_training_button);
+
+        takePictureButton = findViewById(R.id.take_picture_button);
+        scanView = findViewById(R.id.scan_image);
+
+        takePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraResultLauncher.launch(cameraIntent);
+
+            }
+        });
+
         finishTrainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +95,9 @@ public class QRCodeScanActivity extends AppCompatActivity {
 
                 // Create the new QRCode object
                 QRCode code = new QRCode(qrCodeText, user, location, new Date());
+                if(image != null){
+                    code.setImage(encodeBase64(image));
+                }
                 if (code.getScore() > user.getScore()) {
                     user.setScore(code.getScore());
                 }
@@ -91,6 +120,33 @@ public class QRCodeScanActivity extends AppCompatActivity {
         finish();
         // or call onBackPressed()
         return true;
+    }
+
+    ActivityResultLauncher<Intent> cameraResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        image = (Bitmap) result.getData().getExtras().get("data");
+                        image = resizeImage(image);
+                        scanView.setImageBitmap(image);
+                    }
+                }
+            });
+
+    private Bitmap resizeImage(Bitmap image){
+        int width = 480;
+        float ratio = width/image.getWidth();
+        int height = (int) (image.getHeight()*ratio);
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    private String encodeBase64(Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] byteArr = baos.toByteArray();
+        return Base64.encodeToString(byteArr,Base64.URL_SAFE);
     }
 
 }
