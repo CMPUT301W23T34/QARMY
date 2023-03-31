@@ -12,28 +12,27 @@
 
 package com.example.QArmy.UI;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.view.Menu;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+
 import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
-import com.example.QArmy.db.Database;
-import com.example.QArmy.model.QRCode;
 
 import com.example.QArmy.model.User;
 import com.example.QArmy.UI.profile.MySharedPreferences;
@@ -43,29 +42,29 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
-import java.util.Date;
-
 /**
  * Activity created when the app is launched.
  * Allows users to access the map, QR list, and rank fragment.
  * Provides the toolbar to scan QR codes.
+ *
  * @author Nicholas Mellon
  * @author Kai Luedemann
  * @author Brett Merkosky
  * @author Japkirat Kaur
  * @version 1.0
  */
+@RequiresApi(api = Build.VERSION_CODES.R)
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager;
     private MenuItem prevMenuItem;
     private User user;
-    private Database db;
     private LocationManager locationManager;
 
     /**
      * Initialize the activity.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -82,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             user = null;
         }
-
-        db = new Database();
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -141,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Create toolbar menu
+     *
      * @param menu The toolbar menu
      * @return
      */
@@ -152,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Perform action when toolbar button is pressed
+     *
      * @param item The toolbar item selected
      * @return
      */
@@ -201,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(scanActivityIntent);
         }
     });
+
 
     @Override
     protected void onResume() {

@@ -18,6 +18,7 @@ import android.location.Location;
 
 import com.example.QArmy.UI.qrcodes.QRVisual;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +31,7 @@ import java.util.Date;
  * @author Kai Luedemann
  * @version 1.0
  */
-public class QRCode extends Entity {
+public class QRCode extends Entity implements Serializable {
     // TODO: Improve cohesion
     public static final String CODE_FIELD = "hash";
     public static final String USER_FIELD = "user";
@@ -328,5 +329,6 @@ public class QRCode extends Entity {
 
     // TODO: Refactor tests to not require this. e.g. MockCode
     public void setScore(int score) {this.score = score;}
+
 }
 
