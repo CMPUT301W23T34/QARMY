@@ -18,6 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.QArmy"
+        android:screenOrientation="portrait"
         tools:targetApi="31">
         <activity
             android:name=".UI.qrcodes.CommentsActivity"
@@ -53,7 +54,6 @@
             android:name=".UI.CaptureAct"
             android:configChanges="orientation|keyboardHidden"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
