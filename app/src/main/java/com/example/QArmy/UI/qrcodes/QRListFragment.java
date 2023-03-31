@@ -17,7 +17,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -96,11 +98,7 @@ public class QRListFragment extends Fragment {
         qrList = new QRList();
 
         ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
-        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db, view1 -> {
-            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-            intent.putExtra("Object",(String) view1.getContentDescription());
-            startActivity(intent);
-        });
+        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db);
 
         qrCodeList.setAdapter(qrCodeAdapter);
         qrList.addView(qrCodeAdapter);
