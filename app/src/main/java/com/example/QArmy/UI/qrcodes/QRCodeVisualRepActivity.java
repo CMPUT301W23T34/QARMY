@@ -92,7 +92,9 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         nameTextView.setText(qrCode.getName());
         scoreButton.setText("Score: " + qrCode.getScore());
         geoLocationTextView.setText("Geolocation:\nLatitude: " + qrCode.getLat() + "\nLongitude: " + qrCode.getLon());
-        imageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
+        if(qrCode.getImage() != null) {
+            imageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
+        }
         StringBuilder stringBuilder = createMonster();
         monsterTextView.setText(stringBuilder.toString());
 
