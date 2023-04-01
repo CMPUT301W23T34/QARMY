@@ -21,6 +21,7 @@
         android:layout_marginTop="16dp"
         android:hint="Email or Phone Number"
         android:inputType="text"
+        android:textColor="@color/black"
         android:minHeight="48dp"/>
 
     <EditText
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Username"
+        android:textColor="@color/black"
         android:minHeight="48dp"/>
 
     <Button
@@ -36,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Register"
-        />
+        android:text="Register"/>
 
 </LinearLayout>
