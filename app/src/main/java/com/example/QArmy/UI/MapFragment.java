@@ -135,8 +135,6 @@ public class MapFragment extends Fragment {
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
         });
 
-        db.getNearbyCodes(listener);
-
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context),mapView);
         locationOverlay.enableMyLocation();
@@ -162,6 +160,8 @@ public class MapFragment extends Fragment {
                         return false;
                     }
                 }, context);
+        
+        db.getNearbyCodes(listener);
 
         mapView.getOverlays().add(itemizedOverlay);
 
