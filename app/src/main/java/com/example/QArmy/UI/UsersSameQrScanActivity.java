@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * An activity that displays a list of users who have scanned the same QR codes.
+ * @author Yasmin Ghaznavian
  */
 public class UsersSameQrScanActivity extends AppCompatActivity {
 

@@ -48,6 +48,7 @@ import java.util.Locale;
  * The FetchLocationAndPictureActivity class is an Android Activity that allows the user to fetch their current location and take a picture using the device's camera. It includes UI elements for displaying the current location, capturing a picture, and submitting the location and picture to a remote server.
  * <p>
  * The activity requires the necessary permissions from the user for accessing the device's location and camera hardware. The specific implementation details of this activity will depend on the requirements of your application and may include actions such as uploading the image to a cloud service, sending a notification, or updating a database record.
+ * @author Yasmin Ghaznavian
  */
 
 public class FetchLocationAndPictureActivity extends AppCompatActivity implements View.OnClickListener {

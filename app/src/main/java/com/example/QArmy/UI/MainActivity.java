@@ -60,6 +60,7 @@ import java.util.Locale;
  *
  * @author Nicholas Mellon
  * @author Kai Luedemann
+ * @author Yasmin Ghaznavian
  * @author Brett Merkosky
  * @author Japkirat Kaur
  * @version 1.0
