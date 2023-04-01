@@ -79,13 +79,10 @@ public class Database {
 
     /**
      * Get QR codes around a given location
-     * NOT YET IMPLEMENTED!
      *
-     * @param lat
-     * @param lon
      * @param listener
      */
-    public void getNearbyCodes(double lat, double lon, QueryListener<QRCode> listener) {
+    public void getNearbyCodes(QueryListener<QRCode> listener) {
         QR_CODES.get()
                 .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
