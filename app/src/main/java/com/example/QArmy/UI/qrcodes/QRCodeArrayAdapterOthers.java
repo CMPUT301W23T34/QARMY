@@ -1,5 +1,5 @@
 /*
- * QRCodeArrayAdapter
+ * QRCodeArrayAdapterOthers
  *
  * Version: 1.0
  *
@@ -14,7 +14,6 @@ package com.example.QArmy.UI.qrcodes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +24,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
 import com.example.QArmy.TView;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 
 import java.util.Locale;
@@ -40,10 +39,11 @@ import java.util.Locale;
  * @author Yasmin Ghaznavian
  * @version 1.0
  */
-public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QRList> {
+public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TView<QRList> {
     private final QRList qrList;
     private final Database db;
 
+    private View.OnClickListener clickListener;
 
     /**
      * Initialize the adapter.
@@ -51,10 +51,18 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
      * @param qrList The list of QR codes
      * @param db The database to query
      */
-    public QRCodeArrayAdapter(Context context, QRList qrList, Database db) {
+    public QRCodeArrayAdapterOthers(Context context, QRList qrList, Database db) {
         super(context, 0, qrList.getList());
         this.db = db;
         this.qrList = qrList;
+        this.clickListener = clickListener;
+    }
+
+    public QRCodeArrayAdapterOthers(Context context, QRList qrList, Database db, View.OnClickListener clickListener) {
+        super(context, 0, qrList.getList());
+        this.db = db;
+        this.qrList = qrList;
+        this.clickListener = clickListener;
     }
 
     /** Creates a view to display the list of QR Codes
@@ -73,7 +81,7 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         View view;
 
         if (convertView == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.qr_code_data,
+            view = LayoutInflater.from(getContext()).inflate(R.layout.qr_code_data_others,
                     parent, false);
         } else {
             view = convertView;
@@ -85,13 +93,12 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         qrCodeName.setText(qrCode.getName());
         qrCodeScore.setText(String.format(Locale.CANADA, "Score: %d", qrCode.getScore()));
 
-        ImageButton button = view.findViewById(R.id.deleteButton);
-        // TODO: Convert to controller class
-        button.setOnClickListener(view1 -> db.deleteQRCode(qrCode, task -> {
-            if (task.isSuccessful()) {
-                qrList.remove(qrCode);
-            }
-        }));
+
+//        if (clickListener != null) {
+//            Constants.setQrCode(qrCode);
+//            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
+//            view.setOnClickListener(clickListener);
+//        }
 
         view.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
@@ -112,3 +119,4 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         notifyDataSetChanged();
     }
 }
+

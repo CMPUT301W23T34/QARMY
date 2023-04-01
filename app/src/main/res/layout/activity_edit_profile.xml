@@ -2,52 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/edit_profile_toolbar"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
-        android:minHeight="48dp"
-        android:textColor="@color/QARMYDarkGreen"
-        android:padding="16dp"/>
+        android:minHeight="48dp"/>
 
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
-        android:minHeight="48dp"
-        android:textColor="@color/QARMYDarkGreen"
-        android:padding="16dp"/>
+        android:minHeight="48dp"/>
 
     <EditText
         android:id="@+id/edit_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone"
-        android:minHeight="48dp"
-        android:textColor="@color/QARMYDarkGreen"
-        android:padding="16dp"/>
+        android:minHeight="48dp"/>
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:background="@color/QARMYDarkGreen"
-        android:textColor="@color/QARMYWhite"
-        />
+        android:text="Save" />
 
 </LinearLayout>

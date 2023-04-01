@@ -2,23 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/user_profile_toolbar"
+    <TextView
+        android:id="@+id/text_profile"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content"
+        android:text="User Profile"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="@color/QARMYGrey" />
+        android:background="#ccc" />
 
     <TextView
         android:id="@+id/text_name"
@@ -27,9 +26,7 @@
         android:text="Name:"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/QARMYBlack"
-        android:padding="16dp"/>
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/text_email"
@@ -38,9 +35,7 @@
         android:text="Email:"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/QARMYBlack"
-        android:padding="16dp"/>
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/text_phone"
@@ -49,27 +44,20 @@
         android:text="Phone:"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/QARMYBlack"
-        android:padding="16dp"/>
+        android:layout_marginTop="16dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="@color/QARMYGrey"
-        android:padding="16dp"/>
+        android:background="#ccc" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Profile"
         android:layout_gravity="end"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/QARMYLightGreen"
-        android:textColor="@color/QARMYWhite"
-        android:padding="16dp"/>
+        android:layout_marginTop="16dp"/>
 
 </LinearLayout>

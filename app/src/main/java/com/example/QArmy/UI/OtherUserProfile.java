@@ -1,57 +1,83 @@
 /*
- * QRListFragment
+ * MainActivity
  *
  * Version: 1.0
  *
- * Date: 2023-03-08
+ * Date: 2023-03-09
  *
  * Copyright 2023 CMPUT301W23T34
  *
  * Sources:
- * - Suragch, 2016-09-13, https://stackoverflow.com/a/39467807, Stack Overflow
  */
-package com.example.QArmy.UI.qrcodes;
 
+package com.example.QArmy.UI;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.content.Intent;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.example.QArmy.UI.MainActivity;
-import com.example.QArmy.db.Database;
-import com.example.QArmy.model.QRList;
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.qrcodes.QRCodeArrayAdapterOthers;
+import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
+import com.example.QArmy.UI.qrcodes.QRListFragment;
+import com.example.QArmy.UI.qrcodes.SummaryFragment;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
+
+import com.example.QArmy.model.QRList;
 import com.example.QArmy.model.User;
+import com.example.QArmy.UI.profile.MySharedPreferences;
+import com.example.QArmy.UI.profile.RegistrationActivity;
+import com.example.QArmy.UI.profile.UserProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.util.Date;
 import java.util.List;
 
 /**
- * Holds a list of QR codes and a summary of their scores.
- * @author Kai Luedemann
- * @author Japkirat Kaur
- * @author Yasmin Ghaznavian
+ * Fragment created when player name is click on .
+ * Allows users to see other players profiles.
+ * @author Nicholas Mellon
  * @version 1.0
  */
-public class QRListFragment extends Fragment {
+public class OtherUserProfile extends DialogFragment {
     private Database db;
     private QRListener listener;
     private User user;
     private QRList qrList;
 
 
-    public QRListFragment() {
+    public OtherUserProfile(User otherUser) {
         db = new Database();
         listener = new QRListener();
-        user = new User("kai");
+        user = otherUser;
     }
 
     private void updateSummaries() {
@@ -76,7 +102,8 @@ public class QRListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home_others, container, false);
+
     }
 
     /**
@@ -91,11 +118,15 @@ public class QRListFragment extends Fragment {
 
         db = new Database();
         listener = new QRListener();
-        user = ((MainActivity) getActivity()).getUser();
+        //user = ((MainActivity) getActivity()).getUser();
         qrList = new QRList();
 
         ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
-        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db);
+        QRCodeArrayAdapterOthers qrCodeAdapter = new QRCodeArrayAdapterOthers(getContext(), qrList, db, view1 -> {
+            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            intent.putExtra("Object",(String) view1.getContentDescription());
+            startActivity(intent);
+        });
 
         qrCodeList.setAdapter(qrCodeAdapter);
         qrList.addView(qrCodeAdapter);
@@ -106,6 +137,9 @@ public class QRListFragment extends Fragment {
                 .replace(R.id.fragmentContainerView, fragment)
                 .commit();
         qrList.addView(fragment);
+
+        TextView userName = getView().findViewById(R.id.user_name);
+        userName.setText(user.getName());
     }
 
     /**
@@ -142,9 +176,11 @@ public class QRListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        /*
         if (user == null || user.getName().length() == 0) {
             user = ((MainActivity) getActivity()).getUser();
         }
+        */
         db.getUserCodes(user, listener);
     }
 
@@ -162,4 +198,3 @@ public class QRListFragment extends Fragment {
         }
     }
 }
-

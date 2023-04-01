@@ -36,3 +36,4 @@ public interface QueryListener<T extends Entity> {
      */
     void onFailure(Exception e);
 }
+

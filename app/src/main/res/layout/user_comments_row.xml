@@ -10,12 +10,12 @@
 
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:textColor="@color/QARMYBlack"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iconImageView"
@@ -27,10 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:textColor="@color/QARMYLightGreen"
         app:layout_constraintBottom_toTopOf="@+id/priceTextView"
-        app:layout_constraintEnd_toEndOf="@+id/titleTextView"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/nameTextView"
+        app:layout_constraintStart_toStartOf="@+id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
 </LinearLayout>

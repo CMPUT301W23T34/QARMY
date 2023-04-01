@@ -44,9 +44,6 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        setSupportActionBar(findViewById(R.id.user_profile_toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Initialize Firebase
 //        db_reference = FirebaseDatabase.getInstance().getReference();
@@ -112,10 +109,4 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onResume();
         updateValues();
     }
-    @Override
-    public boolean onSupportNavigateUp(){
-        finish();
-        return true;
-    }
 }
-
