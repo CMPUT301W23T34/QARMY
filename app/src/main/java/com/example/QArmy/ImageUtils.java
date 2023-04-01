@@ -18,7 +18,7 @@ public class ImageUtils {
      */
     public static String encodeToBase64(Bitmap image) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        image.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
@@ -32,6 +32,13 @@ public class ImageUtils {
     public static Bitmap decodeFromBase64(String encodedString) {
         byte[] decodedByteArray = Base64.decode(encodedString, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+    public static Bitmap resizeImage(Bitmap image){
+        int width = 480;
+        float ratio = width/(float)image.getWidth();
+        int height = (int) (image.getHeight()*ratio);
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 }
 
