@@ -33,7 +33,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private Button register_button;
-
     private FirebaseFirestore db;
 
     /**
@@ -62,18 +61,13 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        // Initialize Firebase Auth and Database references
 
         db = FirebaseFirestore.getInstance();
 
-
-        // TODO: get data from firebase for the Players
         // Get device id
         @SuppressLint("HardwareIds") String deviceID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        // Initialize Views
         email_or_phone = findViewById(R.id.email_or_phone);
         username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
         register_button = findViewById(R.id.register_button);
 
         // Set OnClickListener for Register button
@@ -83,7 +77,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 // Get user input
                 String email_phoneInput = RegistrationActivity.this.email_or_phone.getText().toString().trim();
                 String usernameInput = RegistrationActivity.this.username.getText().toString().trim();
-                String passwordInput = RegistrationActivity.this.password.getText().toString().trim();
 
                 // Validate user input
                 if (TextUtils.isEmpty(email_phoneInput)) {
@@ -101,71 +94,49 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(passwordInput)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a password:", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-                // Check if the device has already been registered
-//                db.collection("Players")
-//                        .whereEqualTo("deviceID", deviceID)
-//                        .get()
-//                        .addOnSuccessListener(queryDocumentSnapshots -> {
-//                            if (!queryDocumentSnapshots.isEmpty()) {
-//                                // Device already registered to another user
-//                                Toast.makeText(getApplicationContext(), "This device is already registered to another account.", Toast.LENGTH_SHORT).show();
-//                            } else {
-                                //check if username is taken
-                                db.collection("Players").document(usernameInput)
-                                        .get()
-                                        .addOnSuccessListener(documentSnapshot -> {
-                                            if (documentSnapshot.exists()) {
-                                                Toast.makeText(getApplicationContext(), "Username already taken. Please choose another one.", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Map<String, Object> userObject = new HashMap<>();
-                                                userObject.put("email", email_phoneInput);
-                                                userObject.put("userName", usernameInput);
-                                                userObject.put("password", passwordInput);
-                                                userObject.put("deviceID", deviceID);
-                                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
+                    //check if username is taken
+                    db.collection("Players").document(usernameInput)
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    Toast.makeText(getApplicationContext(), "Username already taken. Please choose another one.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Map<String, Object> userObject = new HashMap<>();
+                                    userObject.put("email", email_phoneInput);
+                                    userObject.put("userName", usernameInput);
+                                    userObject.put("deviceID", deviceID);
+                                    ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
 
+                                    db.collection("Players").document(usernameInput)
+                                            .set(userObject)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.e("RegistrationActivity", "DocumentSnapshot successfully written!");
 
-                                                db.collection("Players").document(usernameInput)
-                                                        .set(userObject)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.e("RegistrationActivity", "DocumentSnapshot successfully written!");
-                                                                // save created account to shared preferences
-                                                                ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
-                                                                MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
-                                                                        usernameInput,
-                                                                        email_phoneInput,
-                                                                        "",
-                                                                        "100",
-                                                                        deviceID
-                                                                ));
+                                                    // save created account to shared preferences
+                                                    ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
+                                                    MySharedPreferences.saveUserProfile(getApplicationContext(), new User(
+                                                            usernameInput,
+                                                            email_phoneInput,
+                                                            "",
+                                                            "100",
+                                                            deviceID
+                                                    ));
+                                                    finish();
 
-//                                                                Intent intent = new Intent(RegistrationActivity.this, UserProfileActivity.class);
-//                                                                intent.putExtra("name", usernameInput);
-//                                                                intent.putExtra("email", email_phoneInput);
-//                                                                intent.putExtra("password", passwordInput);
-//                                                                intent.putExtra("id", deviceID);
-//                                                                startActivity(intent);
-                                                                finish();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("RegistrationActivity", "Error writing document", e);
+                                                }
+                                            });
+                                }
+                            });
 
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.e("RegistrationActivity", "Error writing document", e);
-                                                            }
-                                                        });
-                                            }
-                                        });
-//                            }
-//                        });
             }
             });
 

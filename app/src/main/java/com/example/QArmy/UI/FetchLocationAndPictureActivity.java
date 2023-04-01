@@ -171,8 +171,9 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
             if (location != null) {
                 QRCode code = new QRCode(qrCodeHash, user, location, new Date());
 
-                code.setImage(ImageUtils.encodeToBase64(ImageUtils.resizeImage(bmp)));
-                Log.d("FETCH", "String length: " + code.getImage().length());
+                if (bmp != null) {
+                    code.setImage(ImageUtils.encodeToBase64(ImageUtils.resizeImage(bmp)));
+                }
                 if (code.getScore() > user.getScore()) {
                     user.setScore(code.getScore());
                 }
@@ -192,7 +193,6 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
             Uri uri = data.getData();
             try {
                 bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                Log.d("FETCH", "BMP Size: " + bmp.getWidth() + " x " + bmp.getHeight());
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
