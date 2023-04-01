@@ -5,4 +5,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:textSize="20sp"
     android:padding="5sp"
-    tools:text="test"/>
+    tools:text="test"
+    android:textColor="@color/black"/>
