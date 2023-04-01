@@ -50,7 +50,6 @@ import com.journeyapps.barcodescanner.ScanOptions;
  * @author Japkirat Kaur
  * @version 1.0
  */
-@RequiresApi(api = Build.VERSION_CODES.R)
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
