@@ -13,11 +13,10 @@ import android.widget.Toast;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 /**
@@ -26,10 +25,17 @@ import com.google.android.gms.tasks.Task;
  */
 public class EditProfileActivity extends AppCompatActivity {
     private Database db;
+
+
+    // UI Elements
     private EditText edit_name;
     private EditText edit_email;
     private EditText edit_phone;
     private Button save_button;
+    private Button home_button1;
+
+
+    // User Info
     private String name;
     private String email;
     private String phone;
@@ -45,7 +51,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         db = new Database();
 
-        // Retrieve user information from Intent
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         email = intent.getStringExtra("email");
@@ -55,6 +60,7 @@ public class EditProfileActivity extends AppCompatActivity {
         edit_email = findViewById(R.id.edit_email);
         edit_phone = findViewById(R.id.edit_phone);
         save_button = findViewById(R.id.save_button);
+        home_button1 = findViewById(R.id.home_button1);
 
         edit_name.setText(name);
         edit_email.setText(email);
@@ -66,6 +72,7 @@ public class EditProfileActivity extends AppCompatActivity {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get updated user info from UI elements
                 name = edit_name.getText().toString().trim();
                 email = edit_email.getText().toString().trim();
                 phone = edit_phone.getText().toString().trim();
@@ -86,22 +93,33 @@ public class EditProfileActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Update user info
+                // Update user info database
                 User updatedUser = new User(name, email, phone);
                 db.addUser(updatedUser, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(EditProfileActivity.this, "User info updated.", Toast.LENGTH_SHORT).show();
-                                    ((QArmy) getApplication()).setUser(updatedUser);
-                                    MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
-                                } else {
-                                    Toast.makeText(EditProfileActivity.this, "Failed to update user info.", Toast.LENGTH_SHORT).show();
-                                }
-                                finish();
-                            }
-                        });
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
+                            ((QArmy) getApplication()).setUser(updatedUser);
+                            MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
+                        } else {
+                            Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
+                        }
+                        finish();
+                    }
+                });
             }
         });
+
+        // if home button is clicked, go back to user profile
+        home_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }
