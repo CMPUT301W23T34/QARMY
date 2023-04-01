@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.QArmy.ImageUtils;
 import com.example.QArmy.R;
 import com.example.QArmy.UI.UsersSameQrScanActivity;
-import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 
@@ -110,12 +109,15 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         StringBuilder stringBuilder = new StringBuilder();
         String hashOfData = qrCode.getHash();
 
-        boolean bit0 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(0)).charAt(0));
-        boolean bit1 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(1)).charAt(0));
-        boolean bit2 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(2)).charAt(0));
-        boolean bit3 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(3)).charAt(0));
-        boolean bit4 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(4)).charAt(0));
-        boolean bit5 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(5)).charAt(0));
+        // boolean bit0 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(0)).charAt(0));
+        boolean bit0 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(0)));
+
+
+        boolean bit1 =strToBoolean(Integer.toBinaryString(hashOfData.charAt(0)));
+        boolean bit2 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(1)));
+        boolean bit3 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(2)));
+        boolean bit4 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(3)));
+        boolean bit5 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(4)));
 
 
         if (bit2) // hat instead of round face or square face
@@ -154,6 +156,21 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         return stringBuilder;
     }
 
+    private boolean strToBoolean(String toBinaryString) {
+
+        int count=countOccurrences(toBinaryString,'1');
+        return count%2==0;
+    }
+
+    public static int countOccurrences(String str, char c) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
     /**
      * This method takes a character as an input and returns
      * true or false if the character is 0 it means the bit is false

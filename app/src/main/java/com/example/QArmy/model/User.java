@@ -12,6 +12,8 @@
 
 package com.example.QArmy.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,5 +113,11 @@ public class User extends Entity {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
     }
 }

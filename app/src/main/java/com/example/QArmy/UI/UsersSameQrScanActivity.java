@@ -1,10 +1,10 @@
 package com.example.QArmy.UI;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
@@ -16,7 +16,6 @@ import java.util.List;
 
 /**
  * An activity that displays a list of users who have scanned the same QR codes.
- * @author Yasmin Ghaznavian
  */
 public class UsersSameQrScanActivity extends AppCompatActivity {
 
@@ -27,7 +26,7 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
     private Database db = new Database();
 
 
-    private UserViewAdapter adapter; // this recycle view shows the list of all the users that scan the code
+    private ArrayAdapter adapter; // this recycle view shows the list of all the users that scan the code
 
     /**
      * Called when the activity is first created. Initializes the activity UI and
@@ -51,11 +50,10 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
             public void onSuccess(List<User> data) {
                 // users which scanned the same tags
 
-                RecyclerView recyclerView = findViewById(R.id.recyclerView2);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                ListView listView = findViewById(R.id.listView);
 
-                adapter = new UserViewAdapter(getApplicationContext(), data);
-                recyclerView.setAdapter(adapter); // set the adapter to view
+                adapter = new ArrayAdapter(getApplicationContext(), R.layout.item_user, data);
+                listView.setAdapter(adapter); // set the adapter to view
             }
 
             @Override

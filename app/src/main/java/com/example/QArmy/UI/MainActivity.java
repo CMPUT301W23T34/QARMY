@@ -13,20 +13,15 @@
 package com.example.QArmy.UI;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -34,24 +29,15 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.QArmy.GPSLocation;
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
-import com.example.QArmy.db.Database;
-import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
-import com.journeyapps.barcodescanner.ScanIntentResult;
 import com.journeyapps.barcodescanner.ScanOptions;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Activity created when the app is launched.
@@ -60,7 +46,6 @@ import java.util.Locale;
  *
  * @author Nicholas Mellon
  * @author Kai Luedemann
- * @author Yasmin Ghaznavian
  * @author Brett Merkosky
  * @author Japkirat Kaur
  * @version 1.0

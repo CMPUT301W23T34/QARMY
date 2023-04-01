@@ -34,3 +34,4 @@ public class ImageUtils {
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }
+

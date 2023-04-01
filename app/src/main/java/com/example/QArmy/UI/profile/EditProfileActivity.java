@@ -13,11 +13,8 @@ import android.widget.Toast;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
-import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 /**
