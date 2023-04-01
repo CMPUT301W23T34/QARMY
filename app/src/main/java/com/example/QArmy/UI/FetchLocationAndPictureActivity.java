@@ -92,6 +92,9 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
         user = MySharedPreferences.loadUserProfile(this);
         Log.d("Main", user.getName());
         if (user.getName().equals("")) {
+            if(qrCode.getImage() != null){
+                currentImageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
+            }
             Intent intent = new Intent(this, RegistrationActivity.class);
             startActivity(intent);
             user = null;
