@@ -12,7 +12,6 @@
 
 package com.example.QArmy.model;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ import java.util.Map;
  * @author Kai Luedemann
  * @version 1.0
  */
-public class User extends Entity implements Serializable {
+public class User extends Entity {
 
     public static final String SCORE_FIELD = "score";
 
@@ -63,7 +62,7 @@ public class User extends Entity implements Serializable {
         this.phone = phone;
 
         this.score = 0;
-       // this.score = Integer.parseInt(score);
+        // this.score = Integer.parseInt(score);
 
         this.uniqueID = uniqueID;
 

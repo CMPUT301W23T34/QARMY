@@ -111,3 +111,4 @@ public class QRList extends TModel<TView> {
         return qrCodes;
     }
 }
+

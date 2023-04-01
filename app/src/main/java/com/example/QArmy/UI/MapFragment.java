@@ -15,12 +15,11 @@ package com.example.QArmy.UI;
  */
 
 
+
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,26 +28,16 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.QArmy.R;
-import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
-import com.example.QArmy.db.Database;
-import com.example.QArmy.db.QueryListener;
-import com.example.QArmy.model.QRCode;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Displays map
@@ -62,12 +51,6 @@ public class MapFragment extends Fragment {
     private IMapController mapController;
     private MyLocationNewOverlay locationOverlay;
     private ActivityResultLauncher<String[]> locationPermissionRequest;
-    private Database db;
-    private ItemizedIconOverlay itemizedOverlay;
-    private QRLocationList qrLocationList;
-    private QRLocationListener listener;
-
-
 
     public MapFragment(){
     }
@@ -98,7 +81,6 @@ public class MapFragment extends Fragment {
 
         Context context = getActivity().getApplicationContext();
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
-
         locationPermissionRequest =
                 registerForActivityResult(new ActivityResultContracts
                                 .RequestMultiplePermissions(), result -> {
@@ -112,9 +94,7 @@ public class MapFragment extends Fragment {
                         }
                 );
         mapController = mapView.getController();
-        db = new Database();
-        listener = new QRLocationListener();
-        qrLocationList = new QRLocationList();
+
         return mapView;
     }
 
@@ -128,14 +108,11 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context = getActivity().getApplicationContext();
-
+        Context context = getActivity();
         locationPermissionRequest.launch(new String[] {
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
         });
-
-        db.getNearbyCodes(listener);
 
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context),mapView);
@@ -143,27 +120,6 @@ public class MapFragment extends Fragment {
         locationOverlay.enableFollowLocation();
         locationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(locationOverlay);
-
-        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<OverlayItem>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
-                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-                    @Override
-                    public boolean onItemSingleTapUp(final int index,
-                                                     final OverlayItem item) {
-                        String selectedQR = qrLocationList.getQrCodes().get(index).getName()+","+qrLocationList.getQrCodes().get(index).getScore();
-                        Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-                        intent.putExtra("Object",selectedQR);
-                        startActivity(intent);
-
-                        return true;
-                    }
-                    @Override
-                    public boolean onItemLongPress(final int index,
-                                                   final OverlayItem item) {
-                        return false;
-                    }
-                }, context);
-
-        mapView.getOverlays().add(itemizedOverlay);
 
         mapView.setMultiTouchControls(true);
         mapView.setTilesScaledToDpi(true);
@@ -184,7 +140,6 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        db.getNearbyCodes(listener);
         mapController.setCenter(locationOverlay.getMyLocation());
         mapView.onResume();
         checkPermissions(getActivity());
@@ -207,22 +162,6 @@ public class MapFragment extends Fragment {
             Toast.makeText(context,"Enable Location Services to view Map",Toast.LENGTH_LONG).show();
         } else {
             mapView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    class QRLocationListener implements QueryListener<QRCode> {
-
-        @Override
-        public void onSuccess(List<QRCode> data) {
-            qrLocationList.modify(data);
-            itemizedOverlay.removeAllItems();
-            itemizedOverlay.addItems(qrLocationList.getItemList());
-            mapView.invalidate();
-        }
-
-        @Override
-        public void onFailure(Exception e) {
-
         }
     }
 

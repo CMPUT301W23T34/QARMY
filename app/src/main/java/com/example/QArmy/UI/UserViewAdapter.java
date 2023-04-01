@@ -1,4 +1,4 @@
-package com.example.QArmy.UI.qrcodes;
+package com.example.QArmy.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,27 +11,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.QArmy.R;
-import com.example.QArmy.model.UserComments;
+import com.example.QArmy.model.User;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * The type Services recycler view adapter.
+ * The type User view adapter.
  */
-public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
+public class UserViewAdapter extends RecyclerView.Adapter<UserViewAdapter.ViewHolder> {
 
-    private ArrayList<UserComments> mData;
+    private List<User> mData;
     private LayoutInflater mInflater;
     private Context context;
 
     /**
-     * Instantiates a new Event recycler view adapter.
+     * Instantiates a new User view adapter.
      *
      * @param context the context
      * @param data    the data
      */
 // data is passed into the constructor
-    public CommentsAdapter(Context context, ArrayList<UserComments> data) {
+    public UserViewAdapter(Context context, List<User> data) {
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.mData = data;
@@ -41,7 +41,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.user_comments_row, parent, false);
+        View view = mInflater.inflate(R.layout.item_users, parent, false);
         return new ViewHolder(view);
     }
 
@@ -50,8 +50,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.titleTextView.setText(mData.get(position).getUsername());
-        holder.descTextView.setText(mData.get(position).getTextMessage());
+        holder.nameTextView.setText(mData.get(position).getName());
+        holder.emailTextView.setText(mData.get(position).getEmail());
+        holder.phoneTextView.setText(mData.get(position).getPhone());
+        holder.scoreTextView.setText("Score: " + mData.get(position).getScore());
 
     }
 
@@ -70,7 +72,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
      * @return the item
      */
 // convenience method for getting data at click position
-    public UserComments getItem(int id) {
+    public User getItem(int id) {
         return mData.get(id);
     }
 
@@ -81,15 +83,22 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 // stores and recycles views as they are scrolled off screen
     class ViewHolder extends RecyclerView.ViewHolder {
 
-
         /**
-         * The Title text view.
+         * The Name text view.
          */
-        TextView titleTextView;
+        TextView nameTextView;
         /**
-         * The Desc text view.
+         * The Email text view.
          */
-        TextView descTextView;
+        TextView emailTextView;
+        /**
+         * The Phone text view.
+         */
+        TextView phoneTextView;
+        /**
+         * The Score text view.
+         */
+        TextView scoreTextView;
 
         /**
          * Instantiates a new View holder.
@@ -98,9 +107,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
          */
         ViewHolder(View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.nameTextView);
-            descTextView = itemView.findViewById(R.id.descTextView);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
+            emailTextView = itemView.findViewById(R.id.emailTextView);
+            phoneTextView = itemView.findViewById(R.id.phoneTextView);
+            scoreTextView = itemView.findViewById(R.id.scoreTextView);
         }
     }
 }
-
