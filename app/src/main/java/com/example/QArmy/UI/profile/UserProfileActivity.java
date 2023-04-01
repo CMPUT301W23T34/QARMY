@@ -10,21 +10,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.User;
 
 /**
  * Activity representing the user profile screen
  * @author Yasmin Ghaznavian
  * @author Kai Luedemann
+ * @author Jessica Emereonye
  */
 public class UserProfileActivity extends AppCompatActivity {
+
+
     private TextView text_name;
     private TextView text_email;
     private TextView text_phone;
     private Button edit_button;
+    private Button home_button;
+
+
+    // User Info
     private String name;
     private String email;
     private String phone;
+  
 
     /**
      * Initialize the activity
@@ -34,10 +43,12 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
         text_name = findViewById(R.id.text_name);
         text_email = findViewById(R.id.text_email);
         text_phone = findViewById(R.id.text_phone);
         edit_button = findViewById(R.id.edit_button);
+        home_button = findViewById(R.id.home_button);
 
         updateValues();
 
@@ -48,13 +59,23 @@ public class UserProfileActivity extends AppCompatActivity {
                 // Create an Intent to start EditProfileActivity
                 Intent intent = new Intent(UserProfileActivity.this, EditProfileActivity.class);
 
-                // Pass the current user information to EditProfileActivity using Intent
+                // Pass the current user information to EditProfileActivity 
                 intent.putExtra("name", name);
                 intent.putExtra("email", email);
                 intent.putExtra("phone", phone);
+
                 startActivity(intent);
             }
         });
+
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
