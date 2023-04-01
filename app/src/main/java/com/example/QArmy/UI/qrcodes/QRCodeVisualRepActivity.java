@@ -63,27 +63,30 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         commentsImageView = findViewById(R.id.comments_image_view);
         monsterTextView = findViewById(R.id.textView4);
 
-        String qrCodeId = (String) getIntent().getStringExtra("Object");
-        db.getCodesById(qrCodeId, new QueryListener<QRCode>() {
-            @Override
-            public void onSuccess(List<QRCode> data) {
-                if (data != null && data.size() == 1) {
-                    qrCode = data.get(0);
-                    updateData();
-                } else {
-                    Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                    ProgressBar progressBar = findViewById(R.id.progressBar);
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
+        qrCode = (QRCode) getIntent().getSerializableExtra("QRCode");
+        updateData();
 
-            @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                ProgressBar progressBar = findViewById(R.id.progressBar);
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+//        String qrCodeId = (String) getIntent().getStringExtra("Object");
+//        db.getCodesById(qrCodeId, new QueryListener<QRCode>() {
+//            @Override
+//            public void onSuccess(List<QRCode> data) {
+//                if (data != null && data.size() == 1) {
+//                    qrCode = data.get(0);
+//                    updateData();
+//                } else {
+//                    Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
+//                    ProgressBar progressBar = findViewById(R.id.progressBar);
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Exception e) {
+//                Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
+//                ProgressBar progressBar = findViewById(R.id.progressBar);
+//                progressBar.setVisibility(View.GONE);
+//            }
+//        });
 
     }
 
@@ -92,7 +95,9 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         nameTextView.setText(qrCode.getName());
         scoreButton.setText("Score: " + qrCode.getScore());
         geoLocationTextView.setText("Geolocation:\nLatitude: " + qrCode.getLat() + "\nLongitude: " + qrCode.getLon());
-        imageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
+        if (qrCode.getImage() != null) {
+            imageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
+        }
         StringBuilder stringBuilder = createMonster();
         monsterTextView.setText(stringBuilder.toString());
 

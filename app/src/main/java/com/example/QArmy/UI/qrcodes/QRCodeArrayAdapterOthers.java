@@ -13,6 +13,7 @@
 package com.example.QArmy.UI.qrcodes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,11 +94,18 @@ public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TV
         qrCodeScore.setText(String.format(Locale.CANADA, "Score: %d", qrCode.getScore()));
 
 
-        if (clickListener != null) {
-            Constants.setQrCode(qrCode);
-            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
-            view.setOnClickListener(clickListener);
-        }
+//        if (clickListener != null) {
+//            Constants.setQrCode(qrCode);
+//            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
+//            view.setOnClickListener(clickListener);
+//        }
+
+        view.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            //intent.putExtra("Object", qrCode.getID());
+            intent.putExtra("QRCode", qrCode);
+            getContext().startActivity(intent);
+        });
 
         return view;
     }
