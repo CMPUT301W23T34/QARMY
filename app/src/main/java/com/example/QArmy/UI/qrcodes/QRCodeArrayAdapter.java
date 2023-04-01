@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
 import com.example.QArmy.TView;

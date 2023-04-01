@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.QArmy.R;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 

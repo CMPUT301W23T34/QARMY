@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.QArmy.ImageUtils;
 import com.example.QArmy.R;
 import com.example.QArmy.UI.UsersSameQrScanActivity;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 
