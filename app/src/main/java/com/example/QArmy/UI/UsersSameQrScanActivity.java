@@ -1,5 +1,6 @@
 package com.example.QArmy.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
+import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
 import com.example.QArmy.UI.rank.PlayerArrayAdapter;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
@@ -61,7 +63,9 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, R.layout.item_user, users);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            new OtherUserProfile(users.get(i)).show(getSupportFragmentManager(), "Show user Profile");
+            Intent otherUserProfileIntent = new Intent(this, OtherUserProfileActivity.class);
+            otherUserProfileIntent.putExtra("user", users.get(i));
+            startActivity(otherUserProfileIntent);
         });
 
         db.getQRUsersByHash(qrCodeHash, new QueryListener<User>() {

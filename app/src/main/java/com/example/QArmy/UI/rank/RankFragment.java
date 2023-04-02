@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.QArmy.QArmy;
+import com.example.QArmy.UI.OtherUserProfileActivity;
 import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.db.Database;
@@ -95,7 +96,9 @@ public class RankFragment extends Fragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 User userClicked = (User)adapterView.getItemAtPosition(position);
-                new OtherUserProfile(userClicked).show(getActivity().getSupportFragmentManager(), "Show user Profile");
+                Intent otherUserProfileIntent = new Intent(getContext(), OtherUserProfileActivity.class);
+                otherUserProfileIntent.putExtra("user", userClicked);
+                startActivity(otherUserProfileIntent);
 
             }
         });
