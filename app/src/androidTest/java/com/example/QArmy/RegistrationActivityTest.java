@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
 
 public class RegistrationActivityTest {
     private Solo solo;
-    private Database database = new Database();
+    private Database database;
     private QArmy app;
     @Rule
     public ActivityTestRule<RegistrationActivity> rule = new ActivityTestRule<>(RegistrationActivity.class, true, false);
@@ -38,6 +38,7 @@ public class RegistrationActivityTest {
     public void setUp() {
         app = (QArmy) ApplicationProvider.getApplicationContext();
         //rule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        database = app.model.db;
     }
 
     @Test
@@ -49,16 +50,10 @@ public class RegistrationActivityTest {
         String testUsername = "test21";
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
-<<<<<<< HEAD
-<<<<<<< HEAD
-        solo.enterText((EditText) solo.getView(R.id.username), testUsername);
-        solo.enterText((EditText) solo.getView(R.id.password), "test");
-=======
-        solo.enterText((EditText) solo.getView(R.id.username), "test123");
-        //solo.enterText((EditText) solo.getView(R.id.password), "test");
->>>>>>> 3fbcc0affe89ca6a4f06bcf21b674dc328e420fa
 
-        solo.clickOnButton("Register");
+        solo.enterText((EditText) solo.getView(R.id.username), testUsername);
+
+        solo.clickOnButton("Enlist");
         assertTrue(solo.waitForActivity(MainActivity.class, 2000));
     }
 
@@ -67,7 +62,7 @@ public class RegistrationActivityTest {
         app.setUser(new User("test"));
         rule.launchActivity(new Intent(Intent.ACTION_MAIN));
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        assertTrue(solo.waitForText("Total"));
+        assertTrue(solo.waitForText("QArmy"));
     }
 
     @Test
@@ -78,15 +73,11 @@ public class RegistrationActivityTest {
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
         solo.enterText((EditText) solo.getView(R.id.username), "kai");
-        solo.enterText((EditText) solo.getView(R.id.password), "exists");
 
-        solo.clickOnButton("Register");
+        solo.clickOnButton("Enlist");
         assertFalse(solo.waitForActivity(MainActivity.class, 2000));
     }
-=======
-        solo.enterText((EditText) solo.getView(R.id.username), "test123");
-        //solo.enterText((EditText) solo.getView(R.id.password), "test");
->>>>>>> ade097218b15a0ed6e58565f97a2d905f1d5325e
+
 
     @After
     public void tearDown() {

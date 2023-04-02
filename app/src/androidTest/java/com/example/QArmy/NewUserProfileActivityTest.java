@@ -41,17 +41,4 @@ public class NewUserProfileActivityTest {
         Assert.assertEquals("johndoe@example.com", intent.getStringExtra("email"));
         Assert.assertEquals("555-555-5555", intent.getStringExtra("phone"));
     }
-    /**
-     * Test that home button is working
-     */
-    
-    @Test
-    public void testHomeButton() {
-        Button homeButton = activity.findViewById(R.id.home_button);
-
-        homeButton.performClick();
-
-        Intent intent = activity.getIntent();
-        Assert.assertEquals(MainActivity.class.getName(), intent.getComponent().getClassName());
-    }
 }

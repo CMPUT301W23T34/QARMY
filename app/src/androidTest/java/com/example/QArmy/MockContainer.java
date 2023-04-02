@@ -8,5 +8,6 @@ public class MockContainer extends AppContainer {
     public MockContainer() {
         user = new User("test");
         prefsController = new MockSharedPrefsController();
+        db = new Database(true);
     }
 }
