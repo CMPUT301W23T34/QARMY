@@ -20,11 +20,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.QArmy.UI.MainActivity;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.UI.OtherUserProfile;
 import com.example.QArmy.db.AggregateListener;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
-import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.User;
 

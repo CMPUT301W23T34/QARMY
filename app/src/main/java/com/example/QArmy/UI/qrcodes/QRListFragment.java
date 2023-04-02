@@ -12,7 +12,6 @@
  */
 package com.example.QArmy.UI.qrcodes;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +23,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.QArmy.UI.MainActivity;
+import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
-import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
@@ -96,11 +95,7 @@ public class QRListFragment extends Fragment {
         qrList = new QRList();
 
         ListView qrCodeList = getView().findViewById(R.id.qr_code_list);
-        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db, view1 -> {
-            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-            intent.putExtra("Object",(String) view1.getContentDescription());
-            startActivity(intent);
-        });
+        QRCodeArrayAdapter qrCodeAdapter = new QRCodeArrayAdapter(getContext(), qrList, db);
 
         qrCodeList.setAdapter(qrCodeAdapter);
         qrList.addView(qrCodeAdapter);
@@ -167,3 +162,4 @@ public class QRListFragment extends Fragment {
         }
     }
 }
+

@@ -16,8 +16,6 @@ import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 /**
@@ -47,9 +45,6 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        setSupportActionBar(findViewById(R.id.edit_profile_toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         db = new Database();
 
@@ -100,24 +95,19 @@ public class EditProfileActivity extends AppCompatActivity {
                 // Update user info in Firebase Realtime Database
                 User updatedUser = new User(name, email, phone);
                 db.addUser(updatedUser, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
-                                    ((QArmy) getApplication()).setUser(updatedUser);
-                                    MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
-                                } else {
-                                    Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
-                                }
-                                finish();
-                            }
-                        });
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditProfileActivity.this, "User info updated", Toast.LENGTH_SHORT).show();
+                            ((QArmy) getApplication()).setUser(updatedUser);
+                            MySharedPreferences.saveUserProfile(EditProfileActivity.this, updatedUser);
+                        } else {
+                            Toast.makeText(EditProfileActivity.this, "Failed to update user info", Toast.LENGTH_SHORT).show();
+                        }
+                        finish();
+                    }
+                });
             }
         });
-    }
-    @Override
-    public boolean onSupportNavigateUp(){
-        finish();
-        return true;
     }
 }
