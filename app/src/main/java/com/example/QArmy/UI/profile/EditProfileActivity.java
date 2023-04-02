@@ -16,6 +16,8 @@ import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 /**
@@ -45,6 +47,9 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        setSupportActionBar(findViewById(R.id.edit_profile_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         db = new Database();
 
@@ -109,5 +114,10 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }

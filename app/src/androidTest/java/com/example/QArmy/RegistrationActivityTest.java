@@ -28,7 +28,7 @@ public class RegistrationActivityTest {
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
         solo.enterText((EditText) solo.getView(R.id.username), "test123");
-        solo.enterText((EditText) solo.getView(R.id.password), "test");
+        //solo.enterText((EditText) solo.getView(R.id.password), "test");
 
         solo.clickOnButton("Enlist");
     }

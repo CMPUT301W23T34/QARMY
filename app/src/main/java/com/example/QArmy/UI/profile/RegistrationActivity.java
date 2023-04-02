@@ -31,7 +31,7 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity {
     private EditText email_or_phone;
     private EditText username;
-    private EditText password;
+    //private EditText password;
     private Button register_button;
 
     private FirebaseFirestore db;
@@ -73,7 +73,7 @@ public class RegistrationActivity extends AppCompatActivity {
         // Initialize Views
         email_or_phone = findViewById(R.id.email_or_phone);
         username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
+        //password = findViewById(R.id.password);
         register_button = findViewById(R.id.register_button);
 
         // Set OnClickListener for Register button
@@ -83,7 +83,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 // Get user input
                 String email_phoneInput = RegistrationActivity.this.email_or_phone.getText().toString().trim();
                 String usernameInput = RegistrationActivity.this.username.getText().toString().trim();
-                String passwordInput = RegistrationActivity.this.password.getText().toString().trim();
+                //String passwordInput = RegistrationActivity.this.password.getText().toString().trim();
 
                 // Validate user input
                 if (TextUtils.isEmpty(email_phoneInput)) {
@@ -101,10 +101,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(passwordInput)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a password:", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(passwordInput)) {
+//                    Toast.makeText(getApplicationContext(), "Please enter a password:", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 // Check if the device has already been registered
 //                db.collection("Players")
@@ -125,7 +125,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                                 Map<String, Object> userObject = new HashMap<>();
                                                 userObject.put("email", email_phoneInput);
                                                 userObject.put("userName", usernameInput);
-                                                userObject.put("password", passwordInput);
+                                                //userObject.put("password", passwordInput);
                                                 userObject.put("deviceID", deviceID);
                                                 ((QArmy) getApplication()).setUser(new User(usernameInput, email_phoneInput, "", "100", deviceID));
 
