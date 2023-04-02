@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.example.QArmy.QArmy;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.UI.OtherUserProfile;
@@ -50,9 +52,6 @@ public class RankFragment extends Fragment{
 
     public RankFragment(){
 
-
-
-
     }
 
     @Override
@@ -64,11 +63,14 @@ public class RankFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        playerList = new PlayerList();
-        userList = new PlayerList();
-        db = new Database();
+        AppContainer appContainer = ((QArmy) getActivity().getApplication()).model;
+        playerList = appContainer.playerList;
+        db = appContainer.db;
+
         listener = new RankListener();
-        user = ((MainActivity) getActivity()).getUser();
+        user = appContainer.user;
+
+        userList = new PlayerList();
 
         // list when search is being made
         searchedList = new PlayerList();
@@ -79,6 +81,7 @@ public class RankFragment extends Fragment{
         PlayerArrayAdapter playerArrayAdapter = new PlayerArrayAdapter(getContext(), playerList, db);
         rankList.setAdapter(playerArrayAdapter);
         playerList.addView(playerArrayAdapter);
+
 
         // for user at bottom
         ListView userRank = getView().findViewById(R.id.user_rank);
@@ -96,11 +99,6 @@ public class RankFragment extends Fragment{
 
             }
         });
-
-
-
-
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -129,10 +127,6 @@ public class RankFragment extends Fragment{
                 return false;
             }
         });
-
-
-
-
 
     }
 

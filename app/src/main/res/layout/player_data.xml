@@ -14,6 +14,7 @@
         android:paddingTop="10sp"
         android:text="Name"
         android:textSize="30sp"
+        android:textColor="@color/QARMYBlack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +25,7 @@
         android:paddingLeft="20dp"
         android:text="Score: NOT IMPLEMENTED"
         android:textSize="15sp"
+        android:textColor="@color/QARMYLightGreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_name"/>
 
