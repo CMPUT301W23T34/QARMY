@@ -70,6 +70,8 @@ public class RankFragment extends Fragment{
         listener = new RankListener();
         user = appContainer.user;
 
+        userList = new PlayerList();
+
         // list when search is being made
         searchedList = new PlayerList();
         searchView = getView().findViewById(R.id.search_text);
