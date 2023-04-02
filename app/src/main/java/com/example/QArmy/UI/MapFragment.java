@@ -145,9 +145,9 @@ public class MapFragment extends Fragment {
                     @Override
                     public boolean onItemSingleTapUp(final int index,
                                                      final OverlayItem item) {
-                        String selectedQR = qrLocationList.getQrCodes().get(index).getName()+","+qrLocationList.getQrCodes().get(index).getScore();
+                        QRCode selectedQR = qrLocationList.getQrCodes().get(index);
                         Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-                        intent.putExtra("Object",selectedQR);
+                        intent.putExtra("QRCode",selectedQR);
                         startActivity(intent);
 
                         return true;
