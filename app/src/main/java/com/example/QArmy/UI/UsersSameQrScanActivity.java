@@ -51,6 +51,10 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_same_qr_scan);
 
+        setSupportActionBar(findViewById(R.id.scanned_by_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         String qrCodeHash = (String) getIntent().getStringExtra("Object");
         listView = findViewById(R.id.listView);
@@ -75,5 +79,10 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
