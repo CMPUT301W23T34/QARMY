@@ -168,7 +168,6 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
             getLocation(this);
         }
         if (v == finishTrainingButton) {
-            if (location != null) {
                 QRCode code = new QRCode(qrCodeHash, user, location, new Date());
 
                 code.setImage(ImageUtils.encodeToBase64(ImageUtils.resizeImage(bmp)));
@@ -179,9 +178,6 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
                 db.addQRCode(code, null);
                 db.addUser(user, null);
                 finish();
-            } else {
-                Toast.makeText(this, "please fetch location first", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
