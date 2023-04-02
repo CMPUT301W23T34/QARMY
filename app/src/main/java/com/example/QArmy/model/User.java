@@ -12,6 +12,9 @@
 
 package com.example.QArmy.model;
 
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +23,7 @@ import java.util.Map;
  * @author Kai Luedemann
  * @version 1.0
  */
-public class User extends Entity {
+public class User extends Entity implements Serializable {
 
     public static final String SCORE_FIELD = "score";
 
@@ -28,6 +31,8 @@ public class User extends Entity {
     private String name;
     private String email;
     private String phone;
+
+    private int rank = 1;
 
     public User() {
 
@@ -54,6 +59,7 @@ public class User extends Entity {
     }
 
     public User(String name, String email, String phone, int score) {
+
         this.name = name;
 
         this.email = email;
@@ -106,4 +112,14 @@ public class User extends Entity {
     public void setScore(int score) {
         this.score = score;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public int getRank() {return this.rank;}
+
+    public void setRank(int rank) {this.rank = rank;}
 }

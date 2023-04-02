@@ -20,6 +20,12 @@
         android:theme="@style/Theme.QArmy"
         tools:targetApi="31">
         <activity
+            android:name=".UI.UsersSameQrScanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.FetchLocationAndPictureActivity"
+            android:exported="true" />
+        <activity
             android:name=".UI.qrcodes.CommentsActivity"
             android:exported="false" />
         <activity
@@ -27,7 +33,7 @@
             android:exported="true" />
         <activity
             android:name=".UI.profile.UserProfileActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".UI.profile.RegistrationActivity"
             android:exported="true">

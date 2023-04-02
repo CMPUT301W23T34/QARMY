@@ -49,8 +49,13 @@ public class RegistrationActivityTest {
         String testUsername = "test21";
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
+<<<<<<< HEAD
         solo.enterText((EditText) solo.getView(R.id.username), testUsername);
         solo.enterText((EditText) solo.getView(R.id.password), "test");
+=======
+        solo.enterText((EditText) solo.getView(R.id.username), "test123");
+        //solo.enterText((EditText) solo.getView(R.id.password), "test");
+>>>>>>> 3fbcc0affe89ca6a4f06bcf21b674dc328e420fa
 
         solo.clickOnButton("Register");
         assertTrue(solo.waitForActivity(MainActivity.class, 2000));

@@ -39,8 +39,8 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private EditText password;
     private Button register_button;
 
-
     private UserController userController;
+
 
     /**
      * Checks whether a new email is valid
@@ -71,7 +71,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        // Initialize Firebase Auth and Database references
 
         AppContainer model = ((QArmy) getApplication()).model;
         User user = model.user;
@@ -84,13 +83,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
         userController = new UserController(model.prefsController, model.db);
 
-
-        // TODO: get data from firebase for the Players
-        // Get device id
         // Initialize Views
         email_or_phone = findViewById(R.id.email_or_phone);
         username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
         register_button = findViewById(R.id.register_button);
 
         // Set OnClickListener for Register button
@@ -100,7 +95,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 // Get user input
                 String email_phoneInput = RegistrationActivity.this.email_or_phone.getText().toString().trim();
                 String usernameInput = RegistrationActivity.this.username.getText().toString().trim();
-                String passwordInput = RegistrationActivity.this.password.getText().toString().trim();
 
                 // Validate user input
                 if (TextUtils.isEmpty(email_phoneInput)) {
@@ -117,12 +111,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                     Toast.makeText(getApplicationContext(), "Please choose a username:", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                if (TextUtils.isEmpty(passwordInput)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a password:", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
 
                 userController.add(new User(usernameInput, email_phoneInput, "", 0), RegistrationActivity.this);
             }

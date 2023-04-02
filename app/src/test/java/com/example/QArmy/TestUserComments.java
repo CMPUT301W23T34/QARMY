@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TestUserComments {
     @Test
     public void testUserCommentSetters() {
-        UserComments testComment = new UserComments("TestUsername","TestComment");
+        UserComments testComment = new UserComments("TestUsername","TestComment", "TestID");
         assertEquals("TestUsername", testComment.getUsername());
         assertEquals("TestComment",testComment.getTextMessage());
         testComment.setUsername("NewUsername");
