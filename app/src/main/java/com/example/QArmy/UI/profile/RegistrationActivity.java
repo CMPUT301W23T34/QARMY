@@ -36,7 +36,7 @@ import java.util.Map;
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
     private EditText email_or_phone;
     private EditText username;
-    private EditText password;
+    //private EditText password;
     private Button register_button;
 
     private UserController userController;
@@ -86,6 +86,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         // Initialize Views
         email_or_phone = findViewById(R.id.email_or_phone);
         username = findViewById(R.id.username);
+
         register_button = findViewById(R.id.register_button);
 
         // Set OnClickListener for Register button
@@ -95,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 // Get user input
                 String email_phoneInput = RegistrationActivity.this.email_or_phone.getText().toString().trim();
                 String usernameInput = RegistrationActivity.this.username.getText().toString().trim();
+
 
                 // Validate user input
                 if (TextUtils.isEmpty(email_phoneInput)) {
@@ -113,6 +115,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 }
 
                 userController.add(new User(usernameInput, email_phoneInput, "", 0), RegistrationActivity.this);
+
             }
         });
     }

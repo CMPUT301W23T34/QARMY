@@ -50,6 +50,7 @@ public class RegistrationActivityTest {
         solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
         solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
 <<<<<<< HEAD
+<<<<<<< HEAD
         solo.enterText((EditText) solo.getView(R.id.username), testUsername);
         solo.enterText((EditText) solo.getView(R.id.password), "test");
 =======
@@ -82,6 +83,10 @@ public class RegistrationActivityTest {
         solo.clickOnButton("Register");
         assertFalse(solo.waitForActivity(MainActivity.class, 2000));
     }
+=======
+        solo.enterText((EditText) solo.getView(R.id.username), "test123");
+        //solo.enterText((EditText) solo.getView(R.id.password), "test");
+>>>>>>> ade097218b15a0ed6e58565f97a2d905f1d5325e
 
     @After
     public void tearDown() {

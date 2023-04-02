@@ -18,21 +18,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.QArmy"
+        android:screenOrientation="portrait"
         tools:targetApi="31">
         <activity
             android:name=".UI.UsersSameQrScanActivity"
             android:exported="false" />
         <activity
+            android:name=".UI.qrcodes.QRCodeScanActivity"
+            android:exported="false"
+            android:label="Train Recruit"/>
+        <activity
             android:name=".UI.FetchLocationAndPictureActivity"
             android:exported="true" />
         <activity
             android:name=".UI.qrcodes.CommentsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="View/Edit Comments" />
         <activity
             android:name=".UI.qrcodes.QRCodeVisualRepActivity"
             android:exported="true" />
         <activity
             android:name=".UI.profile.UserProfileActivity"
+            android:label="User Profile"
             android:exported="true" />
         <activity
             android:name=".UI.profile.RegistrationActivity"
@@ -45,6 +52,7 @@
         </activity>
         <activity
             android:name=".UI.profile.EditProfileActivity"
+            android:label="Edit Profile"
             android:exported="false" />
         <activity
             android:name=".UI.MainActivity"

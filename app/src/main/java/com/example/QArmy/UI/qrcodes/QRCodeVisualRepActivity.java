@@ -36,7 +36,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
     private ImageView commentsImageView;
 
     private TextView monsterTextView;
-    private TextView nameTextView;
 
     private QRCode qrCode;
 
@@ -53,8 +52,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_visual_rep);
 
-        nameTextView = findViewById(R.id.name_textView);
-
         imageView = findViewById(R.id.currentImageView);
         geoLocationTextView = findViewById(R.id.emailTextView);
         scoreButton = findViewById(R.id.button);
@@ -63,7 +60,12 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         commentsImageView = findViewById(R.id.comments_image_view);
         monsterTextView = findViewById(R.id.textView4);
 
+        setSupportActionBar(findViewById(R.id.qr_code_representation_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         qrCode = (QRCode) getIntent().getSerializableExtra("QRCode");
+        setTitle(qrCode.getName());
         updateData();
 
 //        String qrCodeId = (String) getIntent().getStringExtra("Object");
@@ -92,7 +94,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
 
     private void updateData() {
 
-        nameTextView.setText(qrCode.getName());
         scoreButton.setText("Score: " + qrCode.getScore());
         geoLocationTextView.setText("Geolocation:\nLatitude: " + qrCode.getLat() + "\nLongitude: " + qrCode.getLon());
         if (qrCode.getImage() != null) {
@@ -196,6 +197,11 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
             intent.putExtra("Object", qrCode.getHash());
             startActivity(intent);
         }
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
 

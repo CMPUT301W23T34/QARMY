@@ -30,6 +30,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+<<<<<<< HEAD
         <entry key="-465858169">
           <value>
             <AndroidTestResultsTableState>
@@ -72,14 +73,21 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+=======
+>>>>>>> ade097218b15a0ed6e58565f97a2d905f1d5325e
         <entry key="2080568483">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
+<<<<<<< HEAD
                   <entry key="08211JEC200855" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="Google&#10; Pixel 4a" value="120" />
+=======
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_XL_API_33" value="120" />
+>>>>>>> ade097218b15a0ed6e58565f97a2d905f1d5325e
                   <entry key="Tests" value="360" />
                 </map>
               </option>
