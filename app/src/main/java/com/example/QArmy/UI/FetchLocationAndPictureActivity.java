@@ -23,10 +23,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.GPSLocation;
 import com.example.QArmy.ImageUtils;
+import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.db.Database;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -89,18 +91,10 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
         geolocationTextView = findViewById(R.id.emailTextView);
 
         // Shared Preferences
-        user = MySharedPreferences.loadUserProfile(this);
-        Log.d("Main", user.getName());
-        if (user.getName().equals("")) {
-            if(qrCode.getImage() != null){
-                currentImageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
-            }
-            Intent intent = new Intent(this, RegistrationActivity.class);
-            startActivity(intent);
-            user = null;
-        }
+        AppContainer model = ((QArmy) getApplication()).model;
+        user = model.user;
 
-        db = new Database();
+        db = model.db;
 
         qrCodeHash = getIntent().getStringExtra("QR_CODE");
     }
@@ -170,8 +164,9 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
         if (v == finishTrainingButton) {
                 QRCode code = new QRCode(qrCodeHash, user, location, new Date());
 
-                code.setImage(ImageUtils.encodeToBase64(ImageUtils.resizeImage(bmp)));
-                Log.d("FETCH", "String length: " + code.getImage().length());
+                if (bmp != null) {
+                    code.setImage(ImageUtils.encodeToBase64(ImageUtils.resizeImage(bmp)));
+                }
                 if (code.getScore() > user.getScore()) {
                     user.setScore(code.getScore());
                 }
@@ -188,7 +183,6 @@ public class FetchLocationAndPictureActivity extends AppCompatActivity implement
             Uri uri = data.getData();
             try {
                 bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                Log.d("FETCH", "BMP Size: " + bmp.getWidth() + " x " + bmp.getHeight());
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
