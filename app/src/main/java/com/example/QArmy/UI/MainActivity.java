@@ -34,6 +34,7 @@ import com.example.QArmy.R;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
+import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
 import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
@@ -186,11 +187,13 @@ public class MainActivity extends AppCompatActivity {
      * upon completion.
      */
     ActivityResultLauncher<ScanOptions> QRLauncher = registerForActivityResult(new ScanContract(), result -> {
-        if (result.getContents() != null) {
-            Intent intent = new Intent(this, FetchLocationAndPictureActivity.class);
-            intent.putExtra("QR_CODE", result.getContents());
-            startActivity(intent);
 
+        String qrCodeText = result.getContents();
+        if (qrCodeText != null) {
+            Intent scanActivityIntent = new Intent(this, QRCodeScanActivity.class);
+            scanActivityIntent.putExtra("qrCodeText", result.getContents());
+            scanActivityIntent.putExtra("user", user);
+            startActivity(scanActivityIntent);
         }
     });
 
