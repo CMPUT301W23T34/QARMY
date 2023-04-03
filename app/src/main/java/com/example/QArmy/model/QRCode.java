@@ -36,8 +36,8 @@ public class QRCode extends Entity implements Serializable {
 
     public static final String TIME_FIELD = "timestamp";
     private String hash;
-    private double lat;
-    private double lon;
+    private Double lat;
+    private Double lon;
     private String image;
     private int score;
     private String name;
@@ -66,8 +66,14 @@ public class QRCode extends Entity implements Serializable {
             this.lat = location.getLatitude();
             this.lon = location.getLongitude();
         }
+        else {;
+            this.lat = null;
+            this.lon = null;
+        }
         this.timestamp = timestamp.getTime();
     }
+
+
 
     /**
      * Initialize an empty QR code.
@@ -287,7 +293,7 @@ public class QRCode extends Entity implements Serializable {
         return this.timestamp;
     }
 
-    public double getLat() {
+    public Double getLat() {
         return this.lat;
     }
 
@@ -295,7 +301,7 @@ public class QRCode extends Entity implements Serializable {
         return this.user;
     }
 
-    public double getLon() {
+    public Double getLon() {
         return this.lon;
     }
 
