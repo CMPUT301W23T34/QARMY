@@ -167,6 +167,7 @@ public class Database {
                     for (QueryDocumentSnapshot doc : task.getResult()) {
                         users.add((String) doc.get(QRCode.USER_FIELD));
                     }
+
                     // Query users from DB
                     // We cannot query on a list of more than 10 users
                     if (users.size() > 0) {
