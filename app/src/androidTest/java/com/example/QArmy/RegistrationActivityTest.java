@@ -1,5 +1,5 @@
 /*
- * TestRegistrationActivity
+ * RegistrationActivityTest
  *
  * Version: 1.0
  *
@@ -56,25 +56,6 @@ public class RegistrationActivityTest {
     public void setUp() {
         app = (QArmy) ApplicationProvider.getApplicationContext();
         database = app.model.db;
-    }
-
-    /**
-     * Test adding a user with valid phone number.
-     */
-    @Test
-    public void testNewUserPhone() {
-        app.setUser(empty);
-        rule.launchActivity(new Intent(Intent.ACTION_MAIN));
-        solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        String testUsername = "notexistinguser";
-        solo.assertCurrentActivity("Wrong Activity", RegistrationActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.email_or_phone), "5875555555");
-
-        solo.enterText((EditText) solo.getView(R.id.username), testUsername);
-
-        solo.clickOnButton(enlist);
-        assertTrue(solo.waitForActivity(MainActivity.class, timeout));
-        database.deleteUser(new User("notexistinguser"), task -> {});
     }
 
     /**

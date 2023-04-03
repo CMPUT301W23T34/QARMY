@@ -36,7 +36,7 @@ import com.example.QArmy.model.User;
  * @author Jessica Emereonye
  */
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
-    private EditText email_or_phone;
+    private EditText email;
     private EditText username;
 
     private UserController userController;
@@ -48,19 +48,10 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      * @param target The new email the user is attempting to add
      * @return Whether or not this email already exists in the database
      */
-    public static boolean isValidEmail(CharSequence target) {
+    public boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
-    /**
-     * Checks whether a new phone number is valid
-     *
-     * @param target The new phone number the user is attempting to add
-     * @return Whether or not this phone number already exists in the database
-     */
-    public static boolean isValidPhoneNumber(CharSequence target) {
-        return (!TextUtils.isEmpty(target) && Patterns.PHONE.matcher(target).matches());
-    }
 
     /**
      * Initialize the activity
@@ -84,7 +75,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         userController = new UserController(model.prefsController, model.db);
 
         // Initialize Views
-        email_or_phone = findViewById(R.id.email_or_phone);
+        email = findViewById(R.id.email_or_phone);
         username = findViewById(R.id.username);
 
         Button register_button = findViewById(R.id.register_button);
@@ -92,18 +83,18 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         // Set OnClickListener for Register button
         register_button.setOnClickListener(view -> {
             // Get user input
-            String email_phoneInput = RegistrationActivity.this.email_or_phone.getText().toString().trim();
+            String emailInput = RegistrationActivity.this.email.getText().toString().trim();
             String usernameInput = RegistrationActivity.this.username.getText().toString().trim();
 
 
             // Validate user input
-            if (TextUtils.isEmpty(email_phoneInput)) {
-                Toast.makeText(getApplicationContext(), "Please enter your email or phone number:", Toast.LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(emailInput)) {
+                Toast.makeText(getApplicationContext(), "Please enter your email:", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!isValidEmail(email_phoneInput) && !isValidPhoneNumber(email_phoneInput)) {
-                Toast.makeText(getApplicationContext(), "Please enter a valid email or phone number:", Toast.LENGTH_SHORT).show();
+            if (!isValidEmail(emailInput)) {
+                Toast.makeText(getApplicationContext(), "Please enter a valid email:", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -112,7 +103,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 return;
             }
 
-            userController.add(new User(usernameInput, email_phoneInput, "", 0), RegistrationActivity.this);
+            userController.add(new User(usernameInput, emailInput, "", 0), RegistrationActivity.this);
 
         });
     }
