@@ -81,7 +81,7 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
 
         commentsImageView.setOnClickListener(view -> {
             Intent intent = new Intent(QRCodeVisualRepActivity.this, CommentsActivity.class);
-            intent.putExtra("Object", qrCode.getID());
+            intent.putExtra("QRCode", qrCode);
             startActivity(intent);
         });
         ProgressBar progressBar = findViewById(R.id.progressBar);

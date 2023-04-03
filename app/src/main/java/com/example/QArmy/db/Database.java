@@ -19,12 +19,15 @@ import static java.lang.Math.min;
 
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.example.QArmy.model.UserComments;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -106,6 +109,42 @@ public class Database {
      */
     public void deleteQRCode(QRCode qrCode, OnCompleteListener<Void> listener) {
         QR_CODES.document(qrCode.getID())
+                .delete()
+                .addOnCompleteListener(listener);
+    }
+
+    // ************************* Comment Queries *******************************
+
+    /**
+     * Add a comment to the database.
+     *
+     * @param comment  - the comment to add
+     * @param listener - provides a callback when query is complete
+     */
+    public void addComment(QRCode code, UserComments comment, OnCompleteListener<DocumentReference> listener) {
+        QR_CODES.document(code.getID())
+                .collection("Comments")
+                .add(comment)
+                .addOnCompleteListener(listener);
+    }
+
+    public void getComments(QRCode code, OnCompleteListener<QuerySnapshot> listener) {
+        QR_CODES.document(code.getID())
+                .collection("Comments")
+                .get()
+                .addOnCompleteListener(listener);
+    }
+
+    /**
+     * Delete a comment to the database.
+     *
+     * @param comment  - the comment to delete
+     * @param listener - provides a callback when query is complete
+     */
+    public void deleteComment(QRCode qrCode, UserComments comment, OnCompleteListener<Void> listener) {
+        QR_CODES.document(qrCode.getID())
+                .collection("Comments")
+                .document(comment.getID())
                 .delete()
                 .addOnCompleteListener(listener);
     }
