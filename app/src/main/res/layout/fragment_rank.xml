@@ -13,28 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:queryHint="Search for Player"
-        android:textColor="@color/QARMYBlack">
+        android:queryHint="Search for Player">
 
     </SearchView>
 
     <ListView
         android:id="@+id/rank_list"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     </ListView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@drawable/threedots"></ImageView>
 
 
     <ListView
         android:id="@+id/user_rank"
         android:layout_width="match_parent"
-        android:layout_height="100dp"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+    </ListView>
 
 
 </LinearLayout>
