@@ -1,9 +1,7 @@
 package com.example.QArmy.UI.profile;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -12,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.QArmy;
@@ -20,13 +17,6 @@ import com.example.QArmy.R;
 import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.User;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Represents the registration page for new users

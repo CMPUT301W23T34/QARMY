@@ -21,7 +21,6 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,16 +32,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
-import com.example.QArmy.db.Database;
-import com.example.QArmy.model.AppContainer;
-import com.example.QArmy.model.QRCode;
-
-import com.example.QArmy.model.User;
-import com.example.QArmy.UI.profile.MySharedPreferences;
-import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
-
 import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
+import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;

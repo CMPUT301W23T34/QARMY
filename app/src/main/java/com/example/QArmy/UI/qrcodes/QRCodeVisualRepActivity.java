@@ -63,29 +63,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         qrCode = (QRCode) getIntent().getSerializableExtra("QRCode");
         setTitle(qrCode.getName());
         updateData();
-
-//        String qrCodeId = (String) getIntent().getStringExtra("Object");
-//        db.getCodesById(qrCodeId, new QueryListener<QRCode>() {
-//            @Override
-//            public void onSuccess(List<QRCode> data) {
-//                if (data != null && data.size() == 1) {
-//                    qrCode = data.get(0);
-//                    updateData();
-//                } else {
-//                    Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-//                    ProgressBar progressBar = findViewById(R.id.progressBar);
-//                    progressBar.setVisibility(View.GONE);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Exception e) {
-//                Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-//                ProgressBar progressBar = findViewById(R.id.progressBar);
-//                progressBar.setVisibility(View.GONE);
-//            }
-//        });
-
     }
 
     private void updateData() {

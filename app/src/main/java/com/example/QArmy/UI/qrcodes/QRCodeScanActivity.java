@@ -132,7 +132,6 @@ public class QRCodeScanActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         image = (Bitmap) result.getData().getExtras().get("data");
-                        //image = ImageUtils.resizeImage(image);
                         scanView.setImageBitmap(image);
                     }
                 }
