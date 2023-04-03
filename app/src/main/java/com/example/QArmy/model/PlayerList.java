@@ -1,3 +1,14 @@
+/*
+ * PlayerList
+ *
+ * Version: 1.0
+ *
+ * Date: 2023-03-23
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ */
 package com.example.QArmy.model;
 
 import com.example.QArmy.TModel;

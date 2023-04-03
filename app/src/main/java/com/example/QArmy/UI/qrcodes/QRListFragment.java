@@ -56,12 +56,6 @@ public class QRListFragment extends Fragment {
         user = new User("kai");
     }
 
-    private void updateSummaries() {
-        //TODO: Implement this
-        // This is where we would update our total, count, min, and max
-        // after deleting or adding a QR code
-    }
-
     /**
      * Create the root view for the fragment.
      * @param inflater The LayoutInflater object that can be used to inflate

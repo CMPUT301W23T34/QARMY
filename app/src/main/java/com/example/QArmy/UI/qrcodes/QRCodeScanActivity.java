@@ -31,10 +31,16 @@ import com.example.QArmy.model.User;
 
 import java.util.Date;
 
+
+/**
+ * Activity created after a QR code is scanned.
+ * Enables the user to take a picture of the QR code location
+ * and toggle geolocation settings.
+ * @author Brett Merkosky
+ * @author Japkirat Kaur
+ * @version 1.0
+ */
 public class QRCodeScanActivity extends AppCompatActivity {
-    //TODO: Add the image options
-    //TODO: Write documentation and tests
-    //TODO: Use a ToggleButton for the geolocation
     private Database db;
     private User user;
     private Button finishTrainingButton;
@@ -46,7 +52,11 @@ public class QRCodeScanActivity extends AppCompatActivity {
     private ToggleButton geolocationToggle;
     private Bitmap image;
 
-
+    /**
+     * Initialize the activity.
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +77,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
         takePictureButton = findViewById(R.id.take_picture_button);
         scanView = findViewById(R.id.scan_image);
 
+        // Open up the camera app to take a picture of the QR code location
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,10 +87,12 @@ public class QRCodeScanActivity extends AppCompatActivity {
             }
         });
 
+        // Create the new QRCode object and close the activity
         finishTrainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Location location = null;
+                // Check if geolocation is enabled
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                         && (ActivityCompat.checkSelfPermission(QRCodeScanActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                         && (!geolocationToggle.isChecked())){
@@ -111,12 +124,20 @@ public class QRCodeScanActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Close the activity when the back button is pressed.
+     *
+     * @return Whether the activity was successfully closed
+     */
     @Override
     public boolean onSupportNavigateUp(){
         finish();
         return true;
     }
 
+    // Open up the camera activity and take the picture
+    // after the clicks the button to take a picture of the QR code location
     ActivityResultLauncher<Intent> cameraResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {

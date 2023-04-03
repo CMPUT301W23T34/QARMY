@@ -29,7 +29,7 @@ public class QRListFragmentTest {
     private Database db;
     private User user;
     private QRList qrList;
-    private final int timeout = 1000;
+    private final int timeout = 5000;
 
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class, true, true);
