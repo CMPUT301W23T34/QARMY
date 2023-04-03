@@ -50,10 +50,4 @@
         android:textColor="@color/QARMYWhite"
         />
 
-    <Button
-        android:id="@+id/home_button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Back to Home Page" />
-
 </LinearLayout>
