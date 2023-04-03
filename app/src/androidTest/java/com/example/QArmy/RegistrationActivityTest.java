@@ -85,7 +85,7 @@ public class RegistrationActivityTest {
         app.setUser(new User("test"));
         rule.launchActivity(new Intent(Intent.ACTION_MAIN));
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        assertTrue(solo.waitForText("QArmy",1, timeout));
+        assertTrue(solo.waitForText("Your Platoon",1, timeout));
     }
 
     /**

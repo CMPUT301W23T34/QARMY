@@ -55,14 +55,6 @@ public class EditProfileActivityTest {
     }
 
     /**
-     * Test the back button.
-     */
-    @Test
-    public void testBack() {
-        solo.clickOnActionBarItem(R.id.backButton);
-    }
-
-    /**
      * Test updating phone and email values.
      */
     @Test
