@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner "com.example.QArmy.MockTestRunner"
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
