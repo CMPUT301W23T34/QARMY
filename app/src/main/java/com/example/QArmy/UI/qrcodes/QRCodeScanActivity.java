@@ -6,18 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.activity.result.ActivityResult;
@@ -33,10 +28,7 @@ import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
-import com.github.dhaval2404.imagepicker.ImagePicker;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.util.Date;
 
 public class QRCodeScanActivity extends AppCompatActivity {
@@ -108,7 +100,6 @@ public class QRCodeScanActivity extends AppCompatActivity {
                 }
                 db.addQRCode(code, task -> {
                     if (task.isSuccessful()) {
-                        //Log.d("Main", "Error adding QR code");
                     }
                 });
                 db.addUser(user, task -> {
@@ -133,7 +124,6 @@ public class QRCodeScanActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         image = (Bitmap) result.getData().getExtras().get("data");
-                        //image = ImageUtils.resizeImage(image);
                         scanView.setImageBitmap(image);
                     }
                 }

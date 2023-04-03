@@ -15,10 +15,6 @@
 package com.example.QArmy.model;
 
 import android.location.Location;
-import android.media.Image;
-import android.util.Log;
-
-import com.example.QArmy.UI.qrcodes.QRVisual;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;

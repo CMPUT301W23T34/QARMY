@@ -32,9 +32,6 @@
             android:exported="false"
             android:label="Train Recruit"/>
         <activity
-            android:name=".UI.FetchLocationAndPictureActivity"
-            android:exported="true" />
-        <activity
             android:name=".UI.qrcodes.CommentsActivity"
             android:exported="false"
             android:label="View/Edit Comments" />

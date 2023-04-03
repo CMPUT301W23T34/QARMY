@@ -2,7 +2,6 @@ package com.example.QArmy;
 
 import static org.junit.Assert.assertEquals;
 
-import com.example.QArmy.UI.qrcodes.Constants;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 

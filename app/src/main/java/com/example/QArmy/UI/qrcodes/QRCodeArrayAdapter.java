@@ -95,7 +95,6 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
 
         view.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-            //intent.putExtra("Object", qrCode.getID());
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);
         });

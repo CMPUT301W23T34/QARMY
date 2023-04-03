@@ -15,7 +15,6 @@ public class MySharedPreferences {
     private static final String USER_PROFILE_PREFS = "user_profile_prefs";
     private static final String QR_CODE_PREFS = "qr_code_prefs";
     private static final String DEVICE_ID_PREFERENCE = "device_id_prefs";
-    //private static final String USERNAME_PREFS = "username_prefs";
 
     private static final String COMMENTS_PREFS = "comments_prefs";
 

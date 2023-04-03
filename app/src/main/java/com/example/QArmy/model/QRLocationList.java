@@ -1,8 +1,7 @@
-package com.example.QArmy.UI;
+package com.example.QArmy.model;
 
 import com.example.QArmy.TModel;
 import com.example.QArmy.TView;
-import com.example.QArmy.model.QRCode;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.OverlayItem;
@@ -21,7 +20,11 @@ public class QRLocationList extends TModel<TView> {
 
     public void modify(List<QRCode> newCodes) {
         qrCodes.clear();
-        qrCodes.addAll(newCodes);
+        for (QRCode qr : newCodes) {
+            if (qr.getLat() != null || qr.getLon() != null) {
+                qrCodes.add(qr);
+            }
+        }
         updateQrLocations();
         notifyViews();
     }
@@ -29,10 +32,8 @@ public class QRLocationList extends TModel<TView> {
     private void updateQrLocations() {
         itemList.clear();
         for (QRCode qr : qrCodes) {
-            if (qr.getLat() != null || qr.getLon() != null) {
-                GeoPoint g = new GeoPoint(qr.getLat(), qr.getLon());
-                itemList.add(new OverlayItem(qr.getHash(), qr.getName(), g));
-            }
+            GeoPoint g = new GeoPoint(qr.getLat(), qr.getLon());
+            itemList.add(new OverlayItem(qr.getHash(), qr.getName(), g));
         }
     }
 

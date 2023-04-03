@@ -17,16 +17,11 @@ package com.example.QArmy.db;
 
 import static java.lang.Math.min;
 
-import androidx.annotation.NonNull;
-
-import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -82,18 +77,6 @@ public class Database {
     }
 
     /**
-     * This method takes a QR code hash and returns a list of QR codes that match the hash.
-     *
-     * @return a list of QR codes that match the provided hash.
-     * @throws IllegalArgumentException if the provided hash is null or empty.
-     */
-    public void getCodesById(String codeId, QueryListener<QRCode> listener) {
-        QR_CODES.whereEqualTo("id", codeId).limit(1)
-                .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
-    }
-
-    /**
      * Get QR codes around a given location
      *
      * @param listener
@@ -125,44 +108,6 @@ public class Database {
         QR_CODES.document(qrCode.getID())
                 .delete()
                 .addOnCompleteListener(listener);
-    }
-
-    // ************************* Comment Queries *******************************
-
-    /**
-     * Add a comment to the database.
-     *
-     * @param comment  - the comment to add
-     * @param listener - provides a callback when query is complete
-     */
-    public void addComment(Comment comment, OnCompleteListener<Void> listener) {
-        COMMENTS.document(comment.getID())
-                .set(comment)
-                .addOnCompleteListener(listener);
-    }
-
-    /**
-     * Delete a comment to the database.
-     *
-     * @param comment  - the comment to delete
-     * @param listener - provides a callback when query is complete
-     */
-    public void deleteComment(Comment comment, OnCompleteListener<Void> listener) {
-        COMMENTS.document(comment.getID())
-                .delete()
-                .addOnCompleteListener(listener);
-    }
-
-    /**
-     * Get the comments posted to a given QR code.
-     *
-     * @param qrCode   - the QR code to get comments for
-     * @param listener - provides a callback when query is complete
-     */
-    public void getQRComments(QRCode qrCode, QueryListener<Comment> listener) {
-        COMMENTS.whereEqualTo(Comment.CODE_FIELD, qrCode.getHash())
-                .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, Comment.class));
     }
 
     // ************************* User Queries **********************************

@@ -1,18 +1,13 @@
 package com.example.QArmy;
 
 
-import android.app.Activity;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.QArmy.UI.CaptureAct;
 import com.example.QArmy.UI.MainActivity;
-import com.example.QArmy.UI.OtherUserProfile;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 import com.robotium.solo.Solo;
