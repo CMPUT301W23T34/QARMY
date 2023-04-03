@@ -1,8 +1,7 @@
-package com.example.QArmy.UI;
+package com.example.QArmy.model;
 
 import com.example.QArmy.TModel;
 import com.example.QArmy.TView;
-import com.example.QArmy.model.QRCode;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.OverlayItem;

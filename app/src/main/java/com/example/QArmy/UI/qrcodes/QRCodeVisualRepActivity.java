@@ -89,7 +89,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         StringBuilder stringBuilder = new StringBuilder();
         String hashOfData = qrCode.getHash();
 
-        // boolean bit0 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(0)).charAt(0));
         boolean bit0 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(0)));
 
 

@@ -107,7 +107,6 @@ public class QRCodeScanActivity extends AppCompatActivity {
                 }
                 db.addQRCode(code, task -> {
                     if (task.isSuccessful()) {
-                        //Log.d("Main", "Error adding QR code");
                     }
                 });
                 db.addUser(user, task -> {

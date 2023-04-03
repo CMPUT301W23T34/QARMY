@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import android.location.Location;
 import android.location.LocationManager;
 
-import com.example.QArmy.UI.QRLocationList;
+import com.example.QArmy.model.QRLocationList;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 

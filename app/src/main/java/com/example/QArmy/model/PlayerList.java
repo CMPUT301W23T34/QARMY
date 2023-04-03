@@ -2,7 +2,7 @@ package com.example.QArmy.model;
 
 import com.example.QArmy.TModel;
 import com.example.QArmy.TView;
-import com.example.QArmy.model.User;
+
 import java.util.ArrayList;
 import java.util.List;
 

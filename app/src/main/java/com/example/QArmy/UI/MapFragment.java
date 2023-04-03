@@ -37,6 +37,7 @@ import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.QRLocationList;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -160,9 +161,7 @@ public class MapFragment extends Fragment {
                     }
                 }, context);
         
-        db.getNearbyCodes(listener);
-
-        db.getNearbyCodes(listener);
+        //db.getNearbyCodes(listener);
 
         mapView.getOverlays().add(itemizedOverlay);
 
@@ -185,6 +184,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        db.getNearbyCodes(listener);
         mapController.setCenter(locationOverlay.getMyLocation());
         mapView.onResume();
         checkPermissions(getActivity());

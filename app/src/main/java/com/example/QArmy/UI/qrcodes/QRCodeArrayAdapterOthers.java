@@ -93,16 +93,8 @@ public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TV
         qrCodeName.setText(qrCode.getName());
         qrCodeScore.setText(String.format(Locale.CANADA, "Score: %d", qrCode.getScore()));
 
-
-//        if (clickListener != null) {
-//            Constants.setQrCode(qrCode);
-//            view.setContentDescription(qrCode.getName() + "," + qrCode.getScore());
-//            view.setOnClickListener(clickListener);
-//        }
-
         view.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-            //intent.putExtra("Object", qrCode.getID());
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);
         });
