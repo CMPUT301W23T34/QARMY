@@ -42,7 +42,6 @@ public class QRCode extends Entity implements Serializable {
     private String image;
     private int score;
     private String name;
-    private QRVisual qrMonster;
     private long timestamp;
     private String user;
 
@@ -63,7 +62,6 @@ public class QRCode extends Entity implements Serializable {
         this.image = image;
         this.score = generateScore(hash.toCharArray());
         this.name = generateName(hash.toCharArray(), score);
-        this.qrMonster = generateVisual(hash);
         this.user = user.getName();
         if (location != null) {
             this.lat = location.getLatitude();
@@ -235,18 +233,6 @@ public class QRCode extends Entity implements Serializable {
     }
 
     /**
-     * Create the visual representation of the QR code.
-     * Not yet implemented.
-     * @param qrHash The QR code hash string
-     * @return The visual representation of the QR code
-     */
-    private QRVisual generateVisual(String qrHash) {
-        // TODO: Implement this
-        //Log.d("QRCODE", "CALLED");
-        return null;
-    }
-
-    /**
      * Calculate the score for the QR code.
      * Based on the algorithm presented in the project description.
      * @param qrHashHex The QR code hash
@@ -310,10 +296,6 @@ public class QRCode extends Entity implements Serializable {
 
     public Double getLat() {
         return this.lat;
-    }
-
-    public QRVisual getVisual() {
-        return this.qrMonster;
     }
 
     public String getUser() {
