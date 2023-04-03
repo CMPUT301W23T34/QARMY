@@ -17,18 +17,13 @@ package com.example.QArmy.db;
 
 import static java.lang.Math.min;
 
-import androidx.annotation.NonNull;
-
-import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.example.QArmy.model.UserComments;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -80,18 +75,6 @@ public class Database {
     public void getUserCodes(User user, QueryListener<QRCode> listener) {
         QR_CODES.whereEqualTo(QRCode.USER_FIELD, user.getName())
                 .orderBy(QRCode.TIME_FIELD, Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
-    }
-
-    /**
-     * This method takes a QR code hash and returns a list of QR codes that match the hash.
-     *
-     * @return a list of QR codes that match the provided hash.
-     * @throws IllegalArgumentException if the provided hash is null or empty.
-     */
-    public void getCodesById(String codeId, QueryListener<QRCode> listener) {
-        QR_CODES.whereEqualTo("id", codeId).limit(1)
                 .get()
                 .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
@@ -164,18 +147,6 @@ public class Database {
                 .document(comment.getID())
                 .delete()
                 .addOnCompleteListener(listener);
-    }
-
-    /**
-     * Get the comments posted to a given QR code.
-     *
-     * @param qrCode   - the QR code to get comments for
-     * @param listener - provides a callback when query is complete
-     */
-    public void getQRComments(QRCode qrCode, QueryListener<Comment> listener) {
-        COMMENTS.whereEqualTo(Comment.CODE_FIELD, qrCode.getHash())
-                .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, Comment.class));
     }
 
     // ************************* User Queries **********************************

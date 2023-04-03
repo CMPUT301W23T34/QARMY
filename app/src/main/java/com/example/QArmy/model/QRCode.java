@@ -15,10 +15,6 @@
 package com.example.QArmy.model;
 
 import android.location.Location;
-import android.media.Image;
-import android.util.Log;
-
-import com.example.QArmy.UI.qrcodes.QRVisual;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
@@ -41,12 +37,11 @@ public class QRCode extends Entity implements Serializable {
 
     public static final String TIME_FIELD = "timestamp";
     private String hash;
-    private double lat;
-    private double lon;
+    private Double lat;
+    private Double lon;
     private String image;
     private int score;
     private String name;
-    private QRVisual qrMonster;
     private long timestamp;
     private String user;
 
@@ -67,14 +62,19 @@ public class QRCode extends Entity implements Serializable {
         this.image = image;
         this.score = generateScore(hash.toCharArray());
         this.name = generateName(hash.toCharArray(), score);
-        this.qrMonster = generateVisual(hash);
         this.user = user.getName();
         if (location != null) {
             this.lat = location.getLatitude();
             this.lon = location.getLongitude();
         }
+        else {;
+            this.lat = null;
+            this.lon = null;
+        }
         this.timestamp = timestamp.getTime();
     }
+
+
 
     /**
      * Initialize an empty QR code.
@@ -233,18 +233,6 @@ public class QRCode extends Entity implements Serializable {
     }
 
     /**
-     * Create the visual representation of the QR code.
-     * Not yet implemented.
-     * @param qrHash The QR code hash string
-     * @return The visual representation of the QR code
-     */
-    private QRVisual generateVisual(String qrHash) {
-        // TODO: Implement this
-        //Log.d("QRCODE", "CALLED");
-        return null;
-    }
-
-    /**
      * Calculate the score for the QR code.
      * Based on the algorithm presented in the project description.
      * @param qrHashHex The QR code hash
@@ -306,19 +294,15 @@ public class QRCode extends Entity implements Serializable {
         return this.timestamp;
     }
 
-    public double getLat() {
+    public Double getLat() {
         return this.lat;
-    }
-
-    public QRVisual getVisual() {
-        return this.qrMonster;
     }
 
     public String getUser() {
         return this.user;
     }
 
-    public double getLon() {
+    public Double getLon() {
         return this.lon;
     }
 

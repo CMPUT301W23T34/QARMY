@@ -52,11 +52,6 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Create an Intent to start EditProfileActivity
                 Intent intent = new Intent(UserProfileActivity.this, EditProfileActivity.class);
-
-                // Pass the current user information to EditProfileActivity using Intent
-//                intent.putExtra("name", name);
-//                intent.putExtra("email", email);
-//                intent.putExtra("phone", phone);
                 startActivity(intent);
             }
         });

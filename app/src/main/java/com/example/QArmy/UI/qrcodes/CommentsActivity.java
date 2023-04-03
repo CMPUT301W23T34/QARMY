@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +44,6 @@ public class CommentsActivity extends AppCompatActivity {
     private User user;
     private QRCode qrCode;
     private CommentList commentList;
-
     private CommentController controller;
 
     /**
