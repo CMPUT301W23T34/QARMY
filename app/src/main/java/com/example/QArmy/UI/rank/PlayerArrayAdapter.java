@@ -10,22 +10,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.QArmy.db.Database;
+import com.example.QArmy.db.AggregateListener;
+import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
 import com.example.QArmy.TView;
-import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 
+import java.util.List;
 import java.util.Locale;
 
 
 public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<PlayerList> {
     private PlayerList playerList;
+    private UserRankListener listener;
+    private long rank;
     private Database db;
     public PlayerArrayAdapter(Context context, PlayerList playerList, Database db) {
         super(context, 0, playerList.getList());
         this.db = db;
         this.playerList = playerList;
+        listener = new UserRankListener();
     }
 
     // Creates a view to display the list of Players
@@ -44,11 +50,25 @@ public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<Play
         User player = getItem(position);
         TextView playerName = view.findViewById(R.id.player_name);
         TextView playerScore = view.findViewById(R.id.player_score);
+        //db.getRank(player, (AggregateListener) listener);
 
-        playerName.setText(String.format(Locale.CANADA, "%d. %s", position+1, player.getName()));
+        playerName.setText(String.format(Locale.CANADA, "%d. %s", player.getRank(), player.getName()));
         playerScore.setText("Score: "+Integer.toString(player.getScore()));
 
+
         return view;
+    }
+
+    class UserRankListener implements AggregateListener {
+        @Override
+        public void onSuccess(long data) {
+            rank = data;
+        }
+
+        @Override
+        public void onFailure(Exception e) {
+
+        }
     }
 
     @Override

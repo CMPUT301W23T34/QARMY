@@ -7,7 +7,8 @@
     tools:context=".UI.qrcodes.QRCodeVisualRepActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
+        android:id="@+id/qr_code_representation_toolbar"
+
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -18,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:menu="@menu/toolbar_main"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
@@ -32,28 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/qr_code_representation_toolbar"
         app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/name_textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:lines="2"
-            android:text="Name"
-            android:textSize="22sp"
-            android:textColor="@color/QARMYBlack"/>
 
 
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:clickable="false"
+            android:textSize="22sp"
             android:text="Score: 543"
             android:background="@color/QARMYDarkGreen"
             android:textColor="@color/QARMYWhite"/>
@@ -98,13 +88,13 @@
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/image"
+        android:src="@drawable/empty_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@drawable/image" />
+        tools:srcCompat="@drawable/empty_image" />
 
 
     <LinearLayout
@@ -175,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="monster here"        
+        android:text="monster here"
         android:textSize="18sp"
         android:textColor="@color/QARMYBlack"
         app:layout_constraintBottom_toBottomOf="parent"

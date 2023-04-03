@@ -19,22 +19,13 @@ import com.example.QArmy.model.User;
  * @author Kai Luedemann
  */
 public class UserProfileActivity extends AppCompatActivity {
-    // Firebase
-    private User current_user;
-
-    // UI Elements
     private TextView text_name;
     private TextView text_email;
     private TextView text_phone;
     private Button edit_button;
-
-    // User Info
     private String name;
     private String email;
     private String phone;
-    private String deviceId;
-
-    private User currentUser;
 
     /**
      * Initialize the activity
@@ -48,30 +39,12 @@ public class UserProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // Initialize Firebase
-//        db_reference = FirebaseDatabase.getInstance().getReference();
-//        current_user = FirebaseAuth.getInstance().getCurrentUser();
-//        Intent intent = getIntent();
-//        name = intent.getStringExtra("name");
-//        email = intent.getStringExtra("email");
-//        phone = intent.getStringExtra("phone");
-//        deviceId = intent.getStringExtra("id");
-//
-//        String score = "";
-//        User user = new User(name, email, phone, score, deviceId);
-
-        //User user = MySharedPreferences.loadUserProfile(this);
-
-        // Initialize UI Elements
         text_name = findViewById(R.id.text_name);
         text_email = findViewById(R.id.text_email);
         text_phone = findViewById(R.id.text_phone);
         edit_button = findViewById(R.id.edit_button);
 
         updateValues();
-
-        // Load user info from Firebase Realtime Database
-
 
         // Set click listener for Edit button
         edit_button.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +53,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 // Create an Intent to start EditProfileActivity
                 Intent intent = new Intent(UserProfileActivity.this, EditProfileActivity.class);
 
-                // Pass the current user information to EditProfileActivity using Intent extras
+                // Pass the current user information to EditProfileActivity using Intent
                 intent.putExtra("name", name);
                 intent.putExtra("email", email);
                 intent.putExtra("phone", phone);
-
                 startActivity(intent);
             }
         });

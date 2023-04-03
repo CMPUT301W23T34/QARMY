@@ -12,11 +12,14 @@
 
 package com.example.QArmy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.QRList;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 

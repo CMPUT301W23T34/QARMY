@@ -36,7 +36,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
     private ImageView commentsImageView;
 
     private TextView monsterTextView;
-    private TextView nameTextView;
 
     private QRCode qrCode;
 
@@ -53,8 +52,6 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_visual_rep);
 
-        nameTextView = findViewById(R.id.name_textView);
-
         imageView = findViewById(R.id.currentImageView);
         geoLocationTextView = findViewById(R.id.emailTextView);
         scoreButton = findViewById(R.id.button);
@@ -63,36 +60,39 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         commentsImageView = findViewById(R.id.comments_image_view);
         monsterTextView = findViewById(R.id.textView4);
 
-        String qrCodeId = (String) getIntent().getStringExtra("Object");
-        db.getCodesById(qrCodeId, new QueryListener<QRCode>() {
-            @Override
-            public void onSuccess(List<QRCode> data) {
-                if (data != null && data.size() == 1) {
-                    qrCode = data.get(0);
-                    updateData();
-                } else {
-                    Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                    ProgressBar progressBar = findViewById(R.id.progressBar);
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
+        qrCode = (QRCode) getIntent().getSerializableExtra("QRCode");
+        setTitle(qrCode.getName());
+        updateData();
 
-            @Override
-            public void onFailure(Exception e) {
-                Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                ProgressBar progressBar = findViewById(R.id.progressBar);
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+//        String qrCodeId = (String) getIntent().getStringExtra("Object");
+//        db.getCodesById(qrCodeId, new QueryListener<QRCode>() {
+//            @Override
+//            public void onSuccess(List<QRCode> data) {
+//                if (data != null && data.size() == 1) {
+//                    qrCode = data.get(0);
+//                    updateData();
+//                } else {
+//                    Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
+//                    ProgressBar progressBar = findViewById(R.id.progressBar);
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Exception e) {
+//                Toast.makeText(QRCodeVisualRepActivity.this, "Error occurred", Toast.LENGTH_SHORT).show();
+//                ProgressBar progressBar = findViewById(R.id.progressBar);
+//                progressBar.setVisibility(View.GONE);
+//            }
+//        });
 
     }
 
     private void updateData() {
 
-        nameTextView.setText(qrCode.getName());
         scoreButton.setText("Score: " + qrCode.getScore());
         geoLocationTextView.setText("Geolocation:\nLatitude: " + qrCode.getLat() + "\nLongitude: " + qrCode.getLon());
-        if(qrCode.getImage() != null) {
+        if (qrCode.getImage() != null) {
             imageView.setImageBitmap(ImageUtils.decodeFromBase64(qrCode.getImage()));
         }
         StringBuilder stringBuilder = createMonster();
@@ -112,12 +112,15 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         StringBuilder stringBuilder = new StringBuilder();
         String hashOfData = qrCode.getHash();
 
-        boolean bit0 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(0)).charAt(0));
-        boolean bit1 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(1)).charAt(0));
-        boolean bit2 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(2)).charAt(0));
-        boolean bit3 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(3)).charAt(0));
-        boolean bit4 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(4)).charAt(0));
-        boolean bit5 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(5)).charAt(0));
+        // boolean bit0 = charToBoolean(Integer.toBinaryString(hashOfData.charAt(0)).charAt(0));
+        boolean bit0 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(0)));
+
+
+        boolean bit1 =strToBoolean(Integer.toBinaryString(hashOfData.charAt(0)));
+        boolean bit2 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(1)));
+        boolean bit3 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(2)));
+        boolean bit4 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(3)));
+        boolean bit5 = strToBoolean(Integer.toBinaryString(hashOfData.charAt(4)));
 
 
         if (bit2) // hat instead of round face or square face
@@ -156,6 +159,22 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         return stringBuilder;
     }
 
+    private boolean strToBoolean(String toBinaryString) {
+
+        int count=countOccurrences(toBinaryString,'1');
+        return count%2==0;
+    }
+
+    public static int countOccurrences(String str, char c) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     /**
      * This method takes a character as an input and returns
      * true or false if the character is 0 it means the bit is false
@@ -176,4 +195,10 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
             startActivity(intent);
         }
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 }
+

@@ -1,10 +1,13 @@
 package com.example.QArmy.UI;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
@@ -12,6 +15,8 @@ import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +30,13 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
 
     private Database db = new Database();
 
+    private ArrayList<User> users = new ArrayList<>();
 
-    private UserViewAdapter adapter; // this recycle view shows the list of all the users that scan the code
+    private ListView listView;
+
+
+    private ArrayAdapter adapter; // this recycle view shows the list of all the users that scan the code
+
 
     /**
      * Called when the activity is first created. Initializes the activity UI and
@@ -44,17 +54,20 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
 
 
         String qrCodeHash = (String) getIntent().getStringExtra("Object");
+        listView = findViewById(R.id.listView);
+        adapter = new ArrayAdapter<>(this, R.layout.item_user, users);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            new OtherUserProfile(users.get(i)).show(getSupportFragmentManager(), "Show user Profile");
+        });
 
         db.getQRUsersByHash(qrCodeHash, new QueryListener<User>() {
             @Override
             public void onSuccess(List<User> data) {
                 // users which scanned the same tags
-
-                RecyclerView recyclerView = findViewById(R.id.recyclerView2);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                adapter = new UserViewAdapter(getApplicationContext(), data);
-                recyclerView.setAdapter(adapter); // set the adapter to view
+                users.clear();
+                users.addAll(data);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

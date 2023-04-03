@@ -12,6 +12,8 @@
 
 package com.example.QArmy.model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +31,15 @@ public class User extends Entity implements Serializable {
     private String name;
     private String email;
     private String phone;
-    private String uniqueID;
+
+    private int rank = 1;
 
     public User() {
 
     }
 
     public User(String testUsername) {
-
+        this.name = testUsername;
     }
 
     /**
@@ -55,17 +58,15 @@ public class User extends Entity implements Serializable {
 
     }
 
-    public User(String name, String email, String phone, String score, String uniqueID) {
+    public User(String name, String email, String phone, int score) {
+
         this.name = name;
 
         this.email = email;
 
         this.phone = phone;
 
-        this.score = 0;
-       // this.score = Integer.parseInt(score);
-
-        this.uniqueID = uniqueID;
+        this.score = score;
 
     }
 
@@ -91,8 +92,6 @@ public class User extends Entity implements Serializable {
         return phone;
     }
 
-    public String getUniqueID() {return uniqueID;}
-
     // Add this method to get the User object as a Map
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -113,4 +112,14 @@ public class User extends Entity implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public int getRank() {return this.rank;}
+
+    public void setRank(int rank) {this.rank = rank;}
 }

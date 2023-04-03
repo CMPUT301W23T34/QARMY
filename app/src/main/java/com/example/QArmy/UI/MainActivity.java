@@ -1,13 +1,15 @@
 /*
  * MainActivity
  *
- * Version: 1.0
+ * Version: 1.1
  *
- * Date: 2023-03-09
+ * Date: 2023-03-23
  *
  * Copyright 2023 CMPUT301W23T34
  *
  * Sources:
+ * - Chiu-Ki Chan, 2016-01-25, Daggerless DI Testing, https://github.com/chiuki/daggerless-di-testing
+ * - Google Developers, 2021-10-27, Manual Dependency Injection, https://developer.android.com/training/dependency-injection/manual
  */
 
 package com.example.QArmy.UI;
@@ -31,13 +33,22 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
+<<<<<<< HEAD
 
 import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
+=======
+import com.example.QArmy.db.Database;
+import com.example.QArmy.model.AppContainer;
+import com.example.QArmy.model.QRCode;
+>>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
 
 import com.example.QArmy.model.User;
 import com.example.QArmy.UI.profile.MySharedPreferences;
 import com.example.QArmy.UI.profile.RegistrationActivity;
 import com.example.QArmy.UI.profile.UserProfileActivity;
+
+import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
+import com.example.QArmy.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
@@ -51,7 +62,7 @@ import com.journeyapps.barcodescanner.ScanOptions;
  * @author Kai Luedemann
  * @author Brett Merkosky
  * @author Japkirat Kaur
- * @version 1.0
+ * @version 1.1
  */
 @RequiresApi(api = Build.VERSION_CODES.R)
 public class MainActivity extends AppCompatActivity {
@@ -72,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
 
         // Shared Preferences
         user = MySharedPreferences.loadUserProfile(this);
@@ -81,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             user = null;
         }
+=======
+        AppContainer appContainer = ((QArmy) getApplication()).model;
+        user = appContainer.user;
+>>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -169,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("name", user.getName());
         intent.putExtra("email", user.getEmail());
         intent.putExtra("phone", user.getPhone());
-        intent.putExtra("id", user.getUniqueID());
         startActivity(intent);
     }
 
@@ -183,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         options.setBeepEnabled(true);
         options.setCaptureActivity(CaptureAct.class); // may have to create seperate class
         QRLauncher.launch(options);
-
     }
 
     /**
@@ -201,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
+<<<<<<< HEAD
 
     @Override
     protected void onResume() {
@@ -214,4 +229,6 @@ public class MainActivity extends AppCompatActivity {
         return user;
     }
     public LocationManager getLocationManager() {return locationManager;}
+=======
+>>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
 }

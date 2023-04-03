@@ -6,14 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.activity.result.ActivityResult;
@@ -24,12 +27,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.QArmy.ImageUtils;
 import com.example.QArmy.R;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 public class QRCodeScanActivity extends AppCompatActivity {
@@ -94,7 +100,7 @@ public class QRCodeScanActivity extends AppCompatActivity {
                 // Create the new QRCode object
                 QRCode code = new QRCode(qrCodeText, user, location, new Date());
                 if(image != null){
-                    code.setImage(encodeBase64(image));
+                    code.setImage(ImageUtils.encodeToBase64(image));
                 }
                 if (code.getScore() > user.getScore()) {
                     user.setScore(code.getScore());
@@ -126,34 +132,9 @@ public class QRCodeScanActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         image = (Bitmap) result.getData().getExtras().get("data");
-                        image = resizeImage(image);
+                        //image = ImageUtils.resizeImage(image);
                         scanView.setImageBitmap(image);
                     }
                 }
             });
-
-    private Bitmap resizeImage(Bitmap image){
-        int width;
-        int height;
-        float ratio;
-        if(image.getWidth()<image.getHeight()) {
-            width = 480;
-            ratio = width / image.getWidth();
-            height = (int) (image.getHeight() * ratio);
-        } else {
-            height = 480;
-            ratio = height / image.getHeight();
-            width = (int) (image.getWidth() * ratio);
-
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    private String encodeBase64(Bitmap image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        byte[] byteArr = baos.toByteArray();
-        return Base64.encodeToString(byteArr,Base64.URL_SAFE);
-    }
-
 }

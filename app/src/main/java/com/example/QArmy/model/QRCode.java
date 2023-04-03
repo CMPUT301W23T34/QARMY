@@ -319,6 +319,9 @@ public class QRCode extends Entity implements Serializable {
         return this.lon;
     }
 
+    // TODO: Refactor tests to not require this. e.g. MockCode
+    public void setScore(int score) {this.score = score;}
+
     public String getImage() {
         return image;
     }
@@ -326,9 +329,8 @@ public class QRCode extends Entity implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
-
-    // TODO: Refactor tests to not require this. e.g. MockCode
-    public void setScore(int score) {this.score = score;}
-
 }
+
+
+
 

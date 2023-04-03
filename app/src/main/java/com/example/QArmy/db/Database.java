@@ -1,7 +1,7 @@
 /*
  * Database
  *
- * Version: 1.2
+ * Version: 1.3
  *
  * Date: 2023-03-06
  *
@@ -15,12 +15,16 @@
 
 package com.example.QArmy.db;
 
+import androidx.annotation.NonNull;
+
 import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -31,7 +35,7 @@ import java.util.ArrayList;
  * This class provides access to the Firestore database and performs queries.
  *
  * @author Kai Luedemann
- * @version 1.2
+ * @version 1.3
  * @see FirebaseFirestore
  */
 public class Database {
@@ -44,10 +48,20 @@ public class Database {
      * Initialize the database.
      */
     public Database() {
+        this(false);
+    }
+
+    public Database(boolean isTest) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        QR_CODES = db.collection("QRCodes");
-        PLAYERS = db.collection("Players");
-        COMMENTS = db.collection("Comments");
+        if (!isTest) {
+            QR_CODES = db.collection("QRCodes");
+            PLAYERS = db.collection("Players");
+            COMMENTS = db.collection("Comments");
+        } else {
+            QR_CODES = db.collection("TestQRCodes");
+            PLAYERS = db.collection("TestPlayers");
+            COMMENTS = db.collection("TestComments");
+        }
     }
 
     // ************************* QR Code Queries *******************************
@@ -68,7 +82,6 @@ public class Database {
     /**
      * This method takes a QR code hash and returns a list of QR codes that match the hash.
      *
-     *
      * @return a list of QR codes that match the provided hash.
      * @throws IllegalArgumentException if the provided hash is null or empty.
      */
@@ -78,13 +91,14 @@ public class Database {
                 .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
 
+
     /**
      * Get QR codes around a given location
+     *
      * @param listener
      */
     public void getNearbyCodes(QueryListener<QRCode> listener) {
-        QR_CODES.whereNotEqualTo("lat",0)
-                .get()
+        QR_CODES.get()
                 .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
     }
 
@@ -185,6 +199,22 @@ public class Database {
         PLAYERS.document(user.getID())
                 .set(user)
                 .addOnCompleteListener(listener);
+    }
+
+    /**
+     * Delete a user from the database
+     * @param listener - provides a callback when the query is complete
+     */
+    public void deleteUser(User user, OnCompleteListener<Void> listener) {
+        PLAYERS.document(user.getID())
+                .delete()
+                .addOnCompleteListener(listener);
+    }
+
+    public void getUser(User user, QueryListener<User> listener) {
+        PLAYERS.whereEqualTo(User.ID_FIELD, user.getID())
+                .get()
+                .addOnCompleteListener(new QueryHelper<>(listener, User.class));
     }
 
     /**

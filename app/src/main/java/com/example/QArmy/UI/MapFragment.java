@@ -15,12 +15,12 @@ package com.example.QArmy.UI;
  */
 
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,8 +66,6 @@ public class MapFragment extends Fragment {
     private ItemizedIconOverlay itemizedOverlay;
     private QRLocationList qrLocationList;
     private QRLocationListener listener;
-
-
 
     public MapFragment(){
     }
@@ -128,8 +126,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Context context = getActivity().getApplicationContext();
-
+        Context context = getActivity();
         locationPermissionRequest.launch(new String[] {
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
@@ -142,7 +139,9 @@ public class MapFragment extends Fragment {
         locationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(locationOverlay);
 
-        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
+
+        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<OverlayItem>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
+
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index,
@@ -160,6 +159,8 @@ public class MapFragment extends Fragment {
                         return false;
                     }
                 }, context);
+        
+        db.getNearbyCodes(listener);
 
         db.getNearbyCodes(listener);
 
@@ -184,7 +185,6 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        db.getNearbyCodes(listener);
         mapController.setCenter(locationOverlay.getMyLocation());
         mapView.onResume();
         checkPermissions(getActivity());

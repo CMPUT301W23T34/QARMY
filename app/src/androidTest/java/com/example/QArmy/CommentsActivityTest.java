@@ -2,6 +2,7 @@ package com.example.QArmy;
 
 
 import android.app.Activity;
+import android.content.Intent;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -23,16 +24,19 @@ public class CommentsActivityTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<CommentsActivity> rule = new ActivityTestRule<>(CommentsActivity.class, true, true);
+    public ActivityTestRule<CommentsActivity> rule = new ActivityTestRule<>(CommentsActivity.class, true, false);
 
     @Before
     public void setUp() {
+        Intent intent = new Intent();
+        intent.putExtra("Object", "nmelo9a7cd5efda286fbcdd26f89e64a360c560208248b301ff49ad670cb5552790ff");
+        rule.launchActivity(intent);
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
     }
 
     @Test
     public void testNavigation() {
-        assertTrue(solo.waitForText("Only"));
+        assertTrue(solo.waitForText("nick"));
     }
 
     @After
