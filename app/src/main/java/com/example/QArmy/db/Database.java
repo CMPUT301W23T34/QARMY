@@ -22,14 +22,17 @@ import androidx.annotation.NonNull;
 import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
+import com.example.QArmy.model.UserComments;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -135,9 +138,17 @@ public class Database {
      * @param comment  - the comment to add
      * @param listener - provides a callback when query is complete
      */
-    public void addComment(Comment comment, OnCompleteListener<Void> listener) {
-        COMMENTS.document(comment.getID())
-                .set(comment)
+    public void addComment(QRCode code, UserComments comment, OnCompleteListener<DocumentReference> listener) {
+        QR_CODES.document(code.getID())
+                .collection("Comments")
+                .add(comment)
+                .addOnCompleteListener(listener);
+    }
+
+    public void getComments(QRCode code, OnCompleteListener<QuerySnapshot> listener) {
+        QR_CODES.document(code.getID())
+                .collection("Comments")
+                .get()
                 .addOnCompleteListener(listener);
     }
 
@@ -147,8 +158,10 @@ public class Database {
      * @param comment  - the comment to delete
      * @param listener - provides a callback when query is complete
      */
-    public void deleteComment(Comment comment, OnCompleteListener<Void> listener) {
-        COMMENTS.document(comment.getID())
+    public void deleteComment(QRCode qrCode, UserComments comment, OnCompleteListener<Void> listener) {
+        QR_CODES.document(qrCode.getID())
+                .collection("Comments")
+                .document(comment.getID())
                 .delete()
                 .addOnCompleteListener(listener);
     }
