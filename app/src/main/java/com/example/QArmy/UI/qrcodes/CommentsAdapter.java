@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.QArmy.R;
 import com.example.QArmy.TView;
 import com.example.QArmy.model.CommentList;
+import com.example.QArmy.model.User;
 import com.example.QArmy.model.UserComments;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     private final ArrayList<UserComments> mData;
     private final LayoutInflater mInflater;
     private final CommentController controller;
+    private final User user;
 
 
     /**
@@ -52,10 +54,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
 
    // data is passed into the constructor
-    public CommentsAdapter(Context context, ArrayList<UserComments> data, CommentController controller) {
+    public CommentsAdapter(Context context, ArrayList<UserComments> data, CommentController controller, User user) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.controller = controller;
+        this.user = user;
     }
 
     // inflates the row layout from xml when needed
@@ -73,6 +76,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         holder.titleTextView.setText(mData.get(position).getUser());
         holder.descTextView.setText(mData.get(position).getText());
+
+        UserComments comment = mData.get(position);
+
+        if (user.getName().equals(comment.getUser())) {
+            holder.deleteButton.setVisibility(View.VISIBLE);
+            holder.deleteButton.setOnClickListener(v -> controller.deleteComment(comment));
+        } else {
+            holder.deleteButton.setVisibility(View.GONE);
+        }
+
+
     }
 
     // total number of rows
@@ -126,13 +140,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descTextView = itemView.findViewById(R.id.descTextView);
             deleteButton = itemView.findViewById(R.id.deleteButton);
-            deleteButton.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    UserComments comment = mData.get(position);
-                    controller.deleteComment(comment);
-                }
-            });
 
         }
     }

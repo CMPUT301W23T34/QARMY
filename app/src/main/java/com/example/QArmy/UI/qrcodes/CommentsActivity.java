@@ -76,7 +76,7 @@ public class CommentsActivity extends AppCompatActivity {
         controller = new CommentController(model.db, commentList, qrCode, user);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        CommentsAdapter adapter = new CommentsAdapter(getApplicationContext(), commentList.getList(), controller);
+        CommentsAdapter adapter = new CommentsAdapter(getApplicationContext(), commentList.getList(), controller, user);
         recyclerView.setAdapter(adapter);
         commentList.addView(adapter);
 
