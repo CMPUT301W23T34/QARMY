@@ -1,15 +1,16 @@
 /*
- * QRCodeArrayAdapterOthers
+ * NoDeleteQRAdapter
  *
  * Version: 1.0
  *
- * Date: 2023-03-08
+ * Date: 2023-04-03
  *
  * Copyright 2023 CMPUT301W23T34
  *
  * Sources:
  * - Brett Merkosky, MyCarFootprint
  */
+
 package com.example.QArmy.UI.qrcodes;
 
 import android.content.Context;
@@ -17,20 +18,18 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.QArmy.model.QRList;
 import com.example.QArmy.R;
-import com.example.QArmy.TView;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.QRCode;
+import com.example.QArmy.model.QRList;
 
 import java.util.Locale;
+
 
 /**
  * Provide views to represent QR codes in a ListView.
@@ -39,30 +38,16 @@ import java.util.Locale;
  * @author Yasmin Ghaznavian
  * @version 1.0
  */
-public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TView<QRList> {
-    private final QRList qrList;
-    private final Database db;
-
-    private View.OnClickListener clickListener;
-
+public class NoDeleteQRAdapter extends QRCodeArrayAdapter {
     /**
      * Initialize the adapter.
+     *
      * @param context
-     * @param qrList The list of QR codes
-     * @param db The database to query
+     * @param qrList  The list of QR codes
+     * @param db      The database to query
      */
-    public QRCodeArrayAdapterOthers(Context context, QRList qrList, Database db) {
-        super(context, 0, qrList.getList());
-        this.db = db;
-        this.qrList = qrList;
-        this.clickListener = clickListener;
-    }
-
-    public QRCodeArrayAdapterOthers(Context context, QRList qrList, Database db, View.OnClickListener clickListener) {
-        super(context, 0, qrList.getList());
-        this.db = db;
-        this.qrList = qrList;
-        this.clickListener = clickListener;
+    public NoDeleteQRAdapter(Context context, QRList qrList, Database db) {
+        super(context, qrList, db);
     }
 
     /** Creates a view to display the list of QR Codes
@@ -95,21 +80,10 @@ public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TV
 
         view.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
-            //intent.putExtra("Object", qrCode.getID());
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);
         });
 
         return view;
     }
-
-    /**
-     * Notify the listview when the model state has changed.
-     * @param model The model whose state has changed
-     */
-    @Override
-    public void update(QRList model) {
-        notifyDataSetChanged();
-    }
 }
-
