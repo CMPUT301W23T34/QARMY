@@ -34,7 +34,7 @@
         <activity
             android:name=".UI.qrcodes.CommentsActivity"
             android:exported="false"
-            android:label="View/Edit Comments" />
+            android:label="Comments" />
         <activity
             android:name=".UI.qrcodes.QRCodeInfoActivity"
             android:exported="true" />
