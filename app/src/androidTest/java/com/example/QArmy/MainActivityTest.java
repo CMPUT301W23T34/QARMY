@@ -32,7 +32,7 @@ public class MainActivityTest {
     @Test
     public void testNavigation() {
         solo.clickOnView(solo.getView(R.id.navigation_map));
-        assertTrue(solo.waitForView(MapView.class));
+        assertTrue(solo.waitForView(R.id.map));
         solo.clickOnView(solo.getView(R.id.navigation_rank));
         assertTrue(solo.waitForView(R.id.rank_list));
         solo.clickOnView(solo.getView(R.id.navigation_home));
