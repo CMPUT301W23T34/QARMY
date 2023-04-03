@@ -14,7 +14,6 @@ package com.example.QArmy.UI.qrcodes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +93,7 @@ public class QRCodeArrayAdapter extends ArrayAdapter<QRCode> implements TView<QR
         }));
 
         view.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            Intent intent = new Intent(getContext(), QRCodeInfoActivity.class);
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);
         });

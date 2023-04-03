@@ -19,7 +19,7 @@ import static java.lang.Math.min;
 
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
-import com.example.QArmy.model.UserComments;
+import com.example.QArmy.model.Comment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.CollectionReference;
@@ -76,7 +76,7 @@ public class Database {
         QR_CODES.whereEqualTo(QRCode.USER_FIELD, user.getName())
                 .orderBy(QRCode.TIME_FIELD, Query.Direction.DESCENDING)
                 .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
+                .addOnCompleteListener(new QueryAdapter<>(listener, QRCode.class));
     }
 
     /**
@@ -86,7 +86,7 @@ public class Database {
      */
     public void getNearbyCodes(QueryListener<QRCode> listener) {
         QR_CODES.get()
-                .addOnCompleteListener(new QueryHelper<>(listener, QRCode.class));
+                .addOnCompleteListener(new QueryAdapter<>(listener, QRCode.class));
     }
 
     /**
@@ -121,7 +121,7 @@ public class Database {
      * @param comment  - the comment to add
      * @param listener - provides a callback when query is complete
      */
-    public void addComment(QRCode code, UserComments comment, OnCompleteListener<DocumentReference> listener) {
+    public void addComment(QRCode code, Comment comment, OnCompleteListener<DocumentReference> listener) {
         QR_CODES.document(code.getID())
                 .collection("Comments")
                 .add(comment)
@@ -141,7 +141,7 @@ public class Database {
      * @param comment  - the comment to delete
      * @param listener - provides a callback when query is complete
      */
-    public void deleteComment(QRCode qrCode, UserComments comment, OnCompleteListener<Void> listener) {
+    public void deleteComment(QRCode qrCode, Comment comment, OnCompleteListener<Void> listener) {
         QR_CODES.document(qrCode.getID())
                 .collection("Comments")
                 .document(comment.getID())
@@ -171,7 +171,7 @@ public class Database {
                     // We cannot query on a list of more than 10 users
                     PLAYERS.whereIn(User.ID_FIELD, users.subList(0, min(users.size(), 10)))
                             .get()
-                            .addOnCompleteListener(new QueryHelper<>(listener, User.class));
+                            .addOnCompleteListener(new QueryAdapter<>(listener, User.class));
                 });
     }
 
@@ -200,7 +200,7 @@ public class Database {
     public void getUser(User user, QueryListener<User> listener) {
         PLAYERS.whereEqualTo(User.ID_FIELD, user.getID())
                 .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, User.class));
+                .addOnCompleteListener(new QueryAdapter<>(listener, User.class));
     }
 
     /**
@@ -212,7 +212,7 @@ public class Database {
         PLAYERS.whereGreaterThanOrEqualTo(User.SCORE_FIELD, 0)
                 .orderBy(User.SCORE_FIELD, Query.Direction.DESCENDING)
                 .get()
-                .addOnCompleteListener(new QueryHelper<>(listener, User.class));
+                .addOnCompleteListener(new QueryAdapter<>(listener, User.class));
     }
 
     /**

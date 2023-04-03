@@ -3,13 +3,12 @@ package com.example.QArmy.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
 import com.example.QArmy.UI.qrcodes.QRCodeArrayAdapterOthers;
-import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
+import com.example.QArmy.UI.qrcodes.QRCodeInfoActivity;
 import com.example.QArmy.UI.qrcodes.SummaryFragment;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
@@ -44,7 +43,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
 
         ListView qrCodeList = findViewById(R.id.qr_code_list);
         QRCodeArrayAdapterOthers qrCodeAdapter = new QRCodeArrayAdapterOthers(this, qrList, db, view1 -> {
-            Intent intent = new Intent(this, QRCodeVisualRepActivity.class);
+            Intent intent = new Intent(this, QRCodeInfoActivity.class);
             intent.putExtra("Object",(String) view1.getContentDescription());
             startActivity(intent);
         });

@@ -24,7 +24,7 @@ import java.util.List;
  * @version 1.0
  */
 public class CommentList extends TModel<TView> {
-    private final ArrayList<UserComments> comments;
+    private final ArrayList<Comment> comments;
 
     /**
      * Initialize an empty list.
@@ -37,7 +37,7 @@ public class CommentList extends TModel<TView> {
      * Add a comment to the list.
      * @param comment The comment to add
      */
-    public void add(UserComments comment) {
+    public void add(Comment comment) {
         comments.add(0, comment);
         notifyViews();
     }
@@ -46,7 +46,7 @@ public class CommentList extends TModel<TView> {
      * Remove a comment from the list.
      * @param comment The comment to remove
      */
-    public void remove(UserComments comment) {
+    public void remove(Comment comment) {
         comments.remove(comment);
         notifyViews();
     }
@@ -55,7 +55,7 @@ public class CommentList extends TModel<TView> {
      * Refresh the list from a list of comments.
      * @param newComments The queried list of comments
      */
-    public void modify(List<UserComments> newComments) {
+    public void modify(List<Comment> newComments) {
         comments.clear();
         comments.addAll(newComments);
         notifyViews();
@@ -65,7 +65,7 @@ public class CommentList extends TModel<TView> {
      * Return a reference to the list of comments.
      * @return The list of comments.
      */
-    public ArrayList<UserComments> getList() {
+    public ArrayList<Comment> getList() {
         return comments;
     }
 }

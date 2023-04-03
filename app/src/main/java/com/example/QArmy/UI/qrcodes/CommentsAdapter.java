@@ -25,9 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.QArmy.R;
 import com.example.QArmy.TView;
+import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.CommentList;
 import com.example.QArmy.model.User;
-import com.example.QArmy.model.UserComments;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ import java.util.ArrayList;
  */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> implements TView<CommentList> {
 
-    private final ArrayList<UserComments> mData;
+    private final ArrayList<Comment> mData;
     private final LayoutInflater mInflater;
     private final CommentController controller;
     private final User user;
@@ -54,7 +54,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
 
    // data is passed into the constructor
-    public CommentsAdapter(Context context, ArrayList<UserComments> data, CommentController controller, User user) {
+    public CommentsAdapter(Context context, ArrayList<Comment> data, CommentController controller, User user) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.controller = controller;
@@ -77,7 +77,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         holder.titleTextView.setText(mData.get(position).getUser());
         holder.descTextView.setText(mData.get(position).getText());
 
-        UserComments comment = mData.get(position);
+        Comment comment = mData.get(position);
 
         if (user.getName().equals(comment.getUser())) {
             holder.deleteButton.setVisibility(View.VISIBLE);
@@ -104,7 +104,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
      * @return the item
      */
 // convenience method for getting data at click position
-    public UserComments getItem(int id) {
+    public Comment getItem(int id) {
         return mData.get(id);
     }
 
