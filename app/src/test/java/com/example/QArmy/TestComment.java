@@ -2,14 +2,14 @@ package com.example.QArmy;
 
 import static org.junit.Assert.assertEquals;
 
-import com.example.QArmy.model.UserComments;
+import com.example.QArmy.model.Comment;
 
 import org.junit.Test;
 
-public class TestUserComments {
+public class TestComment {
     @Test
     public void testUserCommentSetters() {
-        UserComments testComment = new UserComments("TestUsername","TestComment", "TestID");
+        Comment testComment = new Comment("TestUsername","TestComment", "TestID");
         assertEquals("TestUsername", testComment.getUser());
         assertEquals("TestComment",testComment.getText());
         testComment.setUser("NewUsername");

@@ -79,7 +79,7 @@ public class NoDeleteQRAdapter extends QRCodeArrayAdapter {
         qrCodeScore.setText(String.format(Locale.CANADA, "Score: %d", qrCode.getScore()));
 
         view.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            Intent intent = new Intent(getContext(), QRCodeInfoActivity.class);
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);
         });

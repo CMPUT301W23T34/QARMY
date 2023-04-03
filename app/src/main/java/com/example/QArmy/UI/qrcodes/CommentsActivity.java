@@ -26,10 +26,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
 import com.example.QArmy.model.AppContainer;
+import com.example.QArmy.model.Comment;
 import com.example.QArmy.model.CommentList;
 import com.example.QArmy.model.QRCode;
 import com.example.QArmy.model.User;
-import com.example.QArmy.model.UserComments;
 
 
 /**
@@ -85,7 +85,7 @@ public class CommentsActivity extends AppCompatActivity {
         submit_button.setOnClickListener(view -> {
             String commentText = add_comment.getText().toString();
             if (!TextUtils.isEmpty(commentText)) {
-                UserComments comment = new UserComments(user.getName(), commentText, null);
+                Comment comment = new Comment(user.getName(), commentText, null);
                 controller.addComment(comment);
                 add_comment.setText("");
             }

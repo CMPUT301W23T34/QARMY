@@ -1,30 +1,26 @@
 package com.example.QArmy;
 
 
-import android.app.Activity;
 import android.content.Intent;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.QArmy.UI.CaptureAct;
-import com.example.QArmy.UI.MainActivity;
-import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
+import com.example.QArmy.UI.qrcodes.QRCodeInfoActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.osmdroid.views.MapView;
 
 import static org.junit.Assert.*;
 
-public class QRCodeVisualRepActivityTest {
+public class QRCodeInfoActivityTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<QRCodeVisualRepActivity> rule = new ActivityTestRule<>(QRCodeVisualRepActivity.class, true, false);
+    public ActivityTestRule<QRCodeInfoActivity> rule = new ActivityTestRule<>(QRCodeInfoActivity.class, true, false);
 
     @Before
     public void setUp() {

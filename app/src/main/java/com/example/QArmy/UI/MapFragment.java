@@ -33,7 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.QArmy.R;
-import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
+import com.example.QArmy.UI.qrcodes.QRCodeInfoActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
@@ -147,7 +147,7 @@ public class MapFragment extends Fragment {
                     public boolean onItemSingleTapUp(final int index,
                                                      final OverlayItem item) {
                         QRCode selectedQR = qrLocationList.getQrCodes().get(index);
-                        Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+                        Intent intent = new Intent(getContext(), QRCodeInfoActivity.class);
                         intent.putExtra("QRCode",selectedQR);
                         startActivity(intent);
 

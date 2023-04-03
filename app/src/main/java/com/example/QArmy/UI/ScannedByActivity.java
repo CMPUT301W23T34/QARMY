@@ -2,17 +2,12 @@ package com.example.QArmy.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.R;
-import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
-import com.example.QArmy.UI.rank.PlayerArrayAdapter;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
@@ -24,7 +19,7 @@ import java.util.List;
 /**
  * An activity that displays a list of users who have scanned the same QR codes.
  */
-public class UsersSameQrScanActivity extends AppCompatActivity {
+public class ScannedByActivity extends AppCompatActivity {
 
     private QRCode qrCode;
 
@@ -49,7 +44,7 @@ public class UsersSameQrScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users_same_qr_scan);
+        setContentView(R.layout.activity_scanned_by);
 
         setSupportActionBar(findViewById(R.id.scanned_by_toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
