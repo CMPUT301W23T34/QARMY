@@ -26,17 +26,13 @@ public class QArmy extends Application {
     public void onCreate() {
         super.onCreate();
         model = createModel();
-        initModel();
-    }
-
-    public void initModel() {
-        model.prefsController = new SharedPrefsController(this);
-        model.user = new UserController(model.prefsController, model.db).load();
-
     }
 
     public AppContainer createModel() {
-        return new AppContainer();
+        AppContainer model = new AppContainer();
+        model.prefsController = new SharedPrefsController(this);
+        model.user = new UserController(model.prefsController, model.db).load();
+        return model;
     }
 
     public User getUser() {
