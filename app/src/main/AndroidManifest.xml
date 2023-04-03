@@ -22,20 +22,11 @@
         tools:targetApi="31">
         <activity
             android:name=".UI.UsersSameQrScanActivity"
-<<<<<<< HEAD
-            android:exported="false" />
-        <activity
-            android:name=".UI.qrcodes.CommentsActivity"
-=======
->>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
             android:exported="false" />
         <activity
             android:name=".UI.qrcodes.QRCodeScanActivity"
             android:exported="false"
             android:label="Train Recruit"/>
-        <activity
-            android:name=".UI.FetchLocationAndPictureActivity"
-            android:exported="true" />
         <activity
             android:name=".UI.qrcodes.CommentsActivity"
             android:exported="false"

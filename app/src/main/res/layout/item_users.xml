@@ -4,10 +4,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-<<<<<<< HEAD
-    android:background="@drawable/row_background"
-=======
->>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
     android:padding="15dp"
     android:paddingBottom="50dp">
 

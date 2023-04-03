@@ -33,14 +33,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.R;
-<<<<<<< HEAD
-
-import com.example.QArmy.UI.qrcodes.QRCodeScanActivity;
-=======
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.AppContainer;
 import com.example.QArmy.model.QRCode;
->>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
 
 import com.example.QArmy.model.User;
 import com.example.QArmy.UI.profile.MySharedPreferences;
@@ -83,20 +78,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
-
-        // Shared Preferences
-        user = MySharedPreferences.loadUserProfile(this);
-        Log.d("Main", user.getName());
-        if (user.getName().equals("")) {
-            Intent intent = new Intent(this, RegistrationActivity.class);
-            startActivity(intent);
-            user = null;
-        }
-=======
         AppContainer appContainer = ((QArmy) getApplication()).model;
         user = appContainer.user;
->>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
 
         setSupportActionBar(findViewById(R.id.my_toolbar));
 
@@ -214,21 +197,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(scanActivityIntent);
         }
     });
-
-<<<<<<< HEAD
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (user == null || user.getName().length() == 0) {
-            user = ((QArmy) getApplication()).getUser();
-        }
-    }
-
-    public User getUser() {
-        return user;
-    }
-    public LocationManager getLocationManager() {return locationManager;}
-=======
->>>>>>> 916653fca3987ee7ac22cb239f28718fc69ce171
 }
