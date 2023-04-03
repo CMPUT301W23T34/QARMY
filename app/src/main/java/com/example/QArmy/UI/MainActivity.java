@@ -10,6 +10,7 @@
  * Sources:
  * - Chiu-Ki Chan, 2016-01-25, Daggerless DI Testing, https://github.com/chiuki/daggerless-di-testing
  * - Google Developers, 2021-10-27, Manual Dependency Injection, https://developer.android.com/training/dependency-injection/manual
+ * - Cambo Tutorial, 2022-03-18, https://www.youtube.com/watch?v=jtT60yFPelI, YouTube
  */
 
 package com.example.QArmy.UI;
