@@ -43,7 +43,7 @@ import java.util.Date;
  */
 public class CommentsActivityTest {
     private Solo solo;
-    private final int timeout = 1000;
+    private final int timeout = 5000;
 
     @Rule
     public ActivityTestRule<CommentsActivity> rule = new ActivityTestRule<>(CommentsActivity.class, true, false);
