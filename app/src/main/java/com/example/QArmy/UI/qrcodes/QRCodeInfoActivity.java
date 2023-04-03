@@ -7,26 +7,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.QArmy.ImageUtils;
 import com.example.QArmy.R;
-import com.example.QArmy.UI.UsersSameQrScanActivity;
+import com.example.QArmy.UI.ScannedByActivity;
 import com.example.QArmy.db.Database;
-import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
-
-import java.util.List;
 
 /**
  * The type Qr code visual rep activity.
  *
  * @author Yasmin Ghaznavian
  */
-public class QRCodeVisualRepActivity extends AppCompatActivity implements View.OnClickListener {
+public class QRCodeInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView imageView;
     private TextView geoLocationTextView;
@@ -50,7 +46,7 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qrcode_visual_rep);
+        setContentView(R.layout.activity_qrcode_info);
 
         imageView = findViewById(R.id.currentImageView);
         geoLocationTextView = findViewById(R.id.emailTextView);
@@ -80,8 +76,8 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
         monsterTextView.setText(stringBuilder.toString());
 
         commentsImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(QRCodeVisualRepActivity.this, CommentsActivity.class);
-            intent.putExtra("Object", qrCode.getID());
+            Intent intent = new Intent(QRCodeInfoActivity.this, CommentsActivity.class);
+            intent.putExtra("QRCode", qrCode);
             startActivity(intent);
         });
         ProgressBar progressBar = findViewById(R.id.progressBar);
@@ -169,7 +165,7 @@ public class QRCodeVisualRepActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         if (v == userImageView) {
-            Intent intent = new Intent(this, UsersSameQrScanActivity.class);
+            Intent intent = new Intent(this, ScannedByActivity.class);
             intent.putExtra("Object", qrCode.getHash());
             startActivity(intent);
         }

@@ -7,12 +7,12 @@ package com.example.QArmy.model;
  * @author Yasmin Ghaznavian
  * @author Jessica Emereonye
  */
-public class UserComments {
+public class Comment extends Entity {
     private String username;
     private String textMessage;
     private String id;
 
-    public UserComments(String username, String textMessage, String id) {
+    public Comment(String username, String textMessage, String id) {
         this.username = username;
         this.textMessage = textMessage;
         this.id = id;
@@ -23,7 +23,7 @@ public class UserComments {
      *
      * @return The user who made the comment
      */
-    public String getUsername() {
+    public String getUser() {
         return username;
     }
 
@@ -32,7 +32,7 @@ public class UserComments {
      *
      * @param username The new username of the person who wrote the comment
      */
-    public void setUsername(String username) {
+    public void setUser(String username) {
         this.username = username;
     }
 
@@ -41,7 +41,7 @@ public class UserComments {
      *
      * @return The text of the comment
      */
-    public String getTextMessage() {
+    public String getText() {
         return textMessage;
     }
 
@@ -50,7 +50,7 @@ public class UserComments {
      *
      * @param textMessage The text the comment should be set to
      */
-    public void setTextMessage(String textMessage) {
+    public void setText(String textMessage) {
         this.textMessage = textMessage;
     }
 
@@ -59,9 +59,13 @@ public class UserComments {
      *
      * @return The id of the comment
      */
-    public String getId(){return id;}
+    public String getID(){return id;}
 
-    public UserComments() {
+    public void setID(String id) {
+        this.id = id;
+    }
+
+    public Comment() {
         // empty constructor required for deserialization
     }
 }

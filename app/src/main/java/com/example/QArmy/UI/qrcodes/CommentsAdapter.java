@@ -1,3 +1,15 @@
+/*
+ * CommentsAdapter
+ *
+ * Version: 1.1
+ *
+ * Date: 2023-04-02
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ */
+
 package com.example.QArmy.UI.qrcodes;
 
 import android.annotation.SuppressLint;
@@ -12,19 +24,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.QArmy.R;
-import com.example.QArmy.model.UserComments;
+import com.example.QArmy.TView;
+import com.example.QArmy.model.Comment;
+import com.example.QArmy.model.CommentList;
+import com.example.QArmy.model.User;
 
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import com.example.QArmy.R;
-import com.example.QArmy.UI.profile.MySharedPreferences;
-import com.example.QArmy.model.QRCode;
-import com.example.QArmy.model.UserComments;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 /**
@@ -32,14 +36,12 @@ import java.util.ArrayList;
  * @author Yasmin Ghaznavian
  * @author Jessica Emereonye
  */
-public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> implements TView<CommentList> {
 
-    private ArrayList<UserComments> mData;
-    private LayoutInflater mInflater;
-    private Context context;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference qrCodesCollection = db.collection("QRCodes");
-    private String qrCodeID;
+    private final ArrayList<Comment> mData;
+    private final LayoutInflater mInflater;
+    private final CommentController controller;
+    private final User user;
 
 
     /**
@@ -47,15 +49,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
      *
      * @param context the context
      * @param data    the data
+     * @param controller The CommentController
      */
 
 
    // data is passed into the constructor
-    public CommentsAdapter(Context context, ArrayList<UserComments> data, String id) {
+    public CommentsAdapter(Context context, ArrayList<Comment> data, CommentController controller, User user) {
         this.mInflater = LayoutInflater.from(context);
-        this.context = context;
         this.mData = data;
-        this.qrCodeID = id;
+        this.controller = controller;
+        this.user = user;
     }
 
     // inflates the row layout from xml when needed
@@ -71,8 +74,19 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.titleTextView.setText(mData.get(position).getUsername());
-        holder.descTextView.setText(mData.get(position).getTextMessage());
+        holder.titleTextView.setText(mData.get(position).getUser());
+        holder.descTextView.setText(mData.get(position).getText());
+
+        Comment comment = mData.get(position);
+
+        if (user.getName().equals(comment.getUser())) {
+            holder.deleteButton.setVisibility(View.VISIBLE);
+            holder.deleteButton.setOnClickListener(v -> controller.deleteComment(comment));
+        } else {
+            holder.deleteButton.setVisibility(View.GONE);
+        }
+
+
     }
 
     // total number of rows
@@ -90,7 +104,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
      * @return the item
      */
 // convenience method for getting data at click position
-    public UserComments getItem(int id) {
+    public Comment getItem(int id) {
         return mData.get(id);
     }
 
@@ -126,35 +140,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descTextView = itemView.findViewById(R.id.descTextView);
             deleteButton = itemView.findViewById(R.id.deleteButton);
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        UserComments comment = mData.get(position);
-                        String currentUser = MySharedPreferences.loadUserName(context);
-                        deleteComment(comment, currentUser);
-                    }
-                }
-            });
 
         }
     }
 
-    // allow users to delete their comments
-    public void deleteComment(UserComments comment, String currentUser) {
-        if (comment != null) {
-            if (comment.getUsername().equals(currentUser)) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference qrCodesCollection = db.collection("QRCodes").document(qrCodeID).collection("Comments");
-                qrCodesCollection.document(comment.getId()).delete();
-                mData.remove(comment);
-                notifyDataSetChanged();
-            } else {
-                Toast.makeText(context, "You can only delete your own comments.", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(context, "Cannot delete null comment.", Toast.LENGTH_SHORT).show();
-        }
+    /**
+     * Update listview when model changes.
+     * @param model The model whose state has changed
+     */
+    @Override
+    public void update(CommentList model) {
+        notifyDataSetChanged();
     }
 }

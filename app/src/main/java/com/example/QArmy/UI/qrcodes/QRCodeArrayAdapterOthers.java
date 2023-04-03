@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -94,7 +93,7 @@ public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TV
         qrCodeScore.setText(String.format(Locale.CANADA, "Score: %d", qrCode.getScore()));
 
         view.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), QRCodeVisualRepActivity.class);
+            Intent intent = new Intent(getContext(), QRCodeInfoActivity.class);
             //intent.putExtra("Object", qrCode.getID());
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);

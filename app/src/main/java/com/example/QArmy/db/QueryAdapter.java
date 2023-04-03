@@ -1,5 +1,5 @@
 /*
- * QueryHelper
+ * QueryAdapter
  *
  * Version: 1.0
  *
@@ -30,17 +30,17 @@ import java.util.List;
  * @version 1.0
  * @see QueryListener
  */
-public class QueryHelper<T extends Entity> implements OnCompleteListener<QuerySnapshot> {
+public class QueryAdapter<T extends Entity> implements OnCompleteListener<QuerySnapshot> {
 
     private final QueryListener<T> listener;
     private final Class<T> type;
 
     /**
-     * Initialize the QueryHelper
+     * Initialize the QueryAdapter
      * @param listener The QueryListener to call when the query returns
      * @param type The type of entity returned from the query
      */
-    public QueryHelper(QueryListener<T> listener, Class<T> type) {
+    public QueryAdapter(QueryListener<T> listener, Class<T> type) {
         this.listener = listener;
         this.type = type;
     }

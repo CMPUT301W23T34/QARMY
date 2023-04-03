@@ -24,7 +24,7 @@
             android:name=".UI.OtherUserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.UsersSameQrScanActivity"
+            android:name=".UI.ScannedByActivity"
             android:exported="false"
             android:label="Scanned By"/>
         <activity
@@ -34,9 +34,9 @@
         <activity
             android:name=".UI.qrcodes.CommentsActivity"
             android:exported="false"
-            android:label="View/Edit Comments" />
+            android:label="Comments" />
         <activity
-            android:name=".UI.qrcodes.QRCodeVisualRepActivity"
+            android:name=".UI.qrcodes.QRCodeInfoActivity"
             android:exported="true" />
         <activity
             android:name=".UI.profile.UserProfileActivity"
