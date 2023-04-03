@@ -6,7 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.QArmy.UI.MainActivity;
-import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
+import com.example.QArmy.UI.qrcodes.QRCodeInfoActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.AppContainer;
@@ -71,7 +71,7 @@ public class QRListFragmentTest {
     @Test
     public void testClick() {
         solo.clickInList(1);
-        solo.assertCurrentActivity("Wrong activity", QRCodeVisualRepActivity.class);
+        solo.assertCurrentActivity("Wrong activity", QRCodeInfoActivity.class);
         solo.waitForText("Corporal", 1, timeout);
     }
 

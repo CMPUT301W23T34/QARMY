@@ -7,12 +7,12 @@ package com.example.QArmy.model;
  * @author Yasmin Ghaznavian
  * @author Jessica Emereonye
  */
-public class UserComments extends Entity {
+public class Comment extends Entity {
     private String username;
     private String textMessage;
     private String id;
 
-    public UserComments(String username, String textMessage, String id) {
+    public Comment(String username, String textMessage, String id) {
         this.username = username;
         this.textMessage = textMessage;
         this.id = id;
@@ -65,7 +65,7 @@ public class UserComments extends Entity {
         this.id = id;
     }
 
-    public UserComments() {
+    public Comment() {
         // empty constructor required for deserialization
     }
 }
