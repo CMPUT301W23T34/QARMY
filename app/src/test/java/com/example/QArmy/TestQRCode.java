@@ -34,7 +34,7 @@ public class TestQRCode {
     public void testGenerateName() {
         QRCode testQRCode = new QRCode("BFG5DGW54\n", new User(), null, new Date());
         // Based on the naming system and hash, this QRCode should have the following name
-        String intendedName = "Captain CyanThiccNobleSalmon";
+        String intendedName = "Captain\nCyanThiccNobleSalmon";
         assertEquals(intendedName,testQRCode.getName());
     }
     @Test

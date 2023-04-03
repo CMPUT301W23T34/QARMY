@@ -37,7 +37,6 @@ import java.util.Map;
 public class CommentsActivity extends AppCompatActivity {
     private EditText add_comment;
     private Button submit_button;
-    private Button back_button;
     private FirebaseFirestore db;
     private CollectionReference qrCodesCollection;
     private DocumentReference qrCodesDocument;
@@ -53,9 +52,12 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
+        setSupportActionBar(findViewById(R.id.comments_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         add_comment = findViewById(R.id.commentEditText);
         submit_button = findViewById(R.id.submitButton);
-        back_button = findViewById(R.id.backButton);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         db = FirebaseFirestore.getInstance();
@@ -143,13 +145,10 @@ public class CommentsActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // set the back button for users
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
