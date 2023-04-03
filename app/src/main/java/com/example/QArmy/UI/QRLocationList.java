@@ -29,8 +29,10 @@ public class QRLocationList extends TModel<TView> {
     private void updateQrLocations() {
         itemList.clear();
         for (QRCode qr : qrCodes) {
-            GeoPoint g = new GeoPoint(qr.getLat(), qr.getLon());
-            itemList.add(new OverlayItem(qr.getHash(),qr.getName(),g));
+            if (qr.getLat() != null || qr.getLon() != null) {
+                GeoPoint g = new GeoPoint(qr.getLat(), qr.getLon());
+                itemList.add(new OverlayItem(qr.getHash(), qr.getName(), g));
+            }
         }
     }
 

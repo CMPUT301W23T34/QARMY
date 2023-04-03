@@ -3,6 +3,7 @@ package com.example.QArmy;
 
 import android.app.Activity;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SearchView;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -11,6 +12,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.example.QArmy.UI.CaptureAct;
 import com.example.QArmy.UI.MainActivity;
+import com.example.QArmy.UI.OtherUserProfile;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.model.User;
 import com.robotium.solo.Solo;
@@ -21,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class RankFragmentTest {
+public class OtherUserProfileTest {
     private Solo solo;
     private Database database;
     private QArmy app;
@@ -48,10 +50,11 @@ public class RankFragmentTest {
     }
 
     /**
-    Tests search functionality and rank fragment functionality
+     * tests to make sure other user profile shows up when click on from rank fragment
      */
     @Test
     public void testRankFragment() {
+
         assertTrue(solo.waitForView(R.id.rank_list));
         // asser that search shows up
         assertTrue(solo.waitForText("Search"));
@@ -60,22 +63,13 @@ public class RankFragmentTest {
         assertTrue(solo.waitForText("123"));
         assertTrue(solo.waitForText(Integer.toString(testUser.getRank())));
 
-        // now type in other user and make sure they show up with their correct rank
-        SearchView searchView = (SearchView) solo.getView(R.id.search_text);
-        EditText searchEditText = (EditText)searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        solo.clickOnView(searchView);
-        solo.getCurrentActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setQuery("testY", true);
-            }
-        });
-        assertTrue(solo.waitForText("testY"));
-        assertTrue(solo.waitForText("456"));
-        assertTrue(solo.waitForText(Integer.toString(testUser2.getRank())));
+        // make sure other user profile fragment pops up
+        ListView rankList = (ListView)solo.getView(R.id.rank_list);
+        solo.clickOnView(rankList.getChildAt(1));
+        assertTrue(solo.waitForText("Max"));
+
         database.deleteUser(testUser2,task -> {});
         database.deleteUser(testUser,task -> {});
-        solo.goBack();
 
     }
 
