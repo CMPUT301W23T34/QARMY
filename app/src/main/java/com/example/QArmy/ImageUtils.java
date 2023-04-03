@@ -33,12 +33,5 @@ public class ImageUtils {
         byte[] decodedByteArray = Base64.decode(encodedString, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
-
-    public static Bitmap resizeImage(Bitmap image){
-        int width = 480;
-        float ratio = width/(float)image.getWidth();
-        int height = (int) (image.getHeight()*ratio);
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
 }
 
