@@ -94,7 +94,6 @@ public class QRCodeArrayAdapterOthers extends ArrayAdapter<QRCode> implements TV
 
         view.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QRCodeInfoActivity.class);
-            //intent.putExtra("Object", qrCode.getID());
             intent.putExtra("QRCode", qrCode);
             getContext().startActivity(intent);
         });

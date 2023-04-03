@@ -1,11 +1,9 @@
-package com.example.QArmy.UI.map;
-
 /*
  * Map Fragment
  *
- * Version: 1.0
+ * Version: 1.1
  *
- * Date: 2023-03-09
+ * Date: 2023-04-03
  *
  * Copyright 2023 CMPUT301W23T34
  *
@@ -13,8 +11,7 @@ package com.example.QArmy.UI.map;
  * -Mark Kurtz, Manuel Stahl, 2022-11-25, https://github.com/osmdroid/osmdroid/blob/master/OpenStreetMapViewer/src/main/java/org/osmdroid/StarterMapFragment.java, osmdroid
  * -ycuicui, 2017-11-22, https://github.com/osmdroid/osmdroid/issues/771
  */
-
-
+package com.example.QArmy.UI.map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +30,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.QArmy.R;
-import com.example.QArmy.UI.map.MyItemizedIconOverlay;
 import com.example.QArmy.UI.qrcodes.QRCodeInfoActivity;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
@@ -65,7 +61,7 @@ public class MapFragment extends Fragment {
     private MyLocationNewOverlay locationOverlay;
     private ActivityResultLauncher<String[]> locationPermissionRequest;
     private Database db;
-    private ItemizedIconOverlay itemizedOverlay;
+    private MyItemizedIconOverlay itemizedOverlay;
     private QRLocationList qrLocationList;
     private QRLocationListener listener;
 
@@ -119,7 +115,7 @@ public class MapFragment extends Fragment {
     }
 
     /**
-     * Adds overlay to mapView
+     * Adds overlays to mapView
      * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      * from a previous saved state as given here.
@@ -181,6 +177,9 @@ public class MapFragment extends Fragment {
         });
     }
 
+    /**
+     * Updates map overlays when fragment resumes
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -202,6 +201,11 @@ public class MapFragment extends Fragment {
         mapView.onDetach();
     }
 
+    /**
+     * Checks if locations permissions are on
+     * @param context
+     */
+
     private void checkPermissions(Context context) {
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(context,"Enable Location Services to view Map",Toast.LENGTH_LONG).show();
@@ -210,6 +214,9 @@ public class MapFragment extends Fragment {
         }
     }
 
+    /**
+     * Listens for the query to complete and updates lists with new data
+     */
     class QRLocationListener implements QueryListener<QRCode> {
 
         @Override
