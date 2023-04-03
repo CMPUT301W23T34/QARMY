@@ -40,7 +40,7 @@ public class OtherUserProfileTest {
         database.addUser(testUser2,task -> {});
 
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        solo.sleep(5000);
+        solo.sleep(1000);
         solo.scrollToSide(Solo.RIGHT);
     }
 
@@ -61,7 +61,7 @@ public class OtherUserProfileTest {
         // make sure other user profile fragment pops up
         ListView rankList = (ListView)solo.getView(R.id.rank_list);
         solo.clickOnView(rankList.getChildAt(1));
-        assertTrue(solo.waitForText("Max"));
+        assertTrue(solo.waitForText("Total", 1, 1000));
 
         database.deleteUser(testUser2,task -> {});
         database.deleteUser(testUser,task -> {});
