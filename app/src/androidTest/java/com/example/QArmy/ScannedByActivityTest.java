@@ -4,7 +4,7 @@ package com.example.QArmy;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.QArmy.UI.UsersSameQrScanActivity;
+import com.example.QArmy.UI.ScannedByActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -15,15 +15,15 @@ import org.junit.Test;
 /**
  * The type Users same qr scan test.
  */
-public class UsersSameQrScanTest {
+public class ScannedByActivityTest {
     private Solo solo;
 
     /**
      * The Rule.
      */
     @Rule
-    public ActivityTestRule<UsersSameQrScanActivity> rule
-            = new ActivityTestRule<>(UsersSameQrScanActivity.class, true, true);
+    public ActivityTestRule<ScannedByActivity> rule
+            = new ActivityTestRule<>(ScannedByActivity.class, true, true);
 
     /**
      * Sets up.
@@ -39,7 +39,7 @@ public class UsersSameQrScanTest {
     @Test
     public void testFetchLocationActivity() {
         solo.clickOnView(solo.getView(R.id.listView));
-        solo.assertCurrentActivity("Current Activity", UsersSameQrScanActivity.class);
+        solo.assertCurrentActivity("Current Activity", ScannedByActivity.class);
     }
 
     /**
