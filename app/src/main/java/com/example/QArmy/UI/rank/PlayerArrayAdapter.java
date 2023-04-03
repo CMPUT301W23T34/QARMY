@@ -51,8 +51,13 @@ public class PlayerArrayAdapter extends ArrayAdapter<User> implements TView<Play
         TextView playerName = view.findViewById(R.id.player_name);
         TextView playerScore = view.findViewById(R.id.player_score);
 
-        playerName.setText(String.format(Locale.CANADA, "%d. %s", player.getRank(), player.getName()));
-        playerScore.setText("Score: "+Integer.toString(player.getScore()));
+        if (player.getScore() == -1) {
+            playerName.setText("N/A. "+player.getName());
+            playerScore.setText("Score: N/A");
+        } else {
+            playerName.setText(String.format(Locale.CANADA, "%d. %s", player.getRank(), player.getName()));
+            playerScore.setText("Score: " + Integer.toString(player.getScore()));
+        }
 
 
         return view;
