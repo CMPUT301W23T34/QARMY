@@ -189,7 +189,8 @@ public class Database {
      * @param listener - provides a callback when the query is complete
      */
     public void getRankedUsers(QueryListener<User> listener) {
-        PLAYERS.orderBy(User.SCORE_FIELD, Query.Direction.DESCENDING)
+        PLAYERS.whereGreaterThanOrEqualTo(User.SCORE_FIELD, 0)
+                .orderBy(User.SCORE_FIELD, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new QueryHelper<>(listener, User.class));
     }
