@@ -169,9 +169,13 @@ public class Database {
                     }
                     // Query users from DB
                     // We cannot query on a list of more than 10 users
-                    PLAYERS.whereIn(User.ID_FIELD, users.subList(0, min(users.size(), 10)))
-                            .get()
-                            .addOnCompleteListener(new QueryAdapter<>(listener, User.class));
+                    if (users.size() > 0) {
+                        PLAYERS.whereIn(User.ID_FIELD, users.subList(0, min(users.size(), 10)))
+                                .get()
+                                .addOnCompleteListener(new QueryAdapter<>(listener, User.class));
+                    } else {
+                        listener.onSuccess(new ArrayList<>());
+                    }
                 });
     }
 
