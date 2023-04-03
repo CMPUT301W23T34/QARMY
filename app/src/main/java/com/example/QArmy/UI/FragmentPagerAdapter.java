@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.QArmy.UI.map.MapFragment;
 import com.example.QArmy.UI.qrcodes.QRListFragment;
 import com.example.QArmy.UI.rank.RankFragment;
 

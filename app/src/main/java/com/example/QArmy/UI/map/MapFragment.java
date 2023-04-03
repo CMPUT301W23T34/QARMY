@@ -1,4 +1,4 @@
-package com.example.QArmy.UI;
+package com.example.QArmy.UI.map;
 
 /*
  * Map Fragment
@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.QArmy.R;
 import com.example.QArmy.UI.qrcodes.QRCodeVisualRepActivity;
+import com.example.QArmy.UI.map.MyItemizedIconOverlay;
 import com.example.QArmy.db.Database;
 import com.example.QArmy.db.QueryListener;
 import com.example.QArmy.model.QRCode;
@@ -141,7 +142,7 @@ public class MapFragment extends Fragment {
         mapView.getOverlays().add(locationOverlay);
 
 
-        itemizedOverlay = new ItemizedIconOverlay<>(new ArrayList<OverlayItem>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
+        itemizedOverlay = new MyItemizedIconOverlay<>(new ArrayList<OverlayItem>(), ContextCompat.getDrawable(context, R.drawable.icon_soldier),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index,
@@ -160,7 +161,7 @@ public class MapFragment extends Fragment {
                     }
                 }, context);
         
-        //db.getNearbyCodes(listener);
+        db.getNearbyCodes(listener);
 
         mapView.getOverlays().add(itemizedOverlay);
 
