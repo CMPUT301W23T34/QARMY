@@ -1,3 +1,14 @@
+/*
+ * QRLocationList
+ *
+ * Version: 1.1
+ *
+ * Date: 2023-04-03
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ */
 package com.example.QArmy.model;
 
 import com.example.QArmy.TModel;
@@ -9,15 +20,27 @@ import org.osmdroid.views.overlay.OverlayItem;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model class storing arraylist of QRCodes and corresponding OverlayItems for the map
+ * @author Japkirat Kaur
+ * @version 1.1
+ */
 public class QRLocationList extends TModel<TView> {
     private ArrayList<QRCode> qrCodes;
     private ArrayList<OverlayItem> itemList;
 
+    /**
+     * Initialize empty arrayLists
+     */
     public QRLocationList () {
         qrCodes = new ArrayList<>();
         itemList = new ArrayList<>();
     }
 
+    /**
+     * Resets qr and overlay item lists
+     * @param newCodes
+     */
     public void modify(List<QRCode> newCodes) {
         qrCodes.clear();
         for (QRCode qr : newCodes) {
@@ -29,6 +52,9 @@ public class QRLocationList extends TModel<TView> {
         notifyViews();
     }
 
+    /**
+     * Updates list of OverlayItems
+     */
     private void updateQrLocations() {
         itemList.clear();
         for (QRCode qr : qrCodes) {
@@ -37,10 +63,18 @@ public class QRLocationList extends TModel<TView> {
         }
     }
 
+    /**
+     * Get the list of QRCodes
+     * @return the ArrayList of QRCodes
+     */
     public ArrayList<QRCode> getQrCodes() {
         return qrCodes;
     }
 
+    /**
+     * Get the list of OverlayItems
+     * @return the ArrayList of OverlayItems
+     */
     public ArrayList<OverlayItem> getItemList() {
         return itemList;
     }
