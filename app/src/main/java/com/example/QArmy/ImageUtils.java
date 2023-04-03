@@ -1,3 +1,14 @@
+/*
+ * ImageUtils
+ *
+ * Version: 1.1
+ *
+ * Date: 2023-04-03
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ */
 package com.example.QArmy;
 
 import android.graphics.Bitmap;
