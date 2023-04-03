@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(this);
         viewPager.setAdapter(fragmentPagerAdapter);
         prevMenuItem = bottomNavigationView.getMenu().getItem(1);
+
+        setTitle("Your Platoon");
         viewPager.setCurrentItem(1);
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -91,12 +93,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_map:
+                    setTitle("Map");
                     viewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_home:
+                    setTitle("Your Platoon");
                     viewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_rank:
+                    setTitle("Top Recruits");
                     viewPager.setCurrentItem(2);
                     return true;
             }

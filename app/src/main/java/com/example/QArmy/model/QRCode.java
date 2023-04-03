@@ -135,21 +135,21 @@ public class QRCode extends Entity implements Serializable {
         String newName = "";
         // The military rank is based on the score of the QR code
         if (qrScore < 10) {
-            newName += "Private ";
+            newName += "Private\n";
         } else if (qrScore < 20) {
-            newName += "Corporal ";
+            newName += "Corporal\n";
         } else if (qrScore < 50) {
-            newName += "Sergeant ";
+            newName += "Sergeant\n";
         } else if (qrScore < 100) {
-            newName += "Lieutenant ";
+            newName += "Lieutenant\n";
         } else if (qrScore < 250) {
-            newName += "Captain ";
+            newName += "Captain\n";
         } else if (qrScore < 500) {
-            newName += "Major ";
+            newName += "Major\n";
         } else if (qrScore < 1000) {
-            newName += "Colonel ";
+            newName += "Colonel\n";
         } else {
-            newName += "General ";
+            newName += "General\n";
         }
 
         // The 2,4,...14 split up the 16 possible values evenly into 8 options for the rest of the name.

@@ -31,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_camera"
+            android:drawableTint="@color/QARMYWhite"
             android:text=" Take Picture "
             android:background="@color/QARMYLightGreen"
             android:textColor="@color/QARMYWhite"/>
@@ -46,6 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_location"
+            android:drawableTint="@color/QARMYWhite"
             android:textOff=" Geolocation On "
             android:textOn=" Geolocation Off "
             android:textColor="@color/QARMYWhite"

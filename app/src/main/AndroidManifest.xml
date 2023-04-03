@@ -21,8 +21,12 @@
         android:screenOrientation="portrait"
         tools:targetApi="31">
         <activity
-            android:name=".UI.UsersSameQrScanActivity"
+            android:name=".UI.OtherUserProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".UI.UsersSameQrScanActivity"
+            android:exported="false"
+            android:label="Scanned By"/>
         <activity
             android:name=".UI.qrcodes.QRCodeScanActivity"
             android:exported="false"

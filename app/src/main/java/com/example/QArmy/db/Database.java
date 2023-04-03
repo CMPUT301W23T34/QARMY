@@ -15,6 +15,8 @@
 
 package com.example.QArmy.db;
 
+import static java.lang.Math.min;
+
 import androidx.annotation.NonNull;
 
 
@@ -131,6 +133,7 @@ public class Database {
 
     /**
      * Get users who have scanned a given QR code.
+     * If more than 10 users have scanned the code, only the first 10 are returned
      *
      * @param listener - provides a callback when query is complete
      */
@@ -144,9 +147,9 @@ public class Database {
                     for (QueryDocumentSnapshot doc : task.getResult()) {
                         users.add((String) doc.get(QRCode.USER_FIELD));
                     }
-
                     // Query users from DB
-                    PLAYERS.whereIn(User.ID_FIELD, users)
+                    // We cannot query on a list of more than 10 users
+                    PLAYERS.whereIn(User.ID_FIELD, users.subList(0, min(users.size(), 10)))
                             .get()
                             .addOnCompleteListener(new QueryHelper<>(listener, User.class));
                 });

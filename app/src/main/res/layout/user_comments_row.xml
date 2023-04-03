@@ -1,57 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="5dp"
-    android:paddingBottom="50dp">
-
+    >
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:textSize="16sp"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
+        android:text="User Name"
+        android:textSize="30sp"
         android:textColor="@color/QARMYBlack"
-        app:layout_constraintBottom_toBottomOf="@+id/iconImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iconImageView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/descTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:paddingLeft="20dp"
+        android:text="Comment text"
+        android:textSize="16sp"
         android:textColor="@color/QARMYLightGreen"
-        app:layout_constraintBottom_toTopOf="@+id/priceTextView"
-        app:layout_constraintEnd_toEndOf="@+id/nameTextView"
-        app:layout_constraintStart_toStartOf="@+id/nameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+
+    <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="end"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:text="Delete"
-        android:background="@color/QARMYDarkGreen"
-        android:textSize="14sp"
-        android:textColor="@color/QARMYWhite"
-        />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/QARMYRed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/baseline_delete_24" />
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@color/black"
+        android:background="@color/QARMYBlack"
         android:textSize="1sp"
-        android:gravity="center_horizontal"/>
+        app:layout_constraintTop_toBottomOf="@id/descTextView" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
