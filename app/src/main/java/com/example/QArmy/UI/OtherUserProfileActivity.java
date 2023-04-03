@@ -1,3 +1,14 @@
+/*
+ * OtherUserProfileActivity
+ *
+ * Version: 1.1
+ *
+ * Date: 2023-04-03
+ *
+ * Copyright 2023 CMPUT301W23T34
+ *
+ * Sources:
+ */
 package com.example.QArmy.UI;
 
 import android.content.Intent;
@@ -18,12 +29,21 @@ import com.example.QArmy.model.User;
 
 import java.util.List;
 
+/**
+ * Activity representing the other user's profile screen
+ * @author Nicholas Mellon
+ * @author Brett Merkosky
+ */
 public class OtherUserProfileActivity extends AppCompatActivity {
     private Database db;
     private QRListener listener;
     private User user;
     private QRList qrList;
 
+    /**
+     * Initialize the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
