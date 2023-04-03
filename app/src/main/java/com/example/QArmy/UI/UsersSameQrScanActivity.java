@@ -26,8 +26,6 @@ import java.util.List;
  */
 public class UsersSameQrScanActivity extends AppCompatActivity {
 
-    private static final String TAG = "UsersSameQrScanActivity";
-
     private QRCode qrCode;
 
     private Database db = new Database();

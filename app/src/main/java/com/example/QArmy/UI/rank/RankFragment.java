@@ -1,31 +1,23 @@
 package com.example.QArmy.UI.rank;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.QArmy.QArmy;
 import com.example.QArmy.UI.OtherUserProfileActivity;
 import com.example.QArmy.model.AppContainer;
-import com.example.QArmy.UI.MainActivity;
 import com.example.QArmy.db.Database;
-import com.example.QArmy.UI.OtherUserProfile;
-import com.example.QArmy.db.AggregateListener;
 import com.example.QArmy.model.PlayerList;
 import com.example.QArmy.R;
 import com.example.QArmy.db.QueryListener;
